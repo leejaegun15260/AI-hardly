@@ -5,7 +5,56 @@
 
 ---
 
-## 1단계. 인증키 찾기 (2분)
+## 클라우드 환경에서 받기 (PC에 아무것도 설치하지 않는 방법)
+
+Claude Code 웹 세션은 **기본적으로 외부 인터넷이 막혀 있습니다.**
+`apis.data.go.kr` 을 허용해주면 Claude가 대신 API를 받아올 수 있습니다.
+
+### 설정 방법
+
+1. [claude.ai/code](https://claude.ai/code) 접속
+2. 메시지 입력창 **바로 윗줄**의 **구름 아이콘**을 클릭
+   (현재 환경 이름이 적혀 있습니다. 보통 `Default`)
+3. 목록에서 환경 이름 위에 마우스를 올리면 오른쪽에 **톱니바퀴 아이콘**이 나옵니다 → 클릭
+4. **Network access** 를 `Trusted` → **`Custom`** 으로 변경
+5. **Allowed domains** 칸에 한 줄에 하나씩 입력
+
+   ```
+   apis.data.go.kr
+   www.data.go.kr
+   open.mma.go.kr
+   www.mma.go.kr
+   *.frame.claudeusercontent.com
+   ```
+
+   `*.frame.claudeusercontent.com` 은 시제품 화면(Artifact)을 계속 쓰기 위해 필요합니다.
+
+6. **"Also include default list of common package managers"** 를 **체크**
+   (체크하지 않으면 위 5개 말고는 전부 막힙니다)
+7. **Environment variables** 칸에 인증키를 입력
+
+   ```
+   DATA_GO_KR_KEY=여기에_인증키_붙여넣기
+   ```
+
+8. 저장
+
+### 중요 — 새 세션을 시작해야 합니다
+
+**설정은 새로 시작하는 세션부터 적용됩니다.** 이미 열려 있는 대화에는 반영되지 않습니다.
+저장한 뒤 **새 대화를 시작**하고 이렇게 말하면 됩니다.
+
+> `docs/00-현재상황.md` 를 읽고 이어서 진행해줘. API 수집부터 하면 돼.
+
+### 알아둘 것
+
+- 환경 변수 값은 **그 환경을 쓰는 사람이면 볼 수 있습니다.** 개인 계정이면 본인만 봅니다.
+- 인증키를 바꾸거나 지우고 싶으면 같은 화면에서 수정하면 됩니다.
+- 저장소에는 키가 올라가지 않습니다 (`.env` 는 `.gitignore` 에 있음).
+
+---
+
+## (직접 하실 경우) 1단계. 인증키 찾기 (2분)
 
 1. [공공데이터포털](https://www.data.go.kr) 로그인
 2. 오른쪽 위 **마이페이지**
