@@ -1,0 +1,13 @@
+# 인증키는 절대 저장소에 올리지 않습니다
+.env
+*.key
+config/secrets.json
+
+# 탐색 결과(원본 응답)에는 개인정보가 없지만 용량이 커서 제외합니다
+data/raw/probe/
+
+# 파이썬
+__pycache__/
+*.pyc
+.venv/
+venv/

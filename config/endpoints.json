@@ -1,0 +1,58 @@
+{
+  "_설명": [
+    "요청주소(url)는 공공데이터포털의 각 API 페이지 → '요청주소' 또는 첨부된 활용가이드 문서에 있습니다.",
+    "url 이 빈 칸인 것은 아직 주소를 못 찾은 API입니다. 포털에서 확인해 채워 넣으세요.",
+    "use 를 false 로 바꾸면 그 API는 건너뜁니다."
+  ],
+  "endpoints": [
+    {
+      "name": "군사특기정보",
+      "설명": "모집병 군사특기 정보 — 임무·신체조건·면접여부",
+      "portal": "https://www.data.go.kr/data/3066488/openapi.do",
+      "url": "http://apis.data.go.kr/1300000/gsTgMastr/list",
+      "use": true
+    },
+    {
+      "name": "지원가능정보",
+      "설명": "모집병 군별 특기별 지원가능 정보 — 특기별 인정 자격/면허·전공  (가장 중요)",
+      "portal": "https://www.data.go.kr/data/3066750/openapi.do",
+      "url": "http://apis.data.go.kr/1300000/mjbJiWon/list",
+      "use": true
+    },
+    {
+      "name": "배점기준",
+      "설명": "모병합격 배점기준 — 배점표를 직접 만들 필요가 없어질 수도 있는 API",
+      "portal": "https://www.data.go.kr/data/3066490/openapi.do",
+      "url": "http://apis.data.go.kr/1300000/bjGiJun/list",
+      "use": true
+    },
+    {
+      "name": "개별특기배점구분",
+      "설명": "모병 개별특기 배점구분",
+      "portal": "https://www.data.go.kr/data/3066491/openapi.do",
+      "url": "",
+      "use": true
+    },
+    {
+      "name": "구비서류",
+      "설명": "모집병 구비서류",
+      "portal": "https://www.data.go.kr/data/3066489/openapi.do",
+      "url": "",
+      "use": true
+    },
+    {
+      "name": "접수현황",
+      "설명": "모집병 군지원 접수현황 — 경쟁률",
+      "portal": "https://www.data.go.kr/ (검색: 모집병 군지원 접수현황)",
+      "url": "",
+      "use": true
+    },
+    {
+      "name": "맞춤형특기병",
+      "설명": "맞춤형 특기병 정보 — 특기별 선발인원",
+      "portal": "https://www.data.go.kr/data/15017227/openapi.do",
+      "url": "",
+      "use": true
+    }
+  ]
+}
