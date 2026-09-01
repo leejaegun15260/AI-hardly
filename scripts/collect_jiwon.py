@@ -128,7 +128,10 @@ def fetch_retry(key_list, page, rows):
         wait = 2 ** attempt
         print(f"    실패({last}) — {wait}초 뒤 재시도")
         time.sleep(wait)
-    raise SystemExit(f"{page}페이지에서 계속 실패했습니다: {last}")
+    # 여기까지 왔으면 이 페이지는 이번에 포기합니다. 프로그램을 끝내지는 않습니다.
+    # 받은 페이지만 기록해 두므로, 다시 실행하면 빠진 페이지부터 이어서 받습니다.
+    print(f"  {page}페이지는 이번에 건너뜁니다: {last}")
+    return None
 
 
 # ------------------------------------------------------------------ 창고
@@ -198,6 +201,14 @@ def renorm(con):
     cur.executemany("UPDATE OR IGNORE jiwon SET specialty_code=? WHERE specialty_code=?", fix)
     con.commit()
     print(f"특기코드 {len(fix)}개를 맞춰 고쳤습니다 (예: {fix[0][1]} → {fix[0][0]})")
+
+    # OR IGNORE 는 이미 같은 행이 있으면 그냥 넘어갑니다. 넘어간 것이 있으면
+    # 옛 코드로 남아 별개의 특기처럼 보이므로, 남았는지 확인해 알려줍니다.
+    left = [old for old, b, c in cur.execute("SELECT DISTINCT specialty_code, branch, code FROM jiwon")
+            if old != f"{b}-{norm_code(c)}"]
+    if left:
+        print(f"  주의: {len(left)}개가 옛 코드로 남았습니다 ({left[:3]}). "
+              f"--reset 으로 다시 받으면 깨끗해집니다.")
 
 
 def build_outputs(con):
@@ -330,24 +341,44 @@ def main():
         if page == 1:
             return page, first
         time.sleep(PAUSE)
-        return page, fetch_retry(key_list, page, per)[1]
+        got = fetch_retry(key_list, page, per)
+        return page, (got[1] if got else None)
 
-    started = time.time()
-    workers = max(1, min(args.workers, len(todo)))
-    print(f"한 번에 {workers}개씩 받습니다.")
-    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        for i, (page, items) in enumerate(pool.map(get, todo), 1):
-            con.executemany(
-                "INSERT OR IGNORE INTO jiwon VALUES (?,?,?,?,?,?,?,?,?,?)", list(rows_of(items)))
-            con.execute("INSERT OR REPLACE INTO progress VALUES (?,?)", (page, len(items)))
-            con.commit()
+    def sweep(pages, label):
+        """페이지 목록을 받아 창고에 넣고, 끝내 못 받은 페이지를 돌려줍니다."""
+        started = time.time()
+        workers = max(1, min(args.workers, len(pages)))
+        print(f"{label} — {len(pages):,}페이지, 한 번에 {workers}개씩", flush=True)
+        failed = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+            for i, (page, items) in enumerate(pool.map(get, pages), 1):
+                if items is None:
+                    failed.append(page)
+                    continue
+                con.executemany(
+                    "INSERT OR IGNORE INTO jiwon VALUES (?,?,?,?,?,?,?,?,?,?)", list(rows_of(items)))
+                con.execute("INSERT OR REPLACE INTO progress VALUES (?,?)", (page, len(items)))
+                con.commit()
 
-            if i % 50 == 0 or i == len(todo):
-                el = time.time() - started
-                left = el / i * (len(todo) - i)
-                got = con.execute("SELECT COUNT(*) FROM jiwon").fetchone()[0]
-                print(f"  {i:,}/{len(todo):,}페이지 · 누적 {got:,}건 · 남은 시간 약 {left/60:.0f}분",
-                      flush=True)
+                if i % 50 == 0 or i == len(pages):
+                    el = time.time() - started
+                    left = el / i * (len(pages) - i)
+                    got = con.execute("SELECT COUNT(*) FROM jiwon").fetchone()[0]
+                    print(f"  {i:,}/{len(pages):,}페이지 · 누적 {got:,}건 · "
+                          f"남은 시간 약 {left/60:.0f}분", flush=True)
+        return failed
+
+    # 연결이 끊겨 못 받은 페이지는 잠시 쉬었다가 다시 훑습니다.
+    left = sweep(todo, "받는 중")
+    for round_no in range(1, 4):
+        if not left:
+            break
+        print(f"\n못 받은 {len(left):,}페이지를 30초 뒤 다시 받습니다 ({round_no}/3)", flush=True)
+        time.sleep(30)
+        left = sweep(left, f"다시 받는 중 {round_no}/3")
+    if left:
+        print(f"\n끝내 못 받은 페이지 {len(left):,}개: {left[:10]}{' …' if len(left) > 10 else ''}")
+        print("다시 실행하면 이 페이지부터 이어서 받습니다.")
 
     build_outputs(con)
 

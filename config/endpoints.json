@@ -2,6 +2,8 @@
   "_설명": [
     "use 가 true 인 API만 확인합니다. 활용신청이 승인된 것만 true 로 두세요.",
     "요청주소(url)는 공공데이터포털의 각 API 페이지 → '요청주소' 또는 활용가이드 문서에 있습니다.",
+    "요청주소는 https 로 적습니다. 포털 문서에는 http 로 적혀 있지만 프록시를 거치는",
+    "환경(클라우드·회사망)에서는 http 가 403 으로 막히고, https 는 같은 주소로 그대로 됩니다.",
     "지금은 '지원가능정보'만 승인되어 true 입니다. 다른 API를 신청해 승인받으면 그때 true 로 바꾸세요."
   ],
   "endpoints": [
@@ -9,25 +11,28 @@
       "name": "군사특기정보",
       "설명": "모집병 군사특기 정보 — 임무·신체조건·면접여부",
       "portal": "https://www.data.go.kr/data/3066488/openapi.do",
-      "url": "http://apis.data.go.kr/1300000/gsTgMastr/list",
+      "url": "https://apis.data.go.kr/1300000/gsTgMastr/list",
       "use": false,
-      "승인": "미신청 — 신청·승인 후 use 를 true 로"
+      "승인": "미신청 — 신청·승인 후 use 를 true 로",
+      "url_주의": "아래 주소는 추측이며 2026-09-01 확인 결과 틀렸습니다. NO_OPENAPI_SERVICE_ERROR(코드 12, '해당 오픈API 서비스가 없거나 폐기됨') 이 옵니다. 이는 인증 문제가 아니라 주소가 없다는 뜻이니, 활용신청 후 포털의 '요청주소'를 그대로 복사해 넣으세요."
     },
     {
       "name": "지원가능정보",
       "설명": "모집병 군별 특기별 지원가능 정보 — 특기별 인정 자격/면허·전공  (가장 중요)",
       "portal": "https://www.data.go.kr/data/3066750/openapi.do",
-      "url": "http://apis.data.go.kr/1300000/mjbJiWon/list",
+      "url": "https://apis.data.go.kr/1300000/mjbJiWon/list",
       "use": true,
-      "승인": "승인됨 (2026-09)"
+      "승인": "승인됨 (2026-09)",
+      "확인": "2026-09-01 전량 수집 완료 (1,371,302건)"
     },
     {
       "name": "배점기준",
       "설명": "모병합격 배점기준 — 배점표를 직접 만들 필요가 없어질 수도 있는 API",
       "portal": "https://www.data.go.kr/data/3066490/openapi.do",
-      "url": "http://apis.data.go.kr/1300000/bjGiJun/list",
+      "url": "https://apis.data.go.kr/1300000/bjGiJun/list",
       "use": false,
-      "승인": "미신청 — 신청·승인 후 use 를 true 로"
+      "승인": "미신청 — 신청·승인 후 use 를 true 로",
+      "url_주의": "아래 주소는 추측이며 2026-09-01 확인 결과 틀렸습니다. NO_OPENAPI_SERVICE_ERROR(코드 12, '해당 오픈API 서비스가 없거나 폐기됨') 이 옵니다. 이는 인증 문제가 아니라 주소가 없다는 뜻이니, 활용신청 후 포털의 '요청주소'를 그대로 복사해 넣으세요."
     },
     {
       "name": "개별특기배점구분",

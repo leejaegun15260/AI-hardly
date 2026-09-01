@@ -336,17 +336,30 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 /* =========================================================================
    데이터 불러오기
    - 서버로 열면(python -m http.server) data/build/*.json 을 읽습니다.
-   - 단일 파일 버전은 window.__EMBEDDED__ 에 미리 넣어둡니다.
+   - 파일 하나짜리 버전은 자료를 gzip 으로 눌러 window.__EMBEDDED_GZ__ 에 담아둡니다.
+     (누르지 않으면 22MB 라 메일로 보내기 어렵습니다. 눌러서 약 1MB)
    ========================================================================= */
 const FILES = ["specialty","cert_index","major_index","spec_cert_index","jiwon_stats",
                "cutoff","applicants","interest_map"];
 const DB = {};
 let RULES = null;
 
+/* 눌러 담은 자료를 브라우저가 풀게 합니다.
+   아주 오래된 브라우저에는 이 기능(DecompressionStream)이 없습니다. */
+async function ungzip(b64){
+  if (typeof DecompressionStream !== "function")
+    throw new Error("이 브라우저는 오래되어 파일 하나짜리 화면을 열 수 없습니다. "
+                  + "크롬·엣지 최신판으로 열거나, web/index.html 을 서버로 여세요.");
+  const bin = Uint8Array.from(atob(b64), ch => ch.charCodeAt(0));
+  const stream = new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"));
+  return JSON.parse(await new Response(stream).text());
+}
+
 async function load(){
-  if (window.__EMBEDDED__){
-    FILES.forEach(f => DB[f] = window.__EMBEDDED__[f]);
-    RULES = window.__EMBEDDED__.rules;
+  if (window.__EMBEDDED__ || window.__EMBEDDED_GZ__){
+    const d = window.__EMBEDDED__ || await ungzip(window.__EMBEDDED_GZ__);
+    FILES.forEach(f => DB[f] = d[f]);
+    RULES = d.rules;
     return;
   }
   const got = await Promise.all([
