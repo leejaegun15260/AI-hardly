@@ -1,138 +1,4639 @@
 [
  {
-  "specialty_code": "육-A01",
+  "specialty_code": "육군-223.108",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "전기설비 운용/정비",
-  "duty": "부대 전기설비를 점검·정비하고 발전기와 배전 계통을 운용합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "223.108",
+  "code_norm": "223.108",
+  "specialty_name": "보안장비정비",
   "interest_types": [
-   "R",
-   "C"
+   "A"
   ],
-  "note": null
+  "interest_labels": [
+   "예술형"
+  ],
+  "job_groups": [
+   "문화컨텐츠",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A02",
+  "specialty_code": "육군-133.106",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "일반차량 운전",
-  "duty": "병력·물자 수송 차량을 운전하고 일일 점검과 정비 지원을 합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "133.106",
+  "code_norm": "133.106",
+  "specialty_name": "포병레이더",
   "interest_types": [
+   "A",
    "R"
   ],
-  "note": "운전 관련 특기는 운전면허 별도 배점체계가 적용됩니다. 실제 배점은 모집공고를 확인하세요."
- },
- {
-  "specialty_code": "육-A03",
-  "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "정보체계 운용",
-  "duty": "부대 전산망과 정보체계를 운용하고 장애 대응·보안 점검을 수행합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
-  "interest_types": [
-   "I",
-   "C"
+  "interest_labels": [
+   "예술형",
+   "현실형"
   ],
-  "note": null
+  "job_groups": [
+   "기계장치설치",
+   "방송기술",
+   "전자기기개발",
+   "정보통신"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A04",
+  "specialty_code": "육군-341.103",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "조리",
-  "duty": "급식 계획에 따라 조리·배식하고 조리기구와 위생을 관리합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "341.103",
+  "code_norm": "341.103",
+  "specialty_name": "사진운용/정비",
   "interest_types": [
-   "R",
+   "A"
+  ],
+  "interest_labels": [
+   "예술형"
+  ],
+  "job_groups": [
+   "디자인",
+   "문화컨텐츠"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-411.103",
+  "branch": "육군",
+  "code": "411.103",
+  "code_norm": "411.103",
+  "specialty_name": "수의",
+  "interest_types": [
    "S"
   ],
-  "note": null
- },
- {
-  "specialty_code": "육-A05",
-  "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "일반의무",
-  "duty": "의무대에서 환자 접수·처치 보조와 의무물자 관리를 담당합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
-  "interest_types": [
-   "S",
-   "I"
+  "interest_labels": [
+   "사회형"
   ],
-  "note": null
+  "job_groups": [
+   "농림",
+   "어업",
+   "축산"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A06",
+  "specialty_code": "육군-412.105",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "지원보급",
-  "duty": "보급품 청구·수령·불출과 재물 조사를 담당합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "412.105",
+  "code_norm": "412.105",
+  "specialty_name": "전문약제",
+  "interest_types": [
+   "S"
+  ],
+  "interest_labels": [
+   "사회형"
+  ],
+  "job_groups": [
+   "보건",
+   "의료"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-412.102",
+  "branch": "육군",
+  "code": "412.102",
+  "code_norm": "412.102",
+  "specialty_name": "전문치과",
+  "interest_types": [
+   "S"
+  ],
+  "interest_labels": [
+   "사회형"
+  ],
+  "job_groups": [
+   "보건",
+   "의료"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-161.103",
+  "branch": "육군",
+  "code": "161.103",
+  "code_norm": "161.103",
+  "specialty_name": "장애물운용E",
   "interest_types": [
    "C"
   ],
-  "note": null
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "건설",
+   "기계",
+   "재료",
+   "화학"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A07",
+  "specialty_code": "육군-162.102",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "탄약관리",
-  "duty": "탄약고 저장 관리와 불출·회수, 안전 점검을 담당합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "162.102",
+  "code_norm": "162.102",
+  "specialty_name": "소방장비",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "소방방재"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.103",
+  "branch": "육군",
+  "code": "133.103",
+  "code_norm": "133.103",
+  "specialty_name": "사격지휘",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "경영",
+   "기상관측",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.105",
+  "branch": "육군",
+  "code": "133.105",
+  "code_norm": "133.105",
+  "specialty_name": "로켓포사격지휘",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "경영",
+   "기상관측",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.101",
+  "branch": "육군",
+  "code": "133.101",
+  "code_norm": "133.101",
+  "specialty_name": "M/A사격지휘전산",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "경영",
+   "기상관측",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-132.103",
+  "branch": "육군",
+  "code": "132.103",
+  "code_norm": "132.103",
+  "specialty_name": "M/A포병",
   "interest_types": [
    "C",
    "R"
   ],
-  "note": null
+  "interest_labels": [
+   "관습형",
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "경영",
+   "기상관측",
+   "전자기기개발",
+   "통신기술",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A08",
+  "specialty_code": "육군-133.104",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "차량정비",
-  "duty": "전술차량의 정기·수시 정비와 부속 관리 업무를 수행합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "133.104",
+  "code_norm": "133.104",
+  "specialty_name": "155mm사격지휘",
   "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "경영",
+   "기상관측",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.102",
+  "branch": "육군",
+  "code": "133.102",
+  "code_norm": "133.102",
+  "specialty_name": "K239사격지휘",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "경영",
+   "기상관측",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-132.102",
+  "branch": "육군",
+  "code": "132.102",
+  "code_norm": "132.102",
+  "specialty_name": "K239포병",
+  "interest_types": [
+   "C",
    "R"
   ],
-  "note": null
+  "interest_labels": [
+   "관습형",
+   "현실형"
+  ],
+  "job_groups": [
+   "경영",
+   "기계장치설비",
+   "기상관측",
+   "전자기기개발",
+   "회계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A09",
+  "specialty_code": "육군-133.109",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "통신선로 운용",
-  "duty": "유·무선 통신선로를 설치·복구하고 통신장비를 운용합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "133.109",
+  "code_norm": "133.109",
+  "specialty_name": "자동측지운용/정비",
   "interest_types": [
-   "R",
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "토목"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-161.104",
+  "branch": "육군",
+  "code": "161.104",
+  "code_norm": "161.104",
+  "specialty_name": "야전건설",
+  "interest_types": [
+   "C",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "현실형"
+  ],
+  "job_groups": [
+   "건설공사관리",
+   "건축",
+   "토목"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-162.101",
+  "branch": "육군",
+  "code": "162.101",
+  "code_norm": "162.101",
+  "specialty_name": "측량",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "토목"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.107",
+  "branch": "육군",
+  "code": "133.107",
+  "code_norm": "133.107",
+  "specialty_name": "포병측지",
+  "interest_types": [
+   "C",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "현실형"
+  ],
+  "job_groups": [
+   "안전",
+   "에너지",
+   "토목",
+   "환경"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-161.101",
+  "branch": "육군",
+  "code": "161.101",
+  "code_norm": "161.101",
+  "specialty_name": "야전공병",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "산업안전"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-211.103",
+  "branch": "육군",
+  "code": "211.103",
+  "code_norm": "211.103",
+  "specialty_name": "화생방제독",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "산업안전"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-211.102",
+  "branch": "육군",
+  "code": "211.102",
+  "code_norm": "211.102",
+  "specialty_name": "연막",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "산업안전"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-211.101",
+  "branch": "육군",
+  "code": "211.101",
+  "code_norm": "211.101",
+  "specialty_name": "화생방",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "산업안전"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-411.101",
+  "branch": "육군",
+  "code": "411.101",
+  "code_norm": "411.101",
+  "specialty_name": "일반의무",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-211.104",
+  "branch": "육군",
+  "code": "211.104",
+  "code_norm": "211.104",
+  "specialty_name": "화생방정찰",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.107",
+  "branch": "육군",
+  "code": "231.107",
+  "code_norm": "231.107",
+  "specialty_name": "조리",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-311.101",
+  "branch": "육군",
+  "code": "311.101",
+  "code_norm": "311.101",
+  "specialty_name": "일반행정",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기획사무",
+   "문화예술",
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-341.102",
+  "branch": "육군",
+  "code": "341.102",
+  "code_norm": "341.102",
+  "specialty_name": "영상제작",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "문화예술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-331.101",
+  "branch": "육군",
+  "code": "331.101",
+  "code_norm": "331.101",
+  "specialty_name": "재정회계",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "재무회계",
+   "총무"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-461.101",
+  "branch": "육군",
+  "code": "461.101",
+  "code_norm": "461.101",
+  "specialty_name": "법무행정",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "교육",
+   "법률",
+   "보건",
+   "연구"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-411.108",
+  "branch": "육군",
+  "code": "411.108",
+  "code_norm": "411.108",
+  "specialty_name": "의무보급",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "의료"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-11",
+  "branch": "해군",
+  "code": "11",
+  "code_norm": "11",
+  "specialty_name": "일반",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-43.39",
+  "branch": "해군",
+  "code": "43.39",
+  "code_norm": "43.39",
+  "specialty_name": "화생방",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-B11",
+  "branch": "해군",
+  "code": "B11",
+  "code_norm": "B11",
+  "specialty_name": "(2함대)일반",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-A11",
+  "branch": "해군",
+  "code": "A11",
+  "code_norm": "A11",
+  "specialty_name": "(2함대)일반",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-49",
+  "branch": "해군",
+  "code": "49",
+  "code_norm": "49",
+  "specialty_name": "의무",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-11",
+  "branch": "공군",
+  "code": "11",
+  "code_norm": "11",
+  "specialty_name": "일반",
+  "interest_types": [
+   "C",
+   "E",
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "진취형",
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-19",
+  "branch": "공군",
+  "code": "19",
+  "code_norm": "19",
+  "specialty_name": "차량운전",
+  "interest_types": [
+   "C",
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-17",
+  "branch": "공군",
+  "code": "17",
+  "code_norm": "17",
+  "specialty_name": "의무",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-16",
+  "branch": "공군",
+  "code": "16",
+  "code_norm": "16",
+  "specialty_name": "화생방",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-17.01",
+  "branch": "해병",
+  "code": "17.01",
+  "code_norm": "17.01",
+  "specialty_name": "일반",
+  "interest_types": [
+   "C",
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-23.01",
+  "branch": "해병",
+  "code": "23.01",
+  "code_norm": "23.01",
+  "specialty_name": "무기정비",
+  "interest_types": [
+   "C",
+   "R"
+  ],
+  "interest_labels": [
+   "관습형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-17.05",
+  "branch": "해병",
+  "code": "17.05",
+  "code_norm": "17.05",
+  "specialty_name": "화학",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-17.04",
+  "branch": "해병",
+  "code": "17.04",
+  "code_norm": "17.04",
+  "specialty_name": "수색",
+  "interest_types": [
+   "C"
+  ],
+  "interest_labels": [
+   "관습형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.101",
+  "branch": "육군",
+  "code": "231.101",
+  "code_norm": "231.101",
+  "specialty_name": "편성보급",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "생산품질관리",
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.103",
+  "branch": "육군",
+  "code": "231.103",
+  "code_norm": "231.103",
+  "specialty_name": "지원보급",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "생산품질관리",
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-341.101",
+  "branch": "육군",
+  "code": "341.101",
+  "code_norm": "341.101",
+  "specialty_name": "공보정훈",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기획사무",
+   "문화예술",
+   "문화컨텐츠"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-225.101",
+  "branch": "육군",
+  "code": "225.101",
+  "code_norm": "225.101",
+  "specialty_name": "탄약관리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "생산품질관리",
+   "에너지자원"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.104",
+  "branch": "육군",
+  "code": "231.104",
+  "code_norm": "231.104",
+  "specialty_name": "연료관리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "생산품질관리"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.102",
+  "branch": "육군",
+  "code": "231.102",
+  "code_norm": "231.102",
+  "specialty_name": "영현등록",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "결혼",
+   "장례"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-11.05",
+  "branch": "해군",
+  "code": "11.05",
+  "code_norm": "11.05",
+  "specialty_name": "조리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-C11.05",
+  "branch": "해군",
+  "code": "C11.05",
+  "code_norm": "C11.05",
+  "specialty_name": "(작전사)조리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-B11.05",
+  "branch": "해군",
+  "code": "B11.05",
+  "code_norm": "B11.05",
+  "specialty_name": "(2함대)조리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-A11.05",
+  "branch": "해군",
+  "code": "A11.05",
+  "code_norm": "A11.05",
+  "specialty_name": "(1함대)조리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-29.03",
+  "branch": "해병",
+  "code": "29.03",
+  "code_norm": "29.03",
+  "specialty_name": "조리",
+  "interest_types": [
+   "E"
+  ],
+  "interest_labels": [
+   "진취형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-221.101",
+  "branch": "육군",
+  "code": "221.101",
+  "code_norm": "221.101",
+  "specialty_name": "대공포/유도무기정비",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.103",
+  "branch": "육군",
+  "code": "141.103",
+  "code_norm": "141.103",
+  "specialty_name": "비호운용/정비",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.104",
+  "branch": "육군",
+  "code": "171.104",
+  "code_norm": "171.104",
+  "specialty_name": "이동통신장비운용/정비",
+  "interest_types": [
    "I"
   ],
-  "note": null
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "방송기술",
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  },
  {
-  "specialty_code": "육-A10",
+  "specialty_code": "육군-175.102",
   "branch": "육군",
-  "field": "기술행정병",
-  "specialty_name": "건설기계 운용",
-  "duty": "굴착기·지게차 등 건설기계를 운용해 진지공사와 물자 취급을 지원합니다.",
-  "physical_grade": "1~3급",
-  "interview": "실시",
+  "code": "175.102",
+  "code_norm": "175.102",
+  "specialty_name": "전술C4I운용/정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "방송기술",
+   "정보기술",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.104",
+  "branch": "육군",
+  "code": "141.104",
+  "code_norm": "141.104",
+  "specialty_name": "방공작전통제",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.106",
+  "branch": "육군",
+  "code": "141.106",
+  "code_norm": "141.106",
+  "specialty_name": "천마운용/정비",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-142.102",
+  "branch": "육군",
+  "code": "142.102",
+  "code_norm": "142.102",
+  "specialty_name": "오리콘정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.101",
+  "branch": "육군",
+  "code": "141.101",
+  "code_norm": "141.101",
+  "specialty_name": "발칸운용/정비",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.102",
+  "branch": "육군",
+  "code": "141.102",
+  "code_norm": "141.102",
+  "specialty_name": "오리콘운용/정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-142.104",
+  "branch": "육군",
+  "code": "142.104",
+  "code_norm": "142.104",
+  "specialty_name": "천마정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.101",
+  "branch": "육군",
+  "code": "171.101",
+  "code_norm": "171.101",
+  "specialty_name": "전술통신장비운용/정비",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "정보기술",
+   "철도운전운송",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.106",
+  "branch": "육군",
+  "code": "171.106",
+  "code_norm": "171.106",
+  "specialty_name": "영상음향장비운용/정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "정보기술",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.107",
+  "branch": "육군",
+  "code": "224.107",
+  "code_norm": "224.107",
+  "specialty_name": "의무장비정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "전기",
+   "전자",
+   "정보통신"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-174.101",
+  "branch": "육군",
+  "code": "174.101",
+  "code_norm": "174.101",
+  "specialty_name": "레이다운용/정비",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "정보기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-173.101",
+  "branch": "육군",
+  "code": "173.101",
+  "code_norm": "173.101",
+  "specialty_name": "암호운용",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "정보기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-412.103",
+  "branch": "육군",
+  "code": "412.103",
+  "code_norm": "412.103",
+  "specialty_name": "전문임상병리",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "보건",
+   "의료"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-11.02",
+  "branch": "해군",
+  "code": "11.02",
+  "code_norm": "11.02",
+  "specialty_name": "전산",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-25",
+  "branch": "해군",
+  "code": "25",
+  "code_norm": "25",
+  "specialty_name": "통신",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-11.26",
+  "branch": "해군",
+  "code": "11.26",
+  "code_norm": "11.26",
+  "specialty_name": "전자",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-21",
+  "branch": "공군",
+  "code": "21",
+  "code_norm": "21",
+  "specialty_name": "통신전자전기",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-15",
+  "branch": "공군",
+  "code": "15",
+  "code_norm": "15",
+  "specialty_name": "전자계산",
+  "interest_types": [
+   "I"
+  ],
+  "interest_labels": [
+   "탐구형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-27.03",
+  "branch": "해병",
+  "code": "27.03",
+  "code_norm": "27.03",
+  "specialty_name": "정보통신",
+  "interest_types": [
+   "I",
+   "R"
+  ],
+  "interest_labels": [
+   "탐구형",
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-121.101",
+  "branch": "육군",
+  "code": "121.101",
+  "code_norm": "121.101",
+  "specialty_name": "K계열전차승무",
   "interest_types": [
    "R"
   ],
-  "note": null
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계",
+   "자동차"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-121.102",
+  "branch": "육군",
+  "code": "121.102",
+  "code_norm": "121.102",
+  "specialty_name": "M계열전차승무",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-123.102",
+  "branch": "육군",
+  "code": "123.102",
+  "code_norm": "123.102",
+  "specialty_name": "장갑차부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.11",
+  "branch": "육군",
+  "code": "163.11",
+  "code_norm": "163.110",
+  "specialty_name": "그레이더운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "자동차"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.105",
+  "branch": "육군",
+  "code": "222.105",
+  "code_norm": "222.105",
+  "specialty_name": "전차정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차",
+   "전기",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.107",
+  "branch": "육군",
+  "code": "222.107",
+  "code_norm": "222.107",
+  "specialty_name": "M계열전차정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.114",
+  "branch": "육군",
+  "code": "222.114",
+  "code_norm": "222.114",
+  "specialty_name": "장갑차야전정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차",
+   "철도차량설계제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.115",
+  "branch": "육군",
+  "code": "222.115",
+  "code_norm": "222.115",
+  "specialty_name": "K-21보병전투차량정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차",
+   "철도차량설계제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.101",
+  "branch": "육군",
+  "code": "224.101",
+  "code_norm": "224.101",
+  "specialty_name": "차량정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차",
+   "철도차량설계제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-123.104",
+  "branch": "육군",
+  "code": "123.104",
+  "code_norm": "123.104",
+  "specialty_name": "K-21보병전투차량부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-133.108",
+  "branch": "육군",
+  "code": "133.108",
+  "code_norm": "133.108",
+  "specialty_name": "포병탐지레이더",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-134.101",
+  "branch": "육군",
+  "code": "134.101",
+  "code_norm": "134.101",
+  "specialty_name": "현무포병",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-134.102",
+  "branch": "육군",
+  "code": "134.102",
+  "code_norm": "134.102",
+  "specialty_name": "현무사격통제장비운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.107",
+  "branch": "육군",
+  "code": "141.107",
+  "code_norm": "141.107",
+  "specialty_name": "천호운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-142.101",
+  "branch": "육군",
+  "code": "142.101",
+  "code_norm": "142.101",
+  "specialty_name": "발칸정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-162.103",
+  "branch": "육군",
+  "code": "162.103",
+  "code_norm": "162.103",
+  "specialty_name": "배관/기계설비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건축",
+   "기계장치설치",
+   "플랜트"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-221.102",
+  "branch": "육군",
+  "code": "221.102",
+  "code_norm": "221.102",
+  "specialty_name": "로켓무기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-221.103",
+  "branch": "육군",
+  "code": "221.103",
+  "code_norm": "221.103",
+  "specialty_name": "유도무기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.101",
+  "branch": "육군",
+  "code": "222.101",
+  "code_norm": "222.101",
+  "specialty_name": "총기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.102",
+  "branch": "육군",
+  "code": "222.102",
+  "code_norm": "222.102",
+  "specialty_name": "화포정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.104",
+  "branch": "육군",
+  "code": "222.104",
+  "code_norm": "222.104",
+  "specialty_name": "감시장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전기",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.109",
+  "branch": "육군",
+  "code": "222.109",
+  "code_norm": "222.109",
+  "specialty_name": "자주포야전정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.113",
+  "branch": "육군",
+  "code": "222.113",
+  "code_norm": "222.113",
+  "specialty_name": "K-9자주포정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.102",
+  "branch": "육군",
+  "code": "224.102",
+  "code_norm": "224.102",
+  "specialty_name": "공병장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.106",
+  "branch": "육군",
+  "code": "224.106",
+  "code_norm": "224.106",
+  "specialty_name": "화생방장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설치",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-122.101",
+  "branch": "육군",
+  "code": "122.101",
+  "code_norm": "122.101",
+  "specialty_name": "K계열전차부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "기계장치설비",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-122.103",
+  "branch": "육군",
+  "code": "122.103",
+  "code_norm": "122.103",
+  "specialty_name": "M계열전차부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-123.103",
+  "branch": "육군",
+  "code": "123.103",
+  "code_norm": "123.103",
+  "specialty_name": "K-21보병전투차량승무",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-131.104",
+  "branch": "육군",
+  "code": "131.104",
+  "code_norm": "131.104",
+  "specialty_name": "K-55자주포조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-131.105",
+  "branch": "육군",
+  "code": "131.105",
+  "code_norm": "131.105",
+  "specialty_name": "견인포정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-131.107",
+  "branch": "육군",
+  "code": "131.107",
+  "code_norm": "131.107",
+  "specialty_name": "K-9자주포조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-132.101",
+  "branch": "육군",
+  "code": "132.101",
+  "code_norm": "132.101",
+  "specialty_name": "다련장운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.101",
+  "branch": "육군",
+  "code": "163.101",
+  "code_norm": "163.101",
+  "specialty_name": "장갑전투도저운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.102",
+  "branch": "육군",
+  "code": "163.102",
+  "code_norm": "163.102",
+  "specialty_name": "다목적굴착기운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.104",
+  "branch": "육군",
+  "code": "163.104",
+  "code_norm": "163.104",
+  "specialty_name": "도하장비조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.106",
+  "branch": "육군",
+  "code": "163.106",
+  "code_norm": "163.106",
+  "specialty_name": "전술교량운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.108",
+  "branch": "육군",
+  "code": "163.108",
+  "code_norm": "163.108",
+  "specialty_name": "크레인운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.109",
+  "branch": "육군",
+  "code": "163.109",
+  "code_norm": "163.109",
+  "specialty_name": "도저운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.111",
+  "branch": "육군",
+  "code": "163.111",
+  "code_norm": "163.111",
+  "specialty_name": "롤러운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.112",
+  "branch": "육군",
+  "code": "163.112",
+  "code_norm": "163.112",
+  "specialty_name": "로더운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.113",
+  "branch": "육군",
+  "code": "163.113",
+  "code_norm": "163.113",
+  "specialty_name": "굴착기운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.114",
+  "branch": "육군",
+  "code": "163.114",
+  "code_norm": "163.114",
+  "specialty_name": "발전기운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.115",
+  "branch": "육군",
+  "code": "163.115",
+  "code_norm": "163.115",
+  "specialty_name": "공병장비부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.113",
+  "branch": "육군",
+  "code": "241.113",
+  "code_norm": "241.113",
+  "specialty_name": "크레인차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건설기계운전장비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-122.102",
+  "branch": "육군",
+  "code": "122.102",
+  "code_norm": "122.102",
+  "specialty_name": "K계열전차포탑정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설비",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-122.104",
+  "branch": "육군",
+  "code": "122.104",
+  "code_norm": "122.104",
+  "specialty_name": "M계열전차포탑정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-122.105",
+  "branch": "육군",
+  "code": "122.105",
+  "code_norm": "122.105",
+  "specialty_name": "전차통신정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-131.106",
+  "branch": "육군",
+  "code": "131.106",
+  "code_norm": "131.106",
+  "specialty_name": "K-55자주포정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설비",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-131.108",
+  "branch": "육군",
+  "code": "131.108",
+  "code_norm": "131.108",
+  "specialty_name": "K-9자주포화포/장갑정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계장치설비",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-141.105",
+  "branch": "육군",
+  "code": "141.105",
+  "code_norm": "141.105",
+  "specialty_name": "휴대용유도무기운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-142.103",
+  "branch": "육군",
+  "code": "142.103",
+  "code_norm": "142.103",
+  "specialty_name": "비호정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-143.101",
+  "branch": "육군",
+  "code": "143.101",
+  "code_norm": "143.101",
+  "specialty_name": "방공레이더운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-152.101",
+  "branch": "육군",
+  "code": "152.101",
+  "code_norm": "152.101",
+  "specialty_name": "신호정보/전자전운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-152.102",
+  "branch": "육군",
+  "code": "152.102",
+  "code_norm": "152.102",
+  "specialty_name": "전자전운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-152.103",
+  "branch": "육군",
+  "code": "152.103",
+  "code_norm": "152.103",
+  "specialty_name": "땅굴탐지",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-153.101",
+  "branch": "육군",
+  "code": "153.101",
+  "code_norm": "153.101",
+  "specialty_name": "감시장비운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-155.101",
+  "branch": "육군",
+  "code": "155.101",
+  "code_norm": "155.101",
+  "specialty_name": "무인항공정찰기운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.107",
+  "branch": "육군",
+  "code": "182.107",
+  "code_norm": "182.107",
+  "specialty_name": "기동헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.109",
+  "branch": "육군",
+  "code": "182.109",
+  "code_norm": "182.109",
+  "specialty_name": "헬기계기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전자기기개발",
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.106",
+  "branch": "육군",
+  "code": "222.106",
+  "code_norm": "222.106",
+  "specialty_name": "K계열전차사격기재정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전기",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.108",
+  "branch": "육군",
+  "code": "222.108",
+  "code_norm": "222.108",
+  "specialty_name": "M계열전차사격기재정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전기",
+   "전자기기개발"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.116",
+  "branch": "육군",
+  "code": "163.116",
+  "code_norm": "163.116",
+  "specialty_name": "장애물개척전차조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.102",
+  "branch": "육군",
+  "code": "171.102",
+  "code_norm": "171.102",
+  "specialty_name": "무선전송장비운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.103",
+  "branch": "육군",
+  "code": "171.103",
+  "code_norm": "171.103",
+  "specialty_name": "무선장비운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.105",
+  "branch": "육군",
+  "code": "171.105",
+  "code_norm": "171.105",
+  "specialty_name": "정보통신망관리장비운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "방송기술",
+   "운전운송",
+   "철도",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.107",
+  "branch": "육군",
+  "code": "171.107",
+  "code_norm": "171.107",
+  "specialty_name": "교환시설운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-171.108",
+  "branch": "육군",
+  "code": "171.108",
+  "code_norm": "171.108",
+  "specialty_name": "기록통신장비운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-172.101",
+  "branch": "육군",
+  "code": "172.101",
+  "code_norm": "172.101",
+  "specialty_name": "MW운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-172.102",
+  "branch": "육군",
+  "code": "172.102",
+  "code_norm": "172.102",
+  "specialty_name": "위성운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-175.101",
+  "branch": "육군",
+  "code": "175.101",
+  "code_norm": "175.101",
+  "specialty_name": "네트워크운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "방송기술",
+   "정보기술",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-175.103",
+  "branch": "육군",
+  "code": "175.103",
+  "code_norm": "175.103",
+  "specialty_name": "정보체계운용/정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.101",
+  "branch": "육군",
+  "code": "223.101",
+  "code_norm": "223.101",
+  "specialty_name": "유선장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.102",
+  "branch": "육군",
+  "code": "223.102",
+  "code_norm": "223.102",
+  "specialty_name": "기록통신장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.103",
+  "branch": "육군",
+  "code": "223.103",
+  "code_norm": "223.103",
+  "specialty_name": "무선장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.104",
+  "branch": "육군",
+  "code": "223.104",
+  "code_norm": "223.104",
+  "specialty_name": "다중무선장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.105",
+  "branch": "육군",
+  "code": "223.105",
+  "code_norm": "223.105",
+  "specialty_name": "BTCS정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.106",
+  "branch": "육군",
+  "code": "223.106",
+  "code_norm": "223.106",
+  "specialty_name": "특수통신장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-223.107",
+  "branch": "육군",
+  "code": "223.107",
+  "code_norm": "223.107",
+  "specialty_name": "전자전장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-123.101",
+  "branch": "육군",
+  "code": "123.101",
+  "code_norm": "123.101",
+  "specialty_name": "장갑차조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.109",
+  "branch": "육군",
+  "code": "241.109",
+  "code_norm": "241.109",
+  "specialty_name": "구난차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.108",
+  "branch": "육군",
+  "code": "241.108",
+  "code_norm": "241.108",
+  "specialty_name": "K-53계열차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.107",
+  "branch": "육군",
+  "code": "241.107",
+  "code_norm": "241.107",
+  "specialty_name": "차량부대정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "자동차운전운송",
+   "철도운전운송",
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.106",
+  "branch": "육군",
+  "code": "241.106",
+  "code_norm": "241.106",
+  "specialty_name": "차륜형장갑차운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.105",
+  "branch": "육군",
+  "code": "241.105",
+  "code_norm": "241.105",
+  "specialty_name": "지게차운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.104",
+  "branch": "육군",
+  "code": "241.104",
+  "code_norm": "241.104",
+  "specialty_name": "견인차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.103",
+  "branch": "육군",
+  "code": "241.103",
+  "code_norm": "241.103",
+  "specialty_name": "대형차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.102",
+  "branch": "육군",
+  "code": "241.102",
+  "code_norm": "241.102",
+  "specialty_name": "중형차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.1",
+  "branch": "육군",
+  "code": "241.1",
+  "code_norm": "241.100",
+  "specialty_name": "수송운용(차량운전)",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "운전운송",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-241.101",
+  "branch": "육군",
+  "code": "241.101",
+  "code_norm": "241.101",
+  "specialty_name": "소형차량운전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재",
+   "자동차운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.103",
+  "branch": "육군",
+  "code": "163.103",
+  "code_norm": "163.103",
+  "specialty_name": "교량전차조종",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-162.104",
+  "branch": "육군",
+  "code": "162.104",
+  "code_norm": "162.104",
+  "specialty_name": "전기설비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전기",
+   "철도운전운송",
+   "플랜트/기계장치설치"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.103",
+  "branch": "육군",
+  "code": "224.103",
+  "code_norm": "224.103",
+  "specialty_name": "발전기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전기",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-242.101",
+  "branch": "육군",
+  "code": "242.101",
+  "code_norm": "242.101",
+  "specialty_name": "전장이동통제",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "철도운전운송",
+   "총무인사"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.105",
+  "branch": "육군",
+  "code": "224.105",
+  "code_norm": "224.105",
+  "specialty_name": "병참장비정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "산업안전",
+   "철도운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-412.106",
+  "branch": "육군",
+  "code": "412.106",
+  "code_norm": "412.106",
+  "specialty_name": "전문물리치료",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-412.101",
+  "branch": "육군",
+  "code": "412.101",
+  "code_norm": "412.101",
+  "specialty_name": "전문간호",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "소방방재"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-161.102",
+  "branch": "육군",
+  "code": "161.102",
+  "code_norm": "161.102",
+  "specialty_name": "장애물운용M",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "안전",
+   "에너지",
+   "환경"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-135.101",
+  "branch": "육군",
+  "code": "135.101",
+  "code_norm": "135.101",
+  "specialty_name": "포병기상",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "안전",
+   "에너지",
+   "환경"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-412.104",
+  "branch": "육군",
+  "code": "412.104",
+  "code_norm": "412.104",
+  "specialty_name": "전문방사선촬영",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "안전",
+   "에너지",
+   "환경"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-151.101",
+  "branch": "육군",
+  "code": "151.101",
+  "code_norm": "151.101",
+  "specialty_name": "군사정보",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건축",
+   "경비",
+   "기술",
+   "통신",
+   "항공운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-321.101",
+  "branch": "육군",
+  "code": "321.101",
+  "code_norm": "321.101",
+  "specialty_name": "군사경찰",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "경비"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-154.101",
+  "branch": "육군",
+  "code": "154.101",
+  "code_norm": "154.101",
+  "specialty_name": "보안",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-181.101",
+  "branch": "육군",
+  "code": "181.101",
+  "code_norm": "181.101",
+  "specialty_name": "항공운항/관제",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-151.102",
+  "branch": "육군",
+  "code": "151.102",
+  "code_norm": "151.102",
+  "specialty_name": "심리전",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "건축",
+   "기술",
+   "통신기술"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.103",
+  "branch": "육군",
+  "code": "182.103",
+  "code_norm": "182.103",
+  "specialty_name": "대형공격헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.104",
+  "branch": "육군",
+  "code": "182.104",
+  "code_norm": "182.104",
+  "specialty_name": "기동헬기운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.106",
+  "branch": "육군",
+  "code": "182.106",
+  "code_norm": "182.106",
+  "specialty_name": "대형기동헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.108",
+  "branch": "육군",
+  "code": "182.108",
+  "code_norm": "182.108",
+  "specialty_name": "헬기기관정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.111",
+  "branch": "육군",
+  "code": "182.111",
+  "code_norm": "182.111",
+  "specialty_name": "항공통신전자정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.102",
+  "branch": "육군",
+  "code": "182.102",
+  "code_norm": "182.102",
+  "specialty_name": "중형공격헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.101",
+  "branch": "육군",
+  "code": "182.101",
+  "code_norm": "182.101",
+  "specialty_name": "공격헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-182.105",
+  "branch": "육군",
+  "code": "182.105",
+  "code_norm": "182.105",
+  "specialty_name": "중형기동헬기정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "항공기제작"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.107",
+  "branch": "육군",
+  "code": "163.107",
+  "code_norm": "163.107",
+  "specialty_name": "공기압축기운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "전기"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-163.105",
+  "branch": "육군",
+  "code": "163.105",
+  "code_norm": "163.105",
+  "specialty_name": "정수장비운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "산업환경"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-222.103",
+  "branch": "육군",
+  "code": "222.103",
+  "code_norm": "222.103",
+  "specialty_name": "광학기재정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계조립관리"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-224.104",
+  "branch": "육군",
+  "code": "224.104",
+  "code_norm": "224.104",
+  "specialty_name": "용접/기계공작",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "금속재료",
+   "기계가공",
+   "기계조립관리"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-225.102",
+  "branch": "육군",
+  "code": "225.102",
+  "code_norm": "225.102",
+  "specialty_name": "탄약검사",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "에너지자원"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-225.103",
+  "branch": "육군",
+  "code": "225.103",
+  "code_norm": "225.103",
+  "specialty_name": "탄약처리지원",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "에너지자원"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-226.101",
+  "branch": "육군",
+  "code": "226.101",
+  "code_norm": "226.101",
+  "specialty_name": "장비수리부속공구보급",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기계설계"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-231.106",
+  "branch": "육군",
+  "code": "231.106",
+  "code_norm": "231.106",
+  "specialty_name": "물자근무지원",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "청소세탁"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-243.102",
+  "branch": "육군",
+  "code": "243.102",
+  "code_norm": "243.102",
+  "specialty_name": "선박운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "선박운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "육군-243.101",
+  "branch": "육군",
+  "code": "243.101",
+  "code_norm": "243.101",
+  "specialty_name": "항만운용",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "선박운전운송"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-11.24",
+  "branch": "해군",
+  "code": "11.24",
+  "code_norm": "11.24",
+  "specialty_name": "항공",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-43",
+  "branch": "해군",
+  "code": "43",
+  "code_norm": "43",
+  "specialty_name": "기관",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-43.44",
+  "branch": "해군",
+  "code": "43.44",
+  "code_norm": "43.44",
+  "specialty_name": "전기",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-C43",
+  "branch": "해군",
+  "code": "C43",
+  "code_norm": "C43",
+  "specialty_name": "(작전사)기관",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-48",
+  "branch": "해군",
+  "code": "48",
+  "code_norm": "48",
+  "specialty_name": "수송",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-A43",
+  "branch": "해군",
+  "code": "A43",
+  "code_norm": "A43",
+  "specialty_name": "(1함대)기관",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-B43",
+  "branch": "해군",
+  "code": "B43",
+  "code_norm": "B43",
+  "specialty_name": "(2함대)기관",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해군-46",
+  "branch": "해군",
+  "code": "46",
+  "code_norm": "46",
+  "specialty_name": "건축/토목",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-18",
+  "branch": "공군",
+  "code": "18",
+  "code_norm": "18",
+  "specialty_name": "기계",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-22",
+  "branch": "공군",
+  "code": "22",
+  "code_norm": "22",
+  "specialty_name": "공병",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "공군-20",
+  "branch": "공군",
+  "code": "20",
+  "code_norm": "20",
+  "specialty_name": "차량정비",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-19.03",
+  "branch": "해병",
+  "code": "19.03",
+  "code_norm": "19.03",
+  "specialty_name": "공병",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
+ },
+ {
+  "specialty_code": "해병-32.01",
+  "branch": "해병",
+  "code": "32.01",
+  "code_norm": "32.01",
+  "specialty_name": "수송",
+  "interest_types": [
+   "R"
+  ],
+  "interest_labels": [
+   "현실형"
+  ],
+  "job_groups": [
+   "기타"
+  ],
+  "field": null,
+  "duty": null,
+  "physical_grade": null,
+  "interview": null,
+  "source": "직업흥미유형별 군사특기 (병무청 제공 엑셀)"
  }
 ]

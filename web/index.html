@@ -126,6 +126,21 @@ select,input[type=text],input[type=search]{width:100%;padding:9px 11px;border:1p
 .badge.far{background:var(--warn-soft);color:var(--warn)}
 .why{font-size:12px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:5px}
 .why span{background:var(--sunk);padding:2px 7px;border-radius:2px;font-size:11.5px}
+.jobs{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.jobs span{font-size:11px;color:var(--muted);background:var(--sunk);padding:2px 7px;border-radius:2px}
+.itags{display:flex;flex-wrap:wrap;gap:4px}
+.itags span{font-size:11px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent);
+  padding:1px 7px;border-radius:2px}
+.minis{display:grid;gap:9px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.mini{text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;display:flex;flex-direction:column;gap:5px}
+.mini:hover{border-color:var(--accent)}
+.mini .n{font-size:14px;font-weight:500;color:var(--ink);display:flex;gap:8px;align-items:baseline}
+.mini .n code{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);margin-left:auto}
+.more{margin-top:14px}
+.notice{background:var(--sunk);border-left:2px solid var(--warn);padding:14px 16px;border-radius:0 2px 2px 0;
+  font-size:13.5px;color:var(--ink-2)}
+.notice b{color:var(--ink);display:block;margin-bottom:4px}
 
 /* ---------- detail ---------- */
 .backrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
@@ -209,7 +224,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 <main>
   <div class="banner">
     <b>시제품</b>
-    <div id="bannertext">화면 확인용 <b style="all:unset;font-weight:600;color:var(--warn)">샘플 데이터</b>로 동작합니다. 점수·커트라인은 실제 값이 아닙니다.
+    <div id="bannertext">군사특기 목록과 <b style="all:unset;font-weight:600;color:var(--warn)">직업흥미유형 연결은 실제 자료</b>입니다.
+    점수·커트라인·자격/전공은 아직 <b style="all:unset;font-weight:600;color:var(--warn)">샘플</b>이며, <span id="nScored">—</span>개 특기에만 채워져 있습니다.
     배점 항목 중 <span class="est">예시</span> 표시가 붙은 것은 모집공고로 확인해 교체해야 합니다.</div>
   </div>
 
@@ -219,6 +235,12 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
       <h1>내 조건 입력하기</h1>
       <p>지금 가지고 있는 것만 고르면 됩니다. 모르는 항목은 비워두고 넘어가도 결과가 나옵니다.</p>
     </div>
+
+    <fieldset>
+      <legend>지원할 군</legend>
+      <p class="hint">고른 군의 특기만 보여줍니다. 지금은 육군에만 점수 비교용 샘플 데이터가 들어 있습니다.</p>
+      <div class="chipset" id="branchpick"></div>
+    </fieldset>
 
     <fieldset>
       <legend>학력과 전공</legend>
@@ -341,11 +363,13 @@ const comp = k => RULES.components.find(c=>c.key===k);
 const esc  = s => String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const INTEREST = {R:["현실형","기계·도구를 다루는 일"],I:["탐구형","분석하고 알아내는 일"],A:["예술형","표현하고 만드는 일"],
                   S:["사회형","사람을 돕고 가르치는 일"],E:["진취형","이끌고 설득하는 일"],C:["관습형","정확히 정리하는 일"]};
+/* 커트라인·자격/전공 데이터가 들어있는 특기인지 */
+const hasScoreData = code => DB.cutoff.some(r=>r.specialty_code===code);
 
 /* ---------- 입력 상태 ---------- */
 let refreshPicked = ()=>{};
-const input = { edu:"college", major:"", attendance:"무단결석 없음", certs:new Set(),
-                driver:"미소지", interests:new Set(), bonus:new Set(), round:11 };
+const input = { branches:new Set(["육군"]), edu:"college", major:"", attendance:"무단결석 없음",
+                certs:new Set(), driver:"미소지", interests:new Set(), bonus:new Set(), round:11 };
 
 /* =========================================================================
    점수 계산  —  설계서 03번 문서의 규칙을 그대로 옮긴 부분
@@ -493,6 +517,24 @@ function buildForm(){
   $("#certsearch").oninput = e => renderCerts(e.target.value.trim());
   renderCerts(); renderPicked();
 
+  /* 군별 */
+  const bp = $("#branchpick");
+  const counts = {};
+  DB.specialty.forEach(x=>counts[x.branch]=(counts[x.branch]||0)+1);
+  ["육군","해군","공군","해병"].filter(b=>counts[b]).forEach(bname=>{
+    const b = el("button","chipbtn"); b.type="button";
+    b.setAttribute("aria-pressed", input.branches.has(bname));
+    const withData = DB.specialty.filter(x=>x.branch===bname && hasScoreData(x.specialty_code)).length;
+    b.innerHTML = `${bname}<small>특기 ${counts[bname]}개 · 점수 비교 ${withData}개</small>`;
+    b.onclick = ()=>{
+      input.branches.has(bname) ? input.branches.delete(bname) : input.branches.add(bname);
+      if(!input.branches.size) input.branches.add(bname);
+      [...bp.children].forEach((c,i)=>c.setAttribute("aria-pressed",
+        input.branches.has(["육군","해군","공군","해병"].filter(x=>counts[x])[i])));
+    };
+    bp.append(b);
+  });
+
   /* 흥미유형 */
   const ib = $("#interest");
   Object.entries(INTEREST).forEach(([k,[name,desc]])=>{
@@ -526,8 +568,8 @@ function buildForm(){
     rp.append(b);
   });
 
-  $("#go").onclick = renderList;
-  $("#back1").onclick = ()=>{ show("screen-input"); setStep(1); };
+  $("#go").onclick = ()=>{ MORE=false; renderList(); };
+  $("#back1").onclick = ()=>{ MORE=false; show("screen-input"); setStep(1); };
   $("#demo").onclick = fillDemo;
 }
 
@@ -539,58 +581,108 @@ function fillDemo(){
   input.driver="1종보통(수동)"; $("#driver").value="1종보통(수동)";
   input.interests = new Set(["R"]);
   document.querySelectorAll("#interest .chipbtn").forEach(b=>b.setAttribute("aria-pressed", b.textContent.startsWith("R")));
+  MORE = false;
   renderList();
 }
 
 /* ---------- 2. 추천 목록 ---------- */
-let RESULTS = [];
+let RESULTS = [], MORE = false;
+
+function inScope(sp){ return input.branches.has(sp.branch); }
+
 function renderList(){
-  RESULTS = DB.specialty.map(s=>{
-    const sc = scoreFor(s.specialty_code);
-    const st = cutStats(s.specialty_code, input.round);
+  const pool = DB.specialty.filter(inScope);
+  const scored = pool.filter(sp=>hasScoreData(sp.specialty_code));
+
+  RESULTS = scored.map(sp=>{
+    const sc = scoreFor(sp.specialty_code);
+    const st = cutStats(sp.specialty_code, input.round);
     const margin = +(sc.total - st.avg).toFixed(1);
-    return {spec:s, sc, st, margin, fit:fitOf(s.specialty_code, sc, st), v:verdict(margin)};
+    return {spec:sp, sc, st, margin, fit:fitOf(sp.specialty_code, sc, st), v:verdict(margin), scored:true};
   }).sort((a,b)=> b.fit-a.fit || b.margin-a.margin);
 
-  $("#listctx").textContent = `육군 기술행정병 · ${input.round}회차 기준 · 최근 3년(2023–2025) 커트라인과 비교`;
+  const branchTxt = [...input.branches].join(" · ");
+  $("#listctx").textContent =
+    `${branchTxt} · 특기 ${pool.length}개 중 ${scored.length}개 점수 비교 가능 · ${input.round}회차 · 최근 3년(2023–2025) 커트라인 기준`;
 
+  /* 요약 */
+  $("#summary").innerHTML = "";
   const best = RESULTS[0];
   const strong = RESULTS.filter(r=>r.margin>=5).length;
-  $("#summary").innerHTML = "";
-  [["내 최고 예상점수", `${best.sc.total}`, `/ ${RULES.max_total}점 · ${best.spec.specialty_name}`],
-   ["여유 있는 특기", `${strong}`, `개 / 전체 ${RESULTS.length}개`],
-   ["보유 자격", `${input.certs.size + (input.driver!=="미소지"?1:0)}`, "개 반영"],
+  const matched = pool.filter(sp=>sp.interest_types.some(t=>input.interests.has(t))).length;
+  [["내 최고 예상점수", best?`${best.sc.total}`:"—", best?`/ ${RULES.max_total}점 · ${best.spec.specialty_name}`:"점수 비교 가능한 특기 없음"],
+   ["여유 있는 특기", `${strong}`, `개 / 비교 가능 ${RESULTS.length}개`],
+   ["흥미유형이 맞는 특기", input.interests.size?`${matched}`:"—", input.interests.size?`개 / 전체 ${pool.length}개`:"흥미유형 미선택"],
    ["비교 기준", `${input.round}회차`, "3년 평균 커트라인"]
-  ].forEach(([l,v,s])=>{
-    const d = el("div","stat"); d.append(el("div","lbl",l), el("div","val mono",v), el("div","sub",s));
+  ].forEach(([l,v,sub])=>{
+    const d = el("div","stat"); d.append(el("div","lbl",l), el("div","val mono",v), el("div","sub",sub));
     $("#summary").append(d);
   });
 
+  const wrap = $("#groups"); wrap.innerHTML="";
+
+  /* (1) 점수 비교 가능한 특기 */
   const groups = [
     ["지금도 유력", r=>r.margin>=5, "good", "3년 평균 커트라인을 5점 이상 웃돕니다."],
     ["조금만 더 하면", r=>r.margin<5 && r.margin>=-5, "watch", "가산점이나 자격 한 단계로 뒤집을 수 있는 구간입니다."],
     ["도전", r=>r.margin<-5, "far", "지금 조건으로는 차이가 큽니다. 준비 기간을 두고 보세요."]
   ];
-  const wrap = $("#groups"); wrap.innerHTML="";
-  groups.forEach(([title,test,tone,desc])=>{
-    const rows = RESULTS.filter(test);
-    if(!rows.length) return;
-    const g = el("section","group");
-    const h = el("div","grouphead");
-    const dot = el("span","dotmark"); dot.style.background = `var(--${tone==="good"?"good":tone==="watch"?"chart-1":"chart-2"})`;
-    h.append(dot, el("h2",null,title), el("span","n",`${rows.length}개 · ${desc}`));
-    g.append(h);
-    const cards = el("div","cards");
-    rows.forEach(r=>cards.append(card(r,tone)));
-    g.append(cards); wrap.append(g);
-  });
+  if(RESULTS.length){
+    const head = el("div","grouphead");
+    head.append(el("h2",null,"점수 비교 가능한 특기"), el("span","n",`${RESULTS.length}개 · 커트라인·자격·전공 데이터가 들어있는 특기입니다`));
+    wrap.append(head);
+    groups.forEach(([title,test,tone,desc])=>{
+      const rows = RESULTS.filter(test); if(!rows.length) return;
+      const g = el("section","group");
+      const h = el("div","grouphead");
+      const dot = el("span","dotmark");
+      dot.style.background = `var(--${tone==="good"?"good":tone==="watch"?"chart-1":"chart-2"})`;
+      h.append(dot, el("h2",null,title), el("span","n",`${rows.length}개 · ${desc}`));
+      g.append(h);
+      const cards = el("div","cards");
+      rows.forEach(r=>cards.append(card(r,tone)));
+      g.append(cards); wrap.append(g);
+    });
+  }
+
+  /* (2) 흥미유형이 맞는 나머지 특기 */
+  const rest = pool.filter(sp=>!hasScoreData(sp.specialty_code)
+                            && (!input.interests.size || sp.interest_types.some(t=>input.interests.has(t))));
+  const g2 = el("section","group");
+  const h2 = el("div","grouphead");
+  h2.append(el("h2",null, input.interests.size ? "흥미유형이 맞는 다른 특기" : "그 밖의 특기"),
+            el("span","n",`${rest.length}개 · 점수·커트라인 데이터는 아직 없습니다`));
+  g2.append(h2);
+
+  if(!input.interests.size){
+    g2.append(el("p","hint","흥미유형을 고르면 여기에 맞는 특기만 골라서 보여드립니다."));
+  }
+  const minis = el("div","minis");
+  const LIMIT = MORE ? rest.length : 24;
+  rest.slice(0, LIMIT).forEach(sp=>minis.append(mini(sp)));
+  g2.append(minis);
+  if(rest.length > LIMIT){
+    const mb = el("button","btn quiet more", `나머지 ${rest.length-LIMIT}개 더 보기`);
+    mb.type="button"; mb.onclick = ()=>{ MORE = true; renderList(); };
+    g2.append(mb);
+  }
+  wrap.append(g2);
 
   show("screen-list"); setStep(2);
 }
 
+function jobsRow(sp, limit){
+  const j = el("div","jobs");
+  sp.job_groups.slice(0,limit).forEach(x=>j.append(el("span",null,x)));
+  if(sp.job_groups.length>limit) j.append(el("span",null,`외 ${sp.job_groups.length-limit}`));
+  return j;
+}
+
 function card(r, tone){
   const b = el("button",`spec ${tone}`); b.type="button";
-  b.append(el("h3",null,r.spec.specialty_name), el("p","duty",r.spec.duty));
+  b.append(el("h3",null,r.spec.specialty_name));
+  if(r.spec.duty) b.append(el("p","duty",r.spec.duty));
+  b.append(jobsRow(r.spec, 3));
 
   const fr = el("div","fitrow");
   const bar = el("div","fitbar"); const i = el("i"); i.style.width = Math.min(100,r.fit)+"%"; bar.append(i);
@@ -608,10 +700,23 @@ function card(r, tone){
 
   const sr = el("div","scorerow");
   sr.append(el("span","s mono",r.sc.total), el("span","m",`/ ${RULES.max_total}`));
-  const bd = el("span",`badge ${tone}`, `커트라인 ${r.margin>=0?"+":""}${r.margin}`);
-  sr.append(bd); b.append(sr);
+  sr.append(el("span",`badge ${tone}`, `커트라인 ${r.margin>=0?"+":""}${r.margin}`));
+  b.append(sr);
 
   b.onclick = ()=>renderDetail(r);
+  return b;
+}
+
+function mini(sp){
+  const b = el("button","mini"); b.type="button";
+  const n = el("div","n");
+  n.append(el("span",null,sp.specialty_name), el("code",null,`${sp.branch} ${sp.code}`));
+  b.append(n);
+  b.append(jobsRow(sp, 3));
+  const t = el("div","itags");
+  sp.interest_labels.forEach(x=>t.append(el("span",null,x)));
+  b.append(t);
+  b.onclick = ()=>renderDetail({spec:sp, scored:false});
   return b;
 }
 
@@ -620,8 +725,9 @@ let CURRENT = null, ROUND_VIEW = null;
 
 function renderDetail(r){
   CURRENT = r; ROUND_VIEW = input.round;
-  $("#dTitle").textContent = `${r.spec.specialty_name}`;
-  $("#dDuty").textContent  = r.spec.duty;
+  $("#dTitle").textContent = r.spec.specialty_name;
+  $("#dDuty").textContent  = r.spec.duty
+    || `${r.spec.branch} · 특기코드 ${r.spec.code} · 직업군 ${r.spec.job_groups.join(" · ")}`;
   drawPane3(); drawPane4();
   $("#tab3").setAttribute("aria-selected","true"); $("#tab4").setAttribute("aria-selected","false");
   $("#pane3").classList.remove("hidden"); $("#pane4").classList.add("hidden");
@@ -630,6 +736,19 @@ function renderDetail(r){
 
 function drawPane3(){
   const r = CURRENT, code = r.spec.specialty_code;
+  const p0 = $("#pane3");
+  if(!hasScoreData(code)){
+    p0.innerHTML = "";
+    const n = el("div","panel");
+    n.append(el("h3",null,"커트라인 데이터 준비 중"));
+    const notice = el("div","notice");
+    notice.innerHTML = `<b>이 특기는 아직 커트라인·자격·전공 자료가 없습니다.</b>
+      지금 확인할 수 있는 것은 아래 특기 정보(군별·특기코드·흥미유형·직업군)까지입니다.<br>
+      병무청 커트라인 CSV와 '군별 특기별 지원가능 정보' API를 연동하면 점수 비교가 함께 나옵니다.`;
+    n.append(notice); p0.append(n);
+    p0.append(infoPanel(r));
+    return;
+  }
   const st = cutStats(code, ROUND_VIEW);
   const sc = scoreFor(code);
   const margin = +(sc.total - st.avg).toFixed(1);
@@ -689,28 +808,33 @@ function drawPane3(){
   });
   p.append(sum);
 
-  /* 특기 정보 */
+  p.append(infoPanel(r));
+}
+
+const TODO = "병무청 API 연동 후 표시";
+function infoPanel(r){
+  const code = r.spec.specialty_code;
   const info = el("div","panel");
   info.append(el("h3",null,"특기 정보"));
   info.append(el("p","cap","지원 전에 확인해야 할 조건입니다."));
   const majors = DB.specialty_major.filter(x=>x.specialty_code===code).map(x=>x.major_name).join(" · ");
   const certs  = DB.specialty_cert.filter(x=>x.specialty_code===code).map(x=>`${x.cert_name}(${x.cert_grade})`).join(" · ");
   const dl = el("dl","kv");
-  [["소속 / 분야", `${r.spec.branch} · ${r.spec.field}`],
-   ["주요 임무", r.spec.duty],
-   ["신체등급", r.spec.physical_grade],
-   ["면접", r.spec.interview],
-   ["흥미유형", r.spec.interest_types.map(t=>`${t} ${INTEREST[t][0]}`).join(" · ")],
-   ["인정 전공", majors],
-   ["인정 자격/면허", certs]
+  [["군 / 특기코드", `${r.spec.branch} · ${r.spec.code}`],
+   ["모집분야", r.spec.field || TODO],
+   ["주요 임무", r.spec.duty || TODO],
+   ["신체등급", r.spec.physical_grade || TODO],
+   ["면접", r.spec.interview || TODO],
+   ["직업흥미유형", r.spec.interest_labels.join(" · ")],
+   ["연결되는 직업군", r.spec.job_groups.join(" · ")],
+   ["인정 전공", majors || "데이터 준비 중"],
+   ["인정 자격/면허", certs || "데이터 준비 중"]
   ].forEach(([k,val])=>{ dl.append(el("dt",null,k), el("dd",null,val)); });
   info.append(dl);
-  if(r.spec.note){
-    const n = el("p","cap"); n.style.marginTop="14px";
-    n.innerHTML = `<span class="est">확인 필요</span> ${esc(r.spec.note)}`;
-    info.append(n);
-  }
-  p.append(info);
+  const src = el("p","cap"); src.style.marginTop="14px";
+  src.textContent = `특기 목록·흥미유형·직업군 출처: ${r.spec.source}`;
+  info.append(src);
+  return info;
 }
 
 /* ---------- 꺾은선 차트 (라이브러리 없이 SVG) ---------- */
@@ -785,6 +909,17 @@ document.addEventListener("mouseout", e=>{
 const SIM = new Set();
 function drawPane4(){
   const r = CURRENT, code = r.spec.specialty_code;
+  if(!hasScoreData(code)){
+    const p0 = $("#pane4"); p0.innerHTML = "";
+    const n = el("div","panel");
+    n.append(el("h3",null,"점수 계산 준비 중"));
+    const notice = el("div","notice");
+    notice.innerHTML = `<b>이 특기는 인정 자격/전공 자료가 아직 없어 점수를 계산할 수 없습니다.</b>
+      점수를 내려면 병무청 '모집병 군별 특기별 지원가능 정보' API에서
+      이 특기가 인정하는 자격·전공을 받아와야 합니다.`;
+    n.append(notice); p0.append(n);
+    return;
+  }
   const sc = scoreFor(code);
   const st = cutStats(code, ROUND_VIEW);
   const p = $("#pane4"); p.innerHTML = "";
@@ -911,7 +1046,11 @@ function wire(){
   $("#printbtn").onclick = ()=>window.print();
 }
 
-load().then(()=>{ buildForm(); wire(); })
+load().then(()=>{
+  const n = new Set(DB.cutoff.map(r=>r.specialty_code)).size;
+  $("#nScored").textContent = n;
+  buildForm(); wire();
+})
       .catch(e=>{ document.querySelector("main").innerHTML =
         `<div class="banner"><b>오류</b><div>데이터를 불러오지 못했습니다. 이 화면은 파일을 직접 여는 방식으로는 동작하지 않습니다.<br>
          터미널에서 <code class="mono">python3 -m http.server</code> 를 실행한 뒤
