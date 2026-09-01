@@ -9,18 +9,50 @@ web/index.html 을 데이터까지 넣은 '파일 하나짜리' 화면으로 묶
 
 실행:  python3 scripts/build_single_file.py
 """
-import json, pathlib
+import base64, gzip, json, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-FILES = ["specialty","specialty_cert","specialty_major","cutoff","applicants","interest_map"]
+FILES = ["specialty","cert_index","major_index","spec_cert_index","jiwon_stats",
+         "cutoff","applicants","interest_map"]
+
+def trim(data):
+    """상담 화면이 쓰는 212개 특기에 해당하는 부분만 남깁니다.
+
+    병무청 API 색인에는 화면 목록에 없는 특기(약 500개)까지 들어 있어
+    그대로 넣으면 파일 하나짜리 화면이 수십 MB 가 됩니다. 더블클릭으로 열기
+    어려워지므로, 화면이 실제로 점수를 매기는 특기만 남겨 크기를 줄입니다.
+    """
+    keep = {s["specialty_code"] for s in data["specialty"]}
+
+    data["major_index"] = {
+        name: [c for c in codes if c in keep]
+        for name, codes in data["major_index"].items()}
+    data["major_index"] = {k: v for k, v in data["major_index"].items() if v}
+
+    data["cert_index"] = {
+        name: [r for r in rows if r["specialty_code"] in keep]
+        for name, rows in data["cert_index"].items()}
+    data["cert_index"] = {k: v for k, v in data["cert_index"].items() if v}
+
+    data["spec_cert_index"] = {k: v for k, v in data["spec_cert_index"].items() if k in keep}
+    data["jiwon_stats"]     = {k: v for k, v in data["jiwon_stats"].items() if k in keep}
+    return data
+
 
 def main():
     data = {f: json.loads((ROOT/"data"/"build"/f"{f}.json").read_text(encoding="utf-8")) for f in FILES}
+    data = trim(data)
     data["rules"] = json.loads((ROOT/"rules"/"2026-army-tech.json").read_text(encoding="utf-8"))
 
     html = (ROOT/"web"/"index.html").read_text(encoding="utf-8")
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
-    inject = "<script>window.__EMBEDDED__=" + blob.replace("</", "<\\/") + ";</script>\n"
+
+    # 자료를 그대로 넣으면 22MB 라 메일로 보내기 어렵습니다.
+    # gzip 으로 눌러 담으면 약 1MB 가 되고, 브라우저가 열 때 풀어줍니다.
+    packed = base64.b64encode(gzip.compress(blob.encode("utf-8"), 9)).decode("ascii")
+    print(f"  자료 {len(blob.encode('utf-8'))/1024/1024:.1f} MB "
+          f"→ 눌러서 {len(packed)/1024/1024:.1f} MB")
+    inject = f'<script>window.__EMBEDDED_GZ__="{packed}";</script>\n' 
 
     marker = "<script>\n/* ========"
     assert marker in html, "web/index.html 구조가 바뀌었습니다. marker 를 확인하세요."

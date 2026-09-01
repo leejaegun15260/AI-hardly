@@ -11,3 +11,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# 수집 원본 창고 — API 에서 다시 받을 수 있고 수백 MB 라 올리지 않습니다.
+# (data/build/*.json 색인 파일은 화면이 바로 읽으므로 저장소에 넣습니다)
+data/build/jiwon.sqlite
