@@ -11,3 +11,6 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# 수집한 원본 창고 (137만 건, 용량이 커서 저장소에 올리지 않습니다)
+data/build/jiwon.sqlite
