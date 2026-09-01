@@ -1,0 +1,920 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병역진로설계 상담대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;700&display=swap">
+<style>
+:root{
+  --paper:#F8F8F5; --card:#FFFFFF; --sunk:#F1F2EE; --track:#E6E8E1;
+  --ink:#171A1C; --ink-2:#3E464A; --muted:#6E777C;
+  --line:#DEE0D9; --line-2:#C8CCC3;
+  --accent:#0E6A5E; --accent-soft:#E2EFEB;
+  --warn:#A85E12; --warn-soft:#F7EDE0;
+  --chart-1:#00907C; --chart-2:#A85E12;
+  --good:#1D6F3F; --good-soft:#E4F0E6;
+  --shadow:0 1px 2px rgba(23,26,28,.05),0 8px 24px -18px rgba(23,26,28,.35);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101315; --card:#171B1E; --sunk:#1D2226; --track:#262C30;
+  --ink:#E9EBE6; --ink-2:#BCC3C2; --muted:#8B9497;
+  --line:#282E31; --line-2:#39413F;
+  --accent:#48B7A4; --accent-soft:#152C29;
+  --warn:#DC9450; --warn-soft:#2B2119;
+  --chart-1:#3FA894; --chart-2:#C98040;
+  --good:#5FB37C; --good-soft:#16261B;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -20px rgba(0,0,0,.9);
+}}
+:root[data-theme="dark"]{
+  --paper:#101315; --card:#171B1E; --sunk:#1D2226; --track:#262C30;
+  --ink:#E9EBE6; --ink-2:#BCC3C2; --muted:#8B9497;
+  --line:#282E31; --line-2:#39413F;
+  --accent:#48B7A4; --accent-soft:#152C29;
+  --warn:#DC9450; --warn-soft:#2B2119;
+  --chart-1:#3FA894; --chart-2:#C98040;
+  --good:#5FB37C; --good-soft:#16261B;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -20px rgba(0,0,0,.9);
+}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Noto Serif KR","Apple SD Gothic Neo",serif;font-weight:700;margin:0;line-height:1.35;text-wrap:balance}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+/* ---------- shell ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1000px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{font-family:"Noto Serif KR",serif;font-weight:700;font-size:16px;white-space:nowrap}
+.brand span{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);display:block;line-height:1.4}
+.steps{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.steps b{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:11.5px;padding:4px 10px;border-radius:2px;
+  color:var(--muted);background:var(--sunk);white-space:nowrap}
+.steps b.on{background:var(--accent);color:var(--paper)}
+.steps b.done{color:var(--accent);background:var(--accent-soft)}
+main{max-width:1000px;margin:0 auto;padding:34px 22px 100px}
+.hidden{display:none!important}
+
+.banner{display:flex;gap:11px;align-items:flex-start;background:var(--warn-soft);border:1px solid var(--warn);
+  border-radius:3px;padding:12px 15px;margin-bottom:28px;font-size:13px;color:var(--ink-2)}
+.banner b{color:var(--warn);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;padding-top:2px}
+
+/* ---------- form ---------- */
+.pagehead{margin-bottom:30px}
+.pagehead h1{font-size:clamp(24px,4.4vw,32px);letter-spacing:-.01em}
+.pagehead p{color:var(--ink-2);margin:11px 0 0;max-width:60ch;font-size:14.5px}
+fieldset{border:1px solid var(--line);border-radius:3px;background:var(--card);padding:20px 20px 22px;margin:0 0 16px;box-shadow:var(--shadow)}
+legend{font-family:"Noto Serif KR",serif;font-weight:700;font-size:15.5px;padding:0 9px;margin-left:-9px}
+.hint{color:var(--muted);font-size:12.5px;margin:0 0 15px}
+.row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+label.f{display:block;font-size:12.5px;color:var(--ink-2);margin-bottom:5px;font-weight:500}
+select,input[type=text],input[type=search]{width:100%;padding:9px 11px;border:1px solid var(--line-2);border-radius:2px;
+  background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.chipset{display:flex;flex-wrap:wrap;gap:7px}
+.chipbtn{padding:7px 13px;border:1px solid var(--line-2);border-radius:2px;background:var(--card);color:var(--ink-2);font-size:13px}
+.chipbtn[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:500}
+.chipbtn small{display:block;font-size:10.5px;color:var(--muted);font-weight:400}
+.chipbtn[aria-pressed=true] small{color:var(--accent)}
+.certbox{border:1px solid var(--line-2);border-radius:2px;background:var(--card)}
+.certlist{max-height:210px;overflow-y:auto;padding:8px 4px}
+.ck{display:flex;gap:9px;align-items:flex-start;padding:5px 10px;font-size:13.5px;color:var(--ink-2);border-radius:2px}
+.ck:hover{background:var(--sunk)}
+.ck input{margin-top:5px;accent-color:var(--accent);flex:none}
+.ck .g{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);white-space:nowrap;padding-top:2px}
+.picked{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;min-height:0}
+.ptag{font-family:"IBM Plex Mono",monospace;font-size:11.5px;background:var(--accent-soft);color:var(--accent);
+  border:1px solid var(--accent);padding:3px 8px;border-radius:2px}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px}
+.btn{padding:11px 22px;border-radius:2px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);font-weight:500;font-size:14.5px}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.quiet{background:transparent;color:var(--ink-2);border-color:var(--line-2)}
+.btn:hover{filter:brightness(1.08)}
+
+/* ---------- results ---------- */
+.summary{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:30px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:15px 16px 16px;box-shadow:var(--shadow)}
+.stat .lbl{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
+.stat .val{font-family:"IBM Plex Mono",monospace;font-size:27px;font-weight:600;line-height:1.25;margin-top:4px;font-variant-numeric:tabular-nums}
+.stat .sub{font-size:12px;color:var(--muted);margin-top:1px}
+.group{margin-bottom:34px}
+.grouphead{display:flex;align-items:baseline;gap:11px;border-bottom:1px solid var(--line);padding-bottom:9px;margin-bottom:16px}
+.grouphead h2{font-size:17px}
+.grouphead .n{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
+.grouphead .dotmark{width:9px;height:9px;border-radius:50%;flex:none}
+.cards{display:grid;gap:13px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.spec{text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line-2);
+  border-radius:3px;padding:15px 16px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
+.spec:hover{border-color:var(--accent-soft);border-left-color:var(--accent)}
+.spec.good{border-left-color:var(--good)} .spec.watch{border-left-color:var(--chart-1)} .spec.far{border-left-color:var(--warn)}
+.spec h3{font-size:16px}
+.spec .duty{font-size:12.5px;color:var(--muted);line-height:1.6;margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fitrow{display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--muted)}
+.fitbar{flex:1;height:6px;background:var(--track);border-radius:3px;overflow:hidden}
+.fitbar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.scorerow{display:flex;align-items:baseline;gap:9px;border-top:1px solid var(--line);padding-top:10px;margin-top:2px}
+.scorerow .s{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600}
+.scorerow .m{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
+.badge{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:11.5px;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.badge.good{background:var(--good-soft);color:var(--good)}
+.badge.watch{background:var(--accent-soft);color:var(--accent)}
+.badge.far{background:var(--warn-soft);color:var(--warn)}
+.why{font-size:12px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:5px}
+.why span{background:var(--sunk);padding:2px 7px;border-radius:2px;font-size:11.5px}
+
+/* ---------- detail ---------- */
+.backrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.tabs{display:flex;gap:0;border:1px solid var(--line-2);border-radius:2px;overflow:hidden;margin-bottom:22px;width:fit-content;max-width:100%}
+.tabs button{padding:9px 18px;background:var(--card);border:0;color:var(--ink-2);font-size:13.5px;white-space:nowrap}
+.tabs button[aria-selected=true]{background:var(--accent);color:var(--paper);font-weight:500}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.panel > h3{font-size:16px;margin-bottom:4px}
+.panel .cap{font-size:12.5px;color:var(--muted);margin:0 0 16px}
+.kv{display:grid;gap:0;grid-template-columns:120px 1fr}
+.kv dt{font-size:12.5px;color:var(--muted);padding:9px 0;border-top:1px solid var(--line)}
+.kv dd{margin:0;font-size:13.5px;color:var(--ink-2);padding:9px 0;border-top:1px solid var(--line)}
+.filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filters .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.seg{display:flex;width:fit-content;max-width:100%;border:1px solid var(--line-2);border-radius:2px;overflow:hidden;flex-wrap:wrap}
+.seg button{padding:5px 13px;background:var(--card);border:0;border-right:1px solid var(--line-2);font-size:12.5px;color:var(--ink-2);
+  font-family:"IBM Plex Mono",monospace}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--paper)}
+.chartwrap{position:relative;overflow-x:auto}
+.chartwrap svg{display:block;min-width:520px;width:100%;height:auto}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line)}
+.legend i{display:inline-block;width:22px;height:0;border-top-width:3px;border-radius:2px;vertical-align:middle;margin-right:7px}
+.tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--line-2);border-radius:2px;
+  box-shadow:var(--shadow);padding:9px 12px;font-size:12.5px;min-width:150px;opacity:0;transition:opacity .1s;z-index:5}
+.tip b{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}
+.tip .l{display:flex;justify-content:space-between;gap:14px}
+.tip .l em{font-style:normal;color:var(--muted)}
+.tip .l span{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+/* gap bars */
+.gaps{display:flex;flex-direction:column;gap:15px;margin-top:6px}
+.gap .top{display:flex;align-items:baseline;gap:9px;font-size:13.5px;margin-bottom:6px}
+.gap .top .num{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
+.gbar{height:14px;background:var(--track);border-radius:4px;overflow:hidden}
+.gbar i{display:block;height:100%;border-radius:4px;background:var(--chart-1)}
+.gbar i.low{background:var(--chart-2)}
+.gap .reason{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.est{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--warn-soft);color:var(--warn);padding:2px 6px;border-radius:2px}
+.rx{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.rx li{display:flex;gap:12px;align-items:flex-start;background:var(--sunk);border-left:2px solid var(--accent);
+  padding:11px 14px;border-radius:0 2px 2px 0;font-size:13.5px;color:var(--ink-2)}
+.rx li .plus{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--accent);white-space:nowrap;margin-left:auto}
+.simrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.simchip{border:1px solid var(--line-2);background:var(--card);color:var(--ink-2);padding:6px 12px;border-radius:2px;font-size:12.5px}
+.simchip[aria-pressed=true]{border-color:var(--chart-1);background:var(--accent-soft);color:var(--accent);font-weight:500}
+.simout{margin-top:16px;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:3px;
+  font-size:14px;color:var(--ink-2)}
+.simout b{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:17px}
+
+table.data{border-collapse:collapse;width:100%;font-size:13px;margin-top:14px}
+table.data th,table.data td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data thead th{background:var(--sunk);font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+table.data td{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+table.data td:first-child{font-family:"IBM Plex Sans KR",sans-serif}
+details.tbl summary{font-size:12.5px;color:var(--muted);cursor:pointer;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+
+footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:var(--muted);font-size:12.5px}
+
+@media print{
+  .topbar,.actions,.tabs,.backrow,.simrow,.banner{display:none!important}
+  body{background:#fff;font-size:11.5px}
+  .panel,.stat,.spec{box-shadow:none;break-inside:avoid}
+  main{padding:0;max-width:none}
+  .hidden{display:none!important}
+  #screen-detail .panel{page-break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="topbar"><div class="in">
+  <div class="brand">병역진로설계 상담대<span>Prototype · 샘플 데이터</span></div>
+  <nav class="steps" id="steps" aria-label="진행 단계">
+    <b data-s="1" class="on">① 입력</b><b data-s="2">② 추천</b><b data-s="3">③ 커트라인</b><b data-s="4">④ 갭 분석</b>
+  </nav>
+</div></div>
+
+<main>
+  <div class="banner">
+    <b>시제품</b>
+    <div id="bannertext">화면 확인용 <b style="all:unset;font-weight:600;color:var(--warn)">샘플 데이터</b>로 동작합니다. 점수·커트라인은 실제 값이 아닙니다.
+    배점 항목 중 <span class="est">예시</span> 표시가 붙은 것은 모집공고로 확인해 교체해야 합니다.</div>
+  </div>
+
+  <!-- ================= 1. 입력 ================= -->
+  <section id="screen-input">
+    <div class="pagehead">
+      <h1>내 조건 입력하기</h1>
+      <p>지금 가지고 있는 것만 고르면 됩니다. 모르는 항목은 비워두고 넘어가도 결과가 나옵니다.</p>
+    </div>
+
+    <fieldset>
+      <legend>학력과 전공</legend>
+      <p class="hint">전공은 목록에 없으면 직접 입력해도 됩니다. 특기가 인정하는 학과와 이름이 같으면 전공 점수가 붙습니다.</p>
+      <div class="row">
+        <div><label class="f" for="edu">최종 학력</label>
+          <select id="edu">
+            <option value="university">대학교 (4학기 이상 이수)</option>
+            <option value="college" selected>전문대학 (졸업·이수)</option>
+            <option value="highschool">고등학교 졸업</option>
+          </select></div>
+        <div><label class="f" for="major">전공(학과)</label>
+          <input type="text" id="major" list="majorlist" placeholder="예: 전기과" autocomplete="off">
+          <datalist id="majorlist"></datalist></div>
+        <div><label class="f" for="attendance">무단결석</label>
+          <select id="attendance"></select></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>자격 · 면허</legend>
+      <p class="hint">가지고 있는 자격증을 모두 고르세요. 특기별로 인정되는 자격 중 <b>가장 높은 등급 하나</b>만 점수에 반영됩니다.</p>
+      <div class="row" style="grid-template-columns:1fr 220px">
+        <div>
+          <input type="search" id="certsearch" placeholder="자격증 이름 검색" autocomplete="off">
+          <div class="certbox" style="margin-top:8px"><div class="certlist" id="certlist"></div></div>
+          <div class="picked" id="certpicked"></div>
+        </div>
+        <div><label class="f" for="driver">운전면허</label>
+          <select id="driver"></select>
+          <p class="hint" style="margin-top:8px">운전 관련 특기에서 별도 배점체계로 쓰입니다.</p></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>직업흥미유형 <span style="font-family:'IBM Plex Sans KR';font-size:12px;font-weight:400;color:var(--muted)">— 선택</span></legend>
+      <p class="hint">워크넷 직업선호도 검사를 받았다면 결과지의 유형을 최대 2개 고르세요. 몰라도 넘어갈 수 있습니다.</p>
+      <div class="chipset" id="interest"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>가산점 해당 사항</legend>
+      <p class="hint">해당하는 항목만 체크하세요.</p>
+      <div class="chipset" id="bonus"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>지원 시기</legend>
+      <p class="hint">커트라인은 회차마다 다릅니다. 지원하려는 회차를 고르면 <b>같은 회차끼리만</b> 비교합니다.</p>
+      <div class="seg" id="roundpick" role="group" aria-label="지원 회차"></div>
+    </fieldset>
+
+    <div class="actions">
+      <button class="btn" id="go">특기 추천받기</button>
+      <button class="btn quiet" id="demo">예시로 채워보기</button>
+    </div>
+  </section>
+
+  <!-- ================= 2. 추천 ================= -->
+  <section id="screen-list" class="hidden">
+    <div class="backrow">
+      <button class="btn ghost" id="back1">← 입력 고치기</button>
+      <span class="mono" style="font-size:12px;color:var(--muted)" id="listctx"></span>
+    </div>
+    <div class="pagehead"><h1>추천 특기</h1>
+      <p>합격 가능성 기준으로 세 묶음으로 나눴습니다. 카드를 누르면 커트라인 비교와 갭 분석이 나옵니다.</p></div>
+    <div class="summary" id="summary"></div>
+    <div id="groups"></div>
+  </section>
+
+  <!-- ================= 3·4. 상세 ================= -->
+  <section id="screen-detail" class="hidden">
+    <div class="backrow">
+      <button class="btn ghost" id="back2">← 추천 목록</button>
+      <button class="btn quiet" id="printbtn">인쇄 / PDF 저장</button>
+    </div>
+    <div class="pagehead"><h1 id="dTitle"></h1><p id="dDuty"></p></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab3" aria-selected="true">③ 특기 소개 · 커트라인</button>
+      <button role="tab" id="tab4" aria-selected="false">④ 내 점수 · 갭 분석</button>
+    </div>
+    <div id="pane3"></div>
+    <div id="pane4" class="hidden"></div>
+  </section>
+
+  <footer>
+    이 도구의 계산 결과는 <b>참고용 추정치</b>입니다. 실제 선발 점수와 합격 여부는 병무청 및 각 군의 공식 기준과 심사 결과에 따릅니다.
+    <span id="rulever" class="mono"></span>
+  </footer>
+</main>
+
+<script>window.__EMBEDDED__={"specialty":[{"specialty_code":"육-A01","branch":"육군","field":"기술행정병","specialty_name":"전기설비 운용/정비","duty":"부대 전기설비를 점검·정비하고 발전기와 배전 계통을 운용합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R","C"],"note":null},{"specialty_code":"육-A02","branch":"육군","field":"기술행정병","specialty_name":"일반차량 운전","duty":"병력·물자 수송 차량을 운전하고 일일 점검과 정비 지원을 합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R"],"note":"운전 관련 특기는 운전면허 별도 배점체계가 적용됩니다. 실제 배점은 모집공고를 확인하세요."},{"specialty_code":"육-A03","branch":"육군","field":"기술행정병","specialty_name":"정보체계 운용","duty":"부대 전산망과 정보체계를 운용하고 장애 대응·보안 점검을 수행합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["I","C"],"note":null},{"specialty_code":"육-A04","branch":"육군","field":"기술행정병","specialty_name":"조리","duty":"급식 계획에 따라 조리·배식하고 조리기구와 위생을 관리합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R","S"],"note":null},{"specialty_code":"육-A05","branch":"육군","field":"기술행정병","specialty_name":"일반의무","duty":"의무대에서 환자 접수·처치 보조와 의무물자 관리를 담당합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["S","I"],"note":null},{"specialty_code":"육-A06","branch":"육군","field":"기술행정병","specialty_name":"지원보급","duty":"보급품 청구·수령·불출과 재물 조사를 담당합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["C"],"note":null},{"specialty_code":"육-A07","branch":"육군","field":"기술행정병","specialty_name":"탄약관리","duty":"탄약고 저장 관리와 불출·회수, 안전 점검을 담당합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["C","R"],"note":null},{"specialty_code":"육-A08","branch":"육군","field":"기술행정병","specialty_name":"차량정비","duty":"전술차량의 정기·수시 정비와 부속 관리 업무를 수행합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R"],"note":null},{"specialty_code":"육-A09","branch":"육군","field":"기술행정병","specialty_name":"통신선로 운용","duty":"유·무선 통신선로를 설치·복구하고 통신장비를 운용합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R","I"],"note":null},{"specialty_code":"육-A10","branch":"육군","field":"기술행정병","specialty_name":"건설기계 운용","duty":"굴착기·지게차 등 건설기계를 운용해 진지공사와 물자 취급을 지원합니다.","physical_grade":"1~3급","interview":"실시","interest_types":["R"],"note":null}],"specialty_cert":[{"specialty_code":"육-A01","cert_name":"전기기사","cert_grade":"기사"},{"specialty_code":"육-A01","cert_name":"전기공사기사","cert_grade":"기사"},{"specialty_code":"육-A01","cert_name":"전기산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A01","cert_name":"전기공사산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A01","cert_name":"전기기능사","cert_grade":"기능사"},{"specialty_code":"육-A01","cert_name":"승강기기능사","cert_grade":"기능사"},{"specialty_code":"육-A02","cert_name":"대형면허","cert_grade":"대형·특수"},{"specialty_code":"육-A02","cert_name":"특수면허","cert_grade":"대형·특수"},{"specialty_code":"육-A02","cert_name":"1종보통(수동)","cert_grade":"1종보통(수동)"},{"specialty_code":"육-A02","cert_name":"1종보통(자동)","cert_grade":"1종보통(자동)"},{"specialty_code":"육-A02","cert_name":"2종보통","cert_grade":"2종보통"},{"specialty_code":"육-A03","cert_name":"정보처리기사","cert_grade":"기사"},{"specialty_code":"육-A03","cert_name":"정보보안기사","cert_grade":"기사"},{"specialty_code":"육-A03","cert_name":"정보처리산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A03","cert_name":"네트워크관리사 2급","cert_grade":"공인 일반자격"},{"specialty_code":"육-A03","cert_name":"정보처리기능사","cert_grade":"기능사"},{"specialty_code":"육-A03","cert_name":"리눅스마스터 2급","cert_grade":"공인 일반자격"},{"specialty_code":"육-A04","cert_name":"조리산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A04","cert_name":"한식조리기능사","cert_grade":"기능사"},{"specialty_code":"육-A04","cert_name":"양식조리기능사","cert_grade":"기능사"},{"specialty_code":"육-A04","cert_name":"중식조리기능사","cert_grade":"기능사"},{"specialty_code":"육-A04","cert_name":"제과기능사","cert_grade":"기능사"},{"specialty_code":"육-A04","cert_name":"제빵기능사","cert_grade":"기능사"},{"specialty_code":"육-A05","cert_name":"응급구조사 1급","cert_grade":"공인 일반자격"},{"specialty_code":"육-A05","cert_name":"응급구조사 2급","cert_grade":"공인 일반자격"},{"specialty_code":"육-A05","cert_name":"간호조무사","cert_grade":"공인 일반자격"},{"specialty_code":"육-A05","cert_name":"임상병리사","cert_grade":"공인 일반자격"},{"specialty_code":"육-A05","cert_name":"위생사","cert_grade":"공인 일반자격"},{"specialty_code":"육-A06","cert_name":"물류관리사","cert_grade":"공인 일반자격"},{"specialty_code":"육-A06","cert_name":"유통관리사 2급","cert_grade":"공인 일반자격"},{"specialty_code":"육-A06","cert_name":"지게차운전기능사","cert_grade":"기능사"},{"specialty_code":"육-A06","cert_name":"전산회계 2급","cert_grade":"비공인 일반자격"},{"specialty_code":"육-A07","cert_name":"화약류관리기사","cert_grade":"기사"},{"specialty_code":"육-A07","cert_name":"화약류관리산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A07","cert_name":"위험물산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A07","cert_name":"위험물기능사","cert_grade":"기능사"},{"specialty_code":"육-A07","cert_name":"산업안전산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A08","cert_name":"자동차정비기사","cert_grade":"기사"},{"specialty_code":"육-A08","cert_name":"자동차정비산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A08","cert_name":"자동차정비기능사","cert_grade":"기능사"},{"specialty_code":"육-A08","cert_name":"건설기계정비기능사","cert_grade":"기능사"},{"specialty_code":"육-A09","cert_name":"정보통신기사","cert_grade":"기사"},{"specialty_code":"육-A09","cert_name":"정보통신산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A09","cert_name":"통신선로산업기사","cert_grade":"산업기사"},{"specialty_code":"육-A09","cert_name":"전자기능사","cert_grade":"기능사"},{"specialty_code":"육-A09","cert_name":"통신기기기능사","cert_grade":"기능사"},{"specialty_code":"육-A10","cert_name":"굴착기운전기능사","cert_grade":"기능사"},{"specialty_code":"육-A10","cert_name":"지게차운전기능사","cert_grade":"기능사"},{"specialty_code":"육-A10","cert_name":"기중기운전기능사","cert_grade":"기능사"},{"specialty_code":"육-A10","cert_name":"로더운전기능사","cert_grade":"기능사"},{"specialty_code":"육-A10","cert_name":"건설기계정비산업기사","cert_grade":"산업기사"}],"specialty_major":[{"specialty_code":"육-A01","major_name":"전기과"},{"specialty_code":"육-A01","major_name":"전기공학과"},{"specialty_code":"육-A01","major_name":"전기전자공학과"},{"specialty_code":"육-A01","major_name":"전기제어과"},{"specialty_code":"육-A02","major_name":"자동차과"},{"specialty_code":"육-A02","major_name":"기계과"},{"specialty_code":"육-A02","major_name":"운송과"},{"specialty_code":"육-A03","major_name":"컴퓨터공학과"},{"specialty_code":"육-A03","major_name":"소프트웨어학과"},{"specialty_code":"육-A03","major_name":"정보통신과"},{"specialty_code":"육-A03","major_name":"정보보호학과"},{"specialty_code":"육-A04","major_name":"조리과"},{"specialty_code":"육-A04","major_name":"외식조리과"},{"specialty_code":"육-A04","major_name":"식품영양학과"},{"specialty_code":"육-A04","major_name":"호텔조리과"},{"specialty_code":"육-A05","major_name":"간호학과"},{"specialty_code":"육-A05","major_name":"응급구조학과"},{"specialty_code":"육-A05","major_name":"보건행정과"},{"specialty_code":"육-A05","major_name":"임상병리학과"},{"specialty_code":"육-A06","major_name":"물류학과"},{"specialty_code":"육-A06","major_name":"경영학과"},{"specialty_code":"육-A06","major_name":"유통경영과"},{"specialty_code":"육-A06","major_name":"회계학과"},{"specialty_code":"육-A07","major_name":"화학공학과"},{"specialty_code":"육-A07","major_name":"산업안전과"},{"specialty_code":"육-A07","major_name":"소방안전과"},{"specialty_code":"육-A08","major_name":"자동차과"},{"specialty_code":"육-A08","major_name":"기계공학과"},{"specialty_code":"육-A08","major_name":"기계설비과"},{"specialty_code":"육-A09","major_name":"정보통신과"},{"specialty_code":"육-A09","major_name":"전자공학과"},{"specialty_code":"육-A09","major_name":"통신공학과"},{"specialty_code":"육-A10","major_name":"건설기계과"},{"specialty_code":"육-A10","major_name":"토목과"},{"specialty_code":"육-A10","major_name":"건축과"}],"cutoff":[{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":74.7,"selected_count":40,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":77.2,"selected_count":26,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":78.4,"selected_count":33,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":77.2,"selected_count":24,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":77.3,"selected_count":20,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":78.9,"selected_count":8,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":78.8,"selected_count":35,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":76.1,"selected_count":8,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A01","specialty_name_raw":"전기설비 운용/정비","cutoff_score":77.6,"selected_count":8,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":71.8,"selected_count":32,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":75.7,"selected_count":25,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":74.7,"selected_count":21,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":76.7,"selected_count":16,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":74.8,"selected_count":13,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":74.6,"selected_count":24,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":74.3,"selected_count":24,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":76.4,"selected_count":16,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A02","specialty_name_raw":"일반차량 운전","cutoff_score":73.5,"selected_count":21,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":82.3,"selected_count":26,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":81.8,"selected_count":24,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":83.1,"selected_count":20,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":83.8,"selected_count":11,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":84.4,"selected_count":28,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":83.7,"selected_count":23,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":81.3,"selected_count":19,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":81.8,"selected_count":43,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A03","specialty_name_raw":"정보체계 운용","cutoff_score":81.0,"selected_count":41,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":72.7,"selected_count":23,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":72.8,"selected_count":29,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":72.2,"selected_count":14,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":72.4,"selected_count":32,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":71.4,"selected_count":23,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":71.8,"selected_count":39,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":73.6,"selected_count":16,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":74.7,"selected_count":31,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A04","specialty_name_raw":"조리","cutoff_score":70.5,"selected_count":22,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":78.8,"selected_count":24,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":79.2,"selected_count":30,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":78.7,"selected_count":17,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":79.6,"selected_count":32,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":82.2,"selected_count":27,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":82.3,"selected_count":46,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":81.1,"selected_count":9,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":83.4,"selected_count":38,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A05","specialty_name_raw":"일반의무","cutoff_score":81.9,"selected_count":27,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":74.8,"selected_count":10,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":76.2,"selected_count":12,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":74.0,"selected_count":29,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":75.2,"selected_count":38,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":76.1,"selected_count":17,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":72.7,"selected_count":18,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":72.7,"selected_count":46,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":74.4,"selected_count":31,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A06","specialty_name_raw":"지원보급","cutoff_score":71.6,"selected_count":42,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":74.2,"selected_count":31,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":72.7,"selected_count":46,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":75.9,"selected_count":22,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":74.1,"selected_count":12,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":74.9,"selected_count":20,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":74.5,"selected_count":19,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":70.0,"selected_count":22,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":72.7,"selected_count":16,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A07","specialty_name_raw":"탄약관리","cutoff_score":70.9,"selected_count":25,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":75.3,"selected_count":43,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":75.5,"selected_count":41,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":76.0,"selected_count":19,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":77.4,"selected_count":37,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":74.8,"selected_count":28,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":75.3,"selected_count":12,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":75.8,"selected_count":20,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":77.3,"selected_count":24,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A08","specialty_name_raw":"차량정비","cutoff_score":74.3,"selected_count":14,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":79.5,"selected_count":32,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":77.5,"selected_count":14,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":76.0,"selected_count":29,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":75.7,"selected_count":42,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":78.2,"selected_count":14,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":75.2,"selected_count":45,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":78.8,"selected_count":12,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":79.8,"selected_count":21,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A09","specialty_name_raw":"통신선로 운용","cutoff_score":79.4,"selected_count":36,"unit":"전군"},{"year":2023,"round":5,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":72.8,"selected_count":33,"unit":"전군"},{"year":2023,"round":8,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":68.7,"selected_count":35,"unit":"전군"},{"year":2023,"round":11,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":71.6,"selected_count":10,"unit":"전군"},{"year":2024,"round":5,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":71.5,"selected_count":41,"unit":"전군"},{"year":2024,"round":8,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":70.8,"selected_count":28,"unit":"전군"},{"year":2024,"round":11,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":70.2,"selected_count":43,"unit":"전군"},{"year":2025,"round":5,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":74.5,"selected_count":36,"unit":"전군"},{"year":2025,"round":8,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":70.9,"selected_count":20,"unit":"전군"},{"year":2025,"round":11,"branch":"육군","specialty_code":"육-A10","specialty_name_raw":"건설기계 운용","cutoff_score":71.2,"selected_count":20,"unit":"전군"}],"applicants":[{"year":2023,"round":5,"specialty_code":"육-A01","planned_count":40,"applicant_count":137},{"year":2023,"round":8,"specialty_code":"육-A01","planned_count":26,"applicant_count":79},{"year":2023,"round":11,"specialty_code":"육-A01","planned_count":33,"applicant_count":77},{"year":2024,"round":5,"specialty_code":"육-A01","planned_count":24,"applicant_count":72},{"year":2024,"round":8,"specialty_code":"육-A01","planned_count":20,"applicant_count":33},{"year":2024,"round":11,"specialty_code":"육-A01","planned_count":8,"applicant_count":28},{"year":2025,"round":5,"specialty_code":"육-A01","planned_count":35,"applicant_count":136},{"year":2025,"round":8,"specialty_code":"육-A01","planned_count":8,"applicant_count":12},{"year":2025,"round":11,"specialty_code":"육-A01","planned_count":8,"applicant_count":24},{"year":2023,"round":5,"specialty_code":"육-A02","planned_count":32,"applicant_count":84},{"year":2023,"round":8,"specialty_code":"육-A02","planned_count":25,"applicant_count":90},{"year":2023,"round":11,"specialty_code":"육-A02","planned_count":21,"applicant_count":46},{"year":2024,"round":5,"specialty_code":"육-A02","planned_count":16,"applicant_count":27},{"year":2024,"round":8,"specialty_code":"육-A02","planned_count":13,"applicant_count":18},{"year":2024,"round":11,"specialty_code":"육-A02","planned_count":24,"applicant_count":83},{"year":2025,"round":5,"specialty_code":"육-A02","planned_count":24,"applicant_count":90},{"year":2025,"round":8,"specialty_code":"육-A02","planned_count":16,"applicant_count":61},{"year":2025,"round":11,"specialty_code":"육-A02","planned_count":21,"applicant_count":46},{"year":2023,"round":5,"specialty_code":"육-A03","planned_count":26,"applicant_count":86},{"year":2023,"round":8,"specialty_code":"육-A03","planned_count":24,"applicant_count":98},{"year":2023,"round":11,"specialty_code":"육-A03","planned_count":20,"applicant_count":44},{"year":2024,"round":5,"specialty_code":"육-A03","planned_count":11,"applicant_count":31},{"year":2024,"round":8,"specialty_code":"육-A03","planned_count":28,"applicant_count":69},{"year":2024,"round":11,"specialty_code":"육-A03","planned_count":23,"applicant_count":69},{"year":2025,"round":5,"specialty_code":"육-A03","planned_count":19,"applicant_count":60},{"year":2025,"round":8,"specialty_code":"육-A03","planned_count":43,"applicant_count":155},{"year":2025,"round":11,"specialty_code":"육-A03","planned_count":41,"applicant_count":151},{"year":2023,"round":5,"specialty_code":"육-A04","planned_count":23,"applicant_count":35},{"year":2023,"round":8,"specialty_code":"육-A04","planned_count":29,"applicant_count":80},{"year":2023,"round":11,"specialty_code":"육-A04","planned_count":14,"applicant_count":40},{"year":2024,"round":5,"specialty_code":"육-A04","planned_count":32,"applicant_count":105},{"year":2024,"round":8,"specialty_code":"육-A04","planned_count":23,"applicant_count":43},{"year":2024,"round":11,"specialty_code":"육-A04","planned_count":39,"applicant_count":104},{"year":2025,"round":5,"specialty_code":"육-A04","planned_count":16,"applicant_count":46},{"year":2025,"round":8,"specialty_code":"육-A04","planned_count":31,"applicant_count":50},{"year":2025,"round":11,"specialty_code":"육-A04","planned_count":22,"applicant_count":46},{"year":2023,"round":5,"specialty_code":"육-A05","planned_count":24,"applicant_count":60},{"year":2023,"round":8,"specialty_code":"육-A05","planned_count":30,"applicant_count":49},{"year":2023,"round":11,"specialty_code":"육-A05","planned_count":17,"applicant_count":33},{"year":2024,"round":5,"specialty_code":"육-A05","planned_count":32,"applicant_count":100},{"year":2024,"round":8,"specialty_code":"육-A05","planned_count":27,"applicant_count":85},{"year":2024,"round":11,"specialty_code":"육-A05","planned_count":46,"applicant_count":166},{"year":2025,"round":5,"specialty_code":"육-A05","planned_count":9,"applicant_count":28},{"year":2025,"round":8,"specialty_code":"육-A05","planned_count":38,"applicant_count":134},{"year":2025,"round":11,"specialty_code":"육-A05","planned_count":27,"applicant_count":56},{"year":2023,"round":5,"specialty_code":"육-A06","planned_count":10,"applicant_count":16},{"year":2023,"round":8,"specialty_code":"육-A06","planned_count":12,"applicant_count":19},{"year":2023,"round":11,"specialty_code":"육-A06","planned_count":29,"applicant_count":93},{"year":2024,"round":5,"specialty_code":"육-A06","planned_count":38,"applicant_count":145},{"year":2024,"round":8,"specialty_code":"육-A06","planned_count":17,"applicant_count":29},{"year":2024,"round":11,"specialty_code":"육-A06","planned_count":18,"applicant_count":60},{"year":2025,"round":5,"specialty_code":"육-A06","planned_count":46,"applicant_count":191},{"year":2025,"round":8,"specialty_code":"육-A06","planned_count":31,"applicant_count":120},{"year":2025,"round":11,"specialty_code":"육-A06","planned_count":42,"applicant_count":63},{"year":2023,"round":5,"specialty_code":"육-A07","planned_count":31,"applicant_count":72},{"year":2023,"round":8,"specialty_code":"육-A07","planned_count":46,"applicant_count":119},{"year":2023,"round":11,"specialty_code":"육-A07","planned_count":22,"applicant_count":35},{"year":2024,"round":5,"specialty_code":"육-A07","planned_count":12,"applicant_count":49},{"year":2024,"round":8,"specialty_code":"육-A07","planned_count":20,"applicant_count":53},{"year":2024,"round":11,"specialty_code":"육-A07","planned_count":19,"applicant_count":33},{"year":2025,"round":5,"specialty_code":"육-A07","planned_count":22,"applicant_count":46},{"year":2025,"round":8,"specialty_code":"육-A07","planned_count":16,"applicant_count":56},{"year":2025,"round":11,"specialty_code":"육-A07","planned_count":25,"applicant_count":41},{"year":2023,"round":5,"specialty_code":"육-A08","planned_count":43,"applicant_count":177},{"year":2023,"round":8,"specialty_code":"육-A08","planned_count":41,"applicant_count":145},{"year":2023,"round":11,"specialty_code":"육-A08","planned_count":19,"applicant_count":39},{"year":2024,"round":5,"specialty_code":"육-A08","planned_count":37,"applicant_count":88},{"year":2024,"round":8,"specialty_code":"육-A08","planned_count":28,"applicant_count":72},{"year":2024,"round":11,"specialty_code":"육-A08","planned_count":12,"applicant_count":48},{"year":2025,"round":5,"specialty_code":"육-A08","planned_count":20,"applicant_count":62},{"year":2025,"round":8,"specialty_code":"육-A08","planned_count":24,"applicant_count":54},{"year":2025,"round":11,"specialty_code":"육-A08","planned_count":14,"applicant_count":38},{"year":2023,"round":5,"specialty_code":"육-A09","planned_count":32,"applicant_count":90},{"year":2023,"round":8,"specialty_code":"육-A09","planned_count":14,"applicant_count":55},{"year":2023,"round":11,"specialty_code":"육-A09","planned_count":29,"applicant_count":106},{"year":2024,"round":5,"specialty_code":"육-A09","planned_count":42,"applicant_count":171},{"year":2024,"round":8,"specialty_code":"육-A09","planned_count":14,"applicant_count":42},{"year":2024,"round":11,"specialty_code":"육-A09","planned_count":45,"applicant_count":180},{"year":2025,"round":5,"specialty_code":"육-A09","planned_count":12,"applicant_count":45},{"year":2025,"round":8,"specialty_code":"육-A09","planned_count":21,"applicant_count":31},{"year":2025,"round":11,"specialty_code":"육-A09","planned_count":36,"applicant_count":57},{"year":2023,"round":5,"specialty_code":"육-A10","planned_count":33,"applicant_count":101},{"year":2023,"round":8,"specialty_code":"육-A10","planned_count":35,"applicant_count":59},{"year":2023,"round":11,"specialty_code":"육-A10","planned_count":10,"applicant_count":26},{"year":2024,"round":5,"specialty_code":"육-A10","planned_count":41,"applicant_count":160},{"year":2024,"round":8,"specialty_code":"육-A10","planned_count":28,"applicant_count":64},{"year":2024,"round":11,"specialty_code":"육-A10","planned_count":43,"applicant_count":121},{"year":2025,"round":5,"specialty_code":"육-A10","planned_count":36,"applicant_count":118},{"year":2025,"round":8,"specialty_code":"육-A10","planned_count":20,"applicant_count":57},{"year":2025,"round":11,"specialty_code":"육-A10","planned_count":20,"applicant_count":74}],"interest_map":{"육-A01":["R","C"],"육-A02":["R"],"육-A03":["I","C"],"육-A04":["R","S"],"육-A05":["S","I"],"육-A06":["C"],"육-A07":["C","R"],"육-A08":["R"],"육-A09":["R","I"],"육-A10":["R"]},"rules":{"version":"2026-army-tech","branch":"육군","field":"기술행정병","source":"https://www.mma.go.kr/contents.do?mc=mma0000387","checked_at":"2026-09-01","notice":"confirmed=true 인 항목만 공고에서 확인한 값입니다. confirmed=false 는 시제품용 예시값이므로 반드시 실제 공고 기준으로 교체하세요.","max_total":115,"components":[{"key":"cert","label":"자격/면허","max":50,"confirmed":true,"help":"지원 특기가 인정하는 자격/면허 중 가장 높은 등급 하나만 반영됩니다.","table":[{"grade":"기술사·기능장","score":50},{"grade":"기사","score":50},{"grade":"산업기사","score":45},{"grade":"기능사","score":40},{"grade":"일학습병행 L6·L5","score":50},{"grade":"일학습병행 L4·L3","score":45},{"grade":"일학습병행 L2","score":40},{"grade":"공인 일반자격","score":30},{"grade":"비공인 일반자격","score":26},{"grade":"미소지","score":20}],"driving_track":{"applies_to":["육-A02"],"confirmed":false,"note":"운전 관련 특기는 별도 배점체계(대형·특수 90, 1종보통(수동) 87)를 씁니다. 아래는 50점 항목에 맞춰 임시 환산한 예시값입니다.","table":[{"grade":"대형·특수","score":50},{"grade":"1종보통(수동)","score":48},{"grade":"1종보통(자동)","score":44},{"grade":"2종보통","score":40},{"grade":"미소지","score":20}]}},{"key":"major","label":"전공","max":40,"confirmed":false,"help":"고교·대학 등에서 관련학과를 전공한 경우 높은 점수를 부여합니다. 아래 구간은 시제품용 예시값입니다.","table":[{"grade":"대학교 관련학과 (4학기 이상 이수)","score":40},{"grade":"전문대학 관련학과 (졸업·이수)","score":36},{"grade":"고교 관련학과 졸업","score":32},{"grade":"관련학과 아님","score":20}]},{"key":"attendance","label":"출결","max":10,"confirmed":false,"help":"무단결석 일수 기준. 아래 구간은 시제품용 예시값입니다.","table":[{"grade":"무단결석 없음","score":10},{"grade":"1~2일","score":8},{"grade":"3~6일","score":6},{"grade":"7일 이상","score":4}]},{"key":"bonus","label":"가산점","max":15,"confirmed":true,"help":"해당하는 항목을 모두 더하되 항목 만점을 넘지 않습니다.","items":[{"id":"interest_match","label":"직업선호도 검사 추천특기와 지원특기 일치","score":3,"confirmed":false,"note":"가산점 부여 대상임은 공고로 확인됨. 점수는 예시값입니다."},{"id":"merit","label":"국가유공자 자녀 · 독립유공자 손·자녀","score":3,"confirmed":true},{"id":"multichild","label":"다자녀 가정 자녀","score":3,"confirmed":true,"note":"최대 3점"},{"id":"basic_living","label":"기초생활보장 수급권자","score":3,"confirmed":true}]}],"verdict_bands":[{"min":5,"label":"여유 있는 편","tone":"good"},{"min":0,"label":"경계선 — 가산점 확보 권장","tone":"watch"},{"min":-5,"label":"부족 — 보완 필요","tone":"short"},{"min":-999,"label":"다른 특기 병행 검토 권장","tone":"far"}]}};</script>
+<script>
+/* =========================================================================
+   데이터 불러오기
+   - 서버로 열면(python -m http.server) data/build/*.json 을 읽습니다.
+   - 단일 파일 버전은 window.__EMBEDDED__ 에 미리 넣어둡니다.
+   ========================================================================= */
+const FILES = ["specialty","specialty_cert","specialty_major","cutoff","applicants","interest_map"];
+const DB = {};
+let RULES = null;
+
+async function load(){
+  if (window.__EMBEDDED__){
+    FILES.forEach(f => DB[f] = window.__EMBEDDED__[f]);
+    RULES = window.__EMBEDDED__.rules;
+    return;
+  }
+  const got = await Promise.all([
+    ...FILES.map(f => fetch(`../data/build/${f}.json`).then(r=>r.json())),
+    fetch("../rules/2026-army-tech.json").then(r=>r.json())
+  ]);
+  FILES.forEach((f,i)=> DB[f]=got[i]);
+  RULES = got[FILES.length];
+}
+
+/* ---------- 짧은 도우미 ---------- */
+const $  = s => document.querySelector(s);
+const el = (t,c,x)=>{const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n;};
+const comp = k => RULES.components.find(c=>c.key===k);
+const esc  = s => String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const INTEREST = {R:["현실형","기계·도구를 다루는 일"],I:["탐구형","분석하고 알아내는 일"],A:["예술형","표현하고 만드는 일"],
+                  S:["사회형","사람을 돕고 가르치는 일"],E:["진취형","이끌고 설득하는 일"],C:["관습형","정확히 정리하는 일"]};
+
+/* ---------- 입력 상태 ---------- */
+let refreshPicked = ()=>{};
+const input = { edu:"college", major:"", attendance:"무단결석 없음", certs:new Set(),
+                driver:"미소지", interests:new Set(), bonus:new Set(), round:11 };
+
+/* =========================================================================
+   점수 계산  —  설계서 03번 문서의 규칙을 그대로 옮긴 부분
+   ========================================================================= */
+const GRADE_RANK = ["미소지","비공인 일반자격","공인 일반자격","기능사","일학습병행 L2","산업기사",
+                    "일학습병행 L4·L3","기사","일학습병행 L6·L5","기술사·기능장"];
+
+function certScoreOf(grade, table){
+  const hit = table.find(t=>t.grade===grade);
+  return hit ? hit.score : table[table.length-1].score;
+}
+
+function scoreFor(code){
+  const c = comp("cert"), m = comp("major"), a = comp("attendance"), b = comp("bonus");
+  const spec = DB.specialty.find(s=>s.specialty_code===code);
+  const out = [];
+
+  /* 자격/면허 */
+  const driving = c.driving_track.applies_to.includes(code);
+  if (driving){
+    out.push({key:"cert", label:c.label, max:c.max, confirmed:false,
+      score: certScoreOf(input.driver, c.driving_track.table),
+      reason: input.driver==="미소지" ? "운전면허 미소지" : `${input.driver} 보유`,
+      note: c.driving_track.note});
+  } else {
+    const mine = DB.specialty_cert.filter(r=>r.specialty_code===code && input.certs.has(r.cert_name));
+    let best=null;
+    mine.forEach(r=>{ if(!best || GRADE_RANK.indexOf(r.cert_grade) > GRADE_RANK.indexOf(best.cert_grade)) best=r; });
+    out.push({key:"cert", label:c.label, max:c.max, confirmed:c.confirmed,
+      score: best ? certScoreOf(best.cert_grade, c.table) : certScoreOf("미소지", c.table),
+      reason: best ? `${best.cert_name} (${best.cert_grade})` : "이 특기가 인정하는 자격 없음"});
+  }
+
+  /* 전공 */
+  const majors = DB.specialty_major.filter(r=>r.specialty_code===code).map(r=>r.major_name);
+  const related = input.major && majors.some(x=>x===input.major.trim());
+  const eduLabel = {university:"대학교 관련학과 (4학기 이상 이수)", college:"전문대학 관련학과 (졸업·이수)", highschool:"고교 관련학과 졸업"}[input.edu];
+  out.push({key:"major", label:m.label, max:m.max, confirmed:m.confirmed,
+    score: certScoreOf(related ? eduLabel : "관련학과 아님", m.table),
+    reason: related ? `${input.major} — ${eduLabel.split(" ")[0]} 관련학과` :
+            (input.major ? `${input.major} — 이 특기의 인정 학과 아님` : "전공 미입력")});
+
+  /* 출결 */
+  out.push({key:"attendance", label:a.label, max:a.max, confirmed:a.confirmed,
+    score: certScoreOf(input.attendance, a.table), reason: input.attendance});
+
+  /* 가산점 */
+  const matched = spec.interest_types.some(t=>input.interests.has(t));
+  let bs=0, why=[];
+  b.items.forEach(it=>{
+    const on = it.id==="interest_match" ? matched : input.bonus.has(it.id);
+    if(on){ bs += it.score; why.push(it.label); }
+  });
+  out.push({key:"bonus", label:b.label, max:b.max, confirmed:false,
+    score: Math.min(bs, b.max), reason: why.length ? why.join(" · ") : "해당 항목 없음"});
+
+  const total = out.reduce((s,x)=>s+x.score,0);
+  return {total, max:RULES.max_total, breakdown:out, interestMatched:matched, driving};
+}
+
+/* ---------- 커트라인 통계 ---------- */
+function cutStats(code, round){
+  const rows = DB.cutoff.filter(r=>r.specialty_code===code && r.round===round)
+                        .sort((a,b)=>a.year-b.year);
+  const avg = rows.reduce((s,r)=>s+r.cutoff_score,0)/rows.length;
+  const max = Math.max(...rows.map(r=>r.cutoff_score));
+  return {rows, avg:+avg.toFixed(1), max:+max.toFixed(1)};
+}
+function competition(code, round, year){
+  const a = DB.applicants.find(r=>r.specialty_code===code && r.round===round && r.year===year);
+  return a ? +(a.applicant_count/a.planned_count).toFixed(1) : null;
+}
+function verdict(margin){
+  return RULES.verdict_bands.find(b=>margin>=b.min);
+}
+
+/* ---------- 적합도 ---------- */
+function fitOf(code, sc, stats){
+  const hasCert = DB.specialty_cert.some(r=>r.specialty_code===code && input.certs.has(r.cert_name))
+                  || (sc.driving && input.driver!=="미소지");
+  const majors  = DB.specialty_major.filter(r=>r.specialty_code===code).map(r=>r.major_name);
+  const hasMajor= input.major && majors.some(x=>x===input.major.trim());
+  const certPart = hasCert ? 40 * (sc.breakdown[0].score / comp("cert").max) : 0;
+  const majorPart= hasMajor ? 30 : 0;
+  const intPart  = sc.interestMatched ? 20 : 0;
+  const margin   = sc.total - stats.avg;
+  const passPart = Math.max(0, Math.min(10, 5 + margin/2));
+  return Math.round(certPart + majorPart + intPart + passPart);
+}
+
+/* =========================================================================
+   화면 그리기
+   ========================================================================= */
+function setStep(n){
+  document.querySelectorAll("#steps b").forEach(b=>{
+    const s = +b.dataset.s;
+    b.className = s===n ? "on" : (s<n ? "done" : "");
+  });
+}
+function show(id){
+  ["screen-input","screen-list","screen-detail"].forEach(x=>$("#"+x).classList.toggle("hidden", x!==id));
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+/* ---------- 1. 입력 화면 ---------- */
+function buildForm(){
+  $("#rulever").textContent = ` · 배점 기준 ${RULES.version} (확인일 ${RULES.checked_at})`;
+
+  const majors = [...new Set(DB.specialty_major.map(r=>r.major_name))].sort();
+  $("#majorlist").innerHTML = majors.map(m=>`<option value="${esc(m)}">`).join("");
+
+  comp("attendance").table.forEach(t=>$("#attendance").append(new Option(t.grade,t.grade)));
+
+  const dsel = $("#driver");
+  comp("cert").driving_track.table.forEach(t=>dsel.append(new Option(t.grade,t.grade)));
+  dsel.value = "미소지";
+  dsel.onchange = e => input.driver = e.target.value;
+
+  $("#edu").onchange = e => input.edu = e.target.value;
+  $("#major").oninput = e => input.major = e.target.value;
+  $("#attendance").onchange = e => input.attendance = e.target.value;
+
+  /* 자격증 목록 (운전면허 제외) */
+  const certs = [...new Map(DB.specialty_cert
+      .filter(r=>!comp("cert").driving_track.table.some(d=>d.grade===r.cert_grade))
+      .map(r=>[r.cert_name, r])).values()]
+      .sort((a,b)=>a.cert_name.localeCompare(b.cert_name,"ko"));
+
+  function renderCerts(q=""){
+    const box = $("#certlist"); box.innerHTML = "";
+    certs.filter(c=>c.cert_name.includes(q)).forEach(c=>{
+      const l = el("label","ck");
+      const i = el("input"); i.type="checkbox"; i.checked = input.certs.has(c.cert_name);
+      i.onchange = ()=>{ i.checked ? input.certs.add(c.cert_name) : input.certs.delete(c.cert_name); renderPicked(); };
+      l.append(i, el("span",null,c.cert_name), el("span","g",c.cert_grade));
+      box.append(l);
+    });
+    if(!box.children.length) box.append(el("p","hint","검색 결과가 없습니다."));
+  }
+  function renderPicked(){
+    const p = $("#certpicked"); p.innerHTML="";
+    [...input.certs].forEach(n=>p.append(el("span","ptag",n)));
+  }
+  refreshPicked = renderPicked;
+  $("#certsearch").oninput = e => renderCerts(e.target.value.trim());
+  renderCerts(); renderPicked();
+
+  /* 흥미유형 */
+  const ib = $("#interest");
+  Object.entries(INTEREST).forEach(([k,[name,desc]])=>{
+    const b = el("button","chipbtn"); b.type="button"; b.setAttribute("aria-pressed","false");
+    b.innerHTML = `${k} · ${name}<small>${desc}</small>`;
+    b.onclick = ()=>{
+      if(input.interests.has(k)) input.interests.delete(k);
+      else { if(input.interests.size>=2) return; input.interests.add(k); }
+      b.setAttribute("aria-pressed", input.interests.has(k));
+    };
+    ib.append(b);
+  });
+
+  /* 가산점 */
+  const bb = $("#bonus");
+  comp("bonus").items.filter(i=>i.id!=="interest_match").forEach(it=>{
+    const b = el("button","chipbtn"); b.type="button"; b.setAttribute("aria-pressed","false");
+    b.innerHTML = `${it.label}<small>+${it.score}점</small>`;
+    b.onclick = ()=>{ input.bonus.has(it.id)?input.bonus.delete(it.id):input.bonus.add(it.id);
+                      b.setAttribute("aria-pressed", input.bonus.has(it.id)); };
+    bb.append(b);
+  });
+
+  /* 회차 */
+  const rounds = [...new Set(DB.cutoff.map(r=>r.round))].sort((a,b)=>a-b);
+  const rp = $("#roundpick");
+  rounds.forEach(r=>{
+    const b = el("button",null,`${r}회차`); b.type="button";
+    b.setAttribute("aria-pressed", r===input.round);
+    b.onclick = ()=>{ input.round=r; [...rp.children].forEach(c=>c.setAttribute("aria-pressed", c===b)); };
+    rp.append(b);
+  });
+
+  $("#go").onclick = renderList;
+  $("#back1").onclick = ()=>{ show("screen-input"); setStep(1); };
+  $("#demo").onclick = fillDemo;
+}
+
+function fillDemo(){
+  input.edu="college"; $("#edu").value="college";
+  input.major="전기과"; $("#major").value="전기과";
+  input.certs = new Set(["전기기능사","승강기기능사"]);
+  $("#certsearch").value=""; $("#certsearch").dispatchEvent(new Event("input")); refreshPicked();
+  input.driver="1종보통(수동)"; $("#driver").value="1종보통(수동)";
+  input.interests = new Set(["R"]);
+  document.querySelectorAll("#interest .chipbtn").forEach(b=>b.setAttribute("aria-pressed", b.textContent.startsWith("R")));
+  renderList();
+}
+
+/* ---------- 2. 추천 목록 ---------- */
+let RESULTS = [];
+function renderList(){
+  RESULTS = DB.specialty.map(s=>{
+    const sc = scoreFor(s.specialty_code);
+    const st = cutStats(s.specialty_code, input.round);
+    const margin = +(sc.total - st.avg).toFixed(1);
+    return {spec:s, sc, st, margin, fit:fitOf(s.specialty_code, sc, st), v:verdict(margin)};
+  }).sort((a,b)=> b.fit-a.fit || b.margin-a.margin);
+
+  $("#listctx").textContent = `육군 기술행정병 · ${input.round}회차 기준 · 최근 3년(2023–2025) 커트라인과 비교`;
+
+  const best = RESULTS[0];
+  const strong = RESULTS.filter(r=>r.margin>=5).length;
+  $("#summary").innerHTML = "";
+  [["내 최고 예상점수", `${best.sc.total}`, `/ ${RULES.max_total}점 · ${best.spec.specialty_name}`],
+   ["여유 있는 특기", `${strong}`, `개 / 전체 ${RESULTS.length}개`],
+   ["보유 자격", `${input.certs.size + (input.driver!=="미소지"?1:0)}`, "개 반영"],
+   ["비교 기준", `${input.round}회차`, "3년 평균 커트라인"]
+  ].forEach(([l,v,s])=>{
+    const d = el("div","stat"); d.append(el("div","lbl",l), el("div","val mono",v), el("div","sub",s));
+    $("#summary").append(d);
+  });
+
+  const groups = [
+    ["지금도 유력", r=>r.margin>=5, "good", "3년 평균 커트라인을 5점 이상 웃돕니다."],
+    ["조금만 더 하면", r=>r.margin<5 && r.margin>=-5, "watch", "가산점이나 자격 한 단계로 뒤집을 수 있는 구간입니다."],
+    ["도전", r=>r.margin<-5, "far", "지금 조건으로는 차이가 큽니다. 준비 기간을 두고 보세요."]
+  ];
+  const wrap = $("#groups"); wrap.innerHTML="";
+  groups.forEach(([title,test,tone,desc])=>{
+    const rows = RESULTS.filter(test);
+    if(!rows.length) return;
+    const g = el("section","group");
+    const h = el("div","grouphead");
+    const dot = el("span","dotmark"); dot.style.background = `var(--${tone==="good"?"good":tone==="watch"?"chart-1":"chart-2"})`;
+    h.append(dot, el("h2",null,title), el("span","n",`${rows.length}개 · ${desc}`));
+    g.append(h);
+    const cards = el("div","cards");
+    rows.forEach(r=>cards.append(card(r,tone)));
+    g.append(cards); wrap.append(g);
+  });
+
+  show("screen-list"); setStep(2);
+}
+
+function card(r, tone){
+  const b = el("button",`spec ${tone}`); b.type="button";
+  b.append(el("h3",null,r.spec.specialty_name), el("p","duty",r.spec.duty));
+
+  const fr = el("div","fitrow");
+  const bar = el("div","fitbar"); const i = el("i"); i.style.width = Math.min(100,r.fit)+"%"; bar.append(i);
+  fr.append(el("span",null,"적합도"), bar, el("span","mono",r.fit));
+  b.append(fr);
+
+  const why = el("div","why");
+  const hasCert = DB.specialty_cert.some(x=>x.specialty_code===r.spec.specialty_code && input.certs.has(x.cert_name));
+  const majors  = DB.specialty_major.filter(x=>x.specialty_code===r.spec.specialty_code).map(x=>x.major_name);
+  if(hasCert) why.append(el("span",null,"자격 일치"));
+  if(input.major && majors.includes(input.major.trim())) why.append(el("span",null,"전공 일치"));
+  if(r.sc.interestMatched) why.append(el("span",null,"흥미유형 일치"));
+  if(!why.children.length) why.append(el("span",null,"직접 일치 항목 없음"));
+  b.append(why);
+
+  const sr = el("div","scorerow");
+  sr.append(el("span","s mono",r.sc.total), el("span","m",`/ ${RULES.max_total}`));
+  const bd = el("span",`badge ${tone}`, `커트라인 ${r.margin>=0?"+":""}${r.margin}`);
+  sr.append(bd); b.append(sr);
+
+  b.onclick = ()=>renderDetail(r);
+  return b;
+}
+
+/* ---------- 3. 특기 상세 + 커트라인 ---------- */
+let CURRENT = null, ROUND_VIEW = null;
+
+function renderDetail(r){
+  CURRENT = r; ROUND_VIEW = input.round;
+  $("#dTitle").textContent = `${r.spec.specialty_name}`;
+  $("#dDuty").textContent  = r.spec.duty;
+  drawPane3(); drawPane4();
+  $("#tab3").setAttribute("aria-selected","true"); $("#tab4").setAttribute("aria-selected","false");
+  $("#pane3").classList.remove("hidden"); $("#pane4").classList.add("hidden");
+  show("screen-detail"); setStep(3);
+}
+
+function drawPane3(){
+  const r = CURRENT, code = r.spec.specialty_code;
+  const st = cutStats(code, ROUND_VIEW);
+  const sc = scoreFor(code);
+  const margin = +(sc.total - st.avg).toFixed(1);
+  const v = verdict(margin);
+  const tone = v.tone==="good"?"good":v.tone==="watch"?"watch":"far";
+
+  const p = $("#pane3"); p.innerHTML = "";
+
+  /* 커트라인 패널 */
+  const panel = el("div","panel");
+  panel.append(el("h3",null,"최근 3년 커트라인과 내 점수"));
+  panel.append(el("p","cap",`${ROUND_VIEW}회차 기준 · 같은 회차끼리만 비교합니다. 회차가 다르면 커트라인도 달라집니다.`));
+
+  const f = el("div","filters");
+  f.append(el("span","lbl","회차"));
+  const seg = el("div","seg");
+  [...new Set(DB.cutoff.map(x=>x.round))].sort((a,b)=>a-b).forEach(rd=>{
+    const b = el("button",null,`${rd}회차`); b.type="button";
+    b.setAttribute("aria-pressed", rd===ROUND_VIEW);
+    b.onclick = ()=>{ ROUND_VIEW=rd; drawPane3(); };
+    seg.append(b);
+  });
+  f.append(seg); panel.append(f);
+
+  const cw = el("div","chartwrap");
+  cw.innerHTML = lineChart(st, sc.total);
+  const tip = el("div","tip"); tip.id="tip"; cw.append(tip);
+  panel.append(cw);
+
+  const lg = el("div","legend");
+  lg.innerHTML = `<span><i style="border-top-style:solid;border-color:var(--chart-1)"></i>합격 커트라인</span>
+                  <span><i style="border-top-style:dashed;border-color:var(--chart-2)"></i>내 예상점수 ${sc.total}점</span>`;
+  panel.append(lg);
+
+  const det = el("details","tbl"); det.append(el("summary",null,"숫자로 보기 (표)"));
+  const t = el("table","data");
+  t.innerHTML = `<thead><tr><th>연도</th><th>커트라인</th><th>선발인원</th><th>경쟁률</th><th>내 점수와 차이</th></tr></thead><tbody>`
+    + st.rows.map(x=>{
+        const c = competition(code, ROUND_VIEW, x.year);
+        const d = +(sc.total - x.cutoff_score).toFixed(1);
+        return `<tr><td>${x.year}</td><td>${x.cutoff_score}</td><td>${x.selected_count}명</td><td>${c?c+":1":"—"}</td><td>${d>=0?"+":""}${d}</td></tr>`;
+      }).join("") + `</tbody>`;
+  det.append(t); panel.append(det);
+  p.append(panel);
+
+  /* 판정 + 통계 */
+  const sum = el("div","summary");
+  [["3년 평균 커트라인", st.avg, `${ROUND_VIEW}회차`],
+   ["가장 높았던 해", st.max, "최악의 경우 기준"],
+   ["내 예상점수", sc.total, `/ ${RULES.max_total}점`],
+   ["평균 대비", `${margin>=0?"+":""}${margin}`, v.label]
+  ].forEach(([l,val,s],i)=>{
+    const d = el("div","stat");
+    const vv = el("div","val mono",val);
+    if(i===3) vv.style.color = `var(--${tone==="good"?"good":tone==="watch"?"accent":"warn"})`;
+    d.append(el("div","lbl",l), vv, el("div","sub",s)); sum.append(d);
+  });
+  p.append(sum);
+
+  /* 특기 정보 */
+  const info = el("div","panel");
+  info.append(el("h3",null,"특기 정보"));
+  info.append(el("p","cap","지원 전에 확인해야 할 조건입니다."));
+  const majors = DB.specialty_major.filter(x=>x.specialty_code===code).map(x=>x.major_name).join(" · ");
+  const certs  = DB.specialty_cert.filter(x=>x.specialty_code===code).map(x=>`${x.cert_name}(${x.cert_grade})`).join(" · ");
+  const dl = el("dl","kv");
+  [["소속 / 분야", `${r.spec.branch} · ${r.spec.field}`],
+   ["주요 임무", r.spec.duty],
+   ["신체등급", r.spec.physical_grade],
+   ["면접", r.spec.interview],
+   ["흥미유형", r.spec.interest_types.map(t=>`${t} ${INTEREST[t][0]}`).join(" · ")],
+   ["인정 전공", majors],
+   ["인정 자격/면허", certs]
+  ].forEach(([k,val])=>{ dl.append(el("dt",null,k), el("dd",null,val)); });
+  info.append(dl);
+  if(r.spec.note){
+    const n = el("p","cap"); n.style.marginTop="14px";
+    n.innerHTML = `<span class="est">확인 필요</span> ${esc(r.spec.note)}`;
+    info.append(n);
+  }
+  p.append(info);
+}
+
+/* ---------- 꺾은선 차트 (라이브러리 없이 SVG) ---------- */
+function lineChart(st, myScore){
+  const W=760, H=290, L=52, R=100, T=26, B=46;
+  const vals = st.rows.map(r=>r.cutoff_score).concat([myScore]);
+  let lo = Math.floor(Math.min(...vals)-4), hi = Math.ceil(Math.max(...vals)+4);
+  if(hi-lo < 12){ const mid=(hi+lo)/2; lo=Math.floor(mid-6); hi=Math.ceil(mid+6); }
+  const x = i => L + i*((W-L-R)/(st.rows.length-1));
+  const y = v => T + (hi-v)/(hi-lo)*(H-T-B);
+
+  const ticks=[]; const stepT = Math.ceil((hi-lo)/4);
+  for(let v=lo; v<=hi; v+=stepT) ticks.push(v);
+
+  const grid = ticks.map(v=>`<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}" stroke="var(--line)" stroke-width="1"/>
+    <text x="${L-10}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="10.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${v}</text>`).join("");
+
+  const pts = st.rows.map((r,i)=>`${x(i).toFixed(1)},${y(r.cutoff_score).toFixed(1)}`).join(" ");
+  const dots = st.rows.map((r,i)=>`
+    <circle cx="${x(i).toFixed(1)}" cy="${y(r.cutoff_score).toFixed(1)}" r="6" fill="var(--card)"/>
+    <circle cx="${x(i).toFixed(1)}" cy="${y(r.cutoff_score).toFixed(1)}" r="4.5" fill="var(--chart-1)"/>
+    <text x="${x(i).toFixed(1)}" y="${(y(r.cutoff_score)-13).toFixed(1)}" text-anchor="middle" font-size="11.5"
+      font-family="IBM Plex Mono, monospace" fill="var(--chart-1)" font-weight="600">${r.cutoff_score}</text>
+    <text x="${x(i).toFixed(1)}" y="${H-B+22}" text-anchor="middle" font-size="11"
+      font-family="IBM Plex Mono, monospace" fill="var(--muted)">${r.year}</text>`).join("");
+
+  const hit = st.rows.map((r,i)=>{
+    const c = competition(CURRENT.spec.specialty_code, ROUND_VIEW, r.year);
+    const d = +(myScore - r.cutoff_score).toFixed(1);
+    return `<rect x="${(x(i)-42).toFixed(1)}" y="${T}" width="84" height="${H-T-B}" fill="transparent"
+      data-y="${r.year}" data-c="${r.cutoff_score}" data-n="${r.selected_count}" data-r="${c?c+":1":"—"}"
+      data-d="${d>=0?"+":""}${d}" data-cx="${x(i).toFixed(1)}"/>`;
+  }).join("");
+
+  const my = y(myScore);
+  return `<svg viewBox="0 0 ${W} ${H}" role="img"
+    aria-label="최근 3년 합격 커트라인 꺾은선과 내 예상점수 ${myScore}점 기준선">
+    ${grid}
+    <line x1="${L}" y1="${my.toFixed(1)}" x2="${W-R}" y2="${my.toFixed(1)}"
+      stroke="var(--chart-2)" stroke-width="2" stroke-dasharray="7 5"/>
+    <rect x="${W-R+4}" y="${(my-11).toFixed(1)}" width="86" height="22" rx="3" fill="var(--chart-2)"/>
+    <text x="${W-R+47}" y="${(my+4).toFixed(1)}" text-anchor="middle" font-size="11.5" fill="var(--card)"
+      font-family="IBM Plex Mono, monospace" font-weight="600">내 ${myScore}점</text>
+    <polyline points="${pts}" fill="none" stroke="var(--chart-1)" stroke-width="2.5"
+      stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+    <line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="var(--line-2)" stroke-width="1"/>
+    ${hit}
+  </svg>`;
+}
+
+/* 차트 툴팁 */
+document.addEventListener("mouseover", e=>{
+  const t = e.target.closest("#pane3 svg rect[data-y]"); if(!t) return;
+  const tip = $("#tip"), wrap = t.closest(".chartwrap");
+  tip.innerHTML = `<b>${t.dataset.y}년 ${ROUND_VIEW}회차</b>
+    <div class="l"><em>커트라인</em><span>${t.dataset.c}점</span></div>
+    <div class="l"><em>선발인원</em><span>${t.dataset.n}명</span></div>
+    <div class="l"><em>경쟁률</em><span>${t.dataset.r}</span></div>
+    <div class="l"><em>내 점수와 차이</em><span>${t.dataset.d}</span></div>`;
+  const svg = wrap.querySelector("svg"), box = svg.getBoundingClientRect();
+  const ratio = box.width / svg.viewBox.baseVal.width;
+  tip.style.opacity = 1;
+  tip.style.left = Math.min(box.width-170, Math.max(0, (+t.dataset.cx)*ratio - 80)) + "px";
+  tip.style.top  = "14px";
+});
+document.addEventListener("mouseout", e=>{
+  if(e.target.closest("#pane3 svg rect[data-y]")) { const t=$("#tip"); if(t) t.style.opacity=0; }
+});
+
+/* ---------- 4. 갭 분석 ---------- */
+const SIM = new Set();
+function drawPane4(){
+  const r = CURRENT, code = r.spec.specialty_code;
+  const sc = scoreFor(code);
+  const st = cutStats(code, ROUND_VIEW);
+  const p = $("#pane4"); p.innerHTML = "";
+
+  /* 항목별 막대 */
+  const panel = el("div","panel");
+  panel.append(el("h3",null,`내 점수 ${sc.total}점 — 어디가 부족한가`));
+  panel.append(el("p","cap",`총점만이 아니라 항목별로 봅니다. 만점까지 남은 칸이 곧 올릴 수 있는 점수입니다.`));
+  const gaps = el("div","gaps");
+  sc.breakdown.forEach(b=>{
+    const g = el("div","gap");
+    const top = el("div","top");
+    top.append(el("strong",null,b.label));
+    if(!b.confirmed){ const e=el("span","est","예시"); top.append(e); }
+    top.append(el("span","num",`${b.score} / ${b.max}`));
+    g.append(top);
+    const bar = el("div","gbar"); const i = el("i");
+    i.style.width = (b.score/b.max*100).toFixed(1)+"%";
+    if(b.score/b.max < .5) i.className="low";
+    bar.append(i); g.append(bar);
+    g.append(el("p","reason", b.reason + (b.note ? ` — ${b.note}` : "")));
+    gaps.append(g);
+  });
+  panel.append(gaps);
+  p.append(panel);
+
+  /* 처방 */
+  const rx = buildRx(code, sc);
+  const rp = el("div","panel");
+  rp.append(el("h3",null,"무엇을 갖추면 되는가"));
+  rp.append(el("p","cap","올릴 수 있는 점수가 큰 것부터 보여줍니다."));
+  const ul = el("ul","rx");
+  if(!rx.length) ul.append(el("li",null,"모든 항목이 만점입니다. 더 올릴 곳이 없습니다."));
+  rx.forEach(x=>{
+    const li = el("li");
+    li.append(el("span",null,x.text), el("span","plus",`+${x.gain}점`));
+    ul.append(li);
+  });
+  rp.append(ul);
+
+  /* 시뮬레이션 */
+  rp.append(el("p","cap","해당하는 것을 눌러 점수가 어떻게 변하는지 확인해 보세요."));
+  const sim = el("div","simrow");
+  SIM.clear();
+  rx.forEach((x,idx)=>{
+    const b = el("button","simchip", x.short); b.type="button"; b.setAttribute("aria-pressed","false");
+    b.onclick = ()=>{
+      SIM.has(idx) ? SIM.delete(idx) : SIM.add(idx);
+      b.setAttribute("aria-pressed", SIM.has(idx));
+      updateSim(sc, st, rx);
+    };
+    sim.append(b);
+  });
+  rp.append(sim);
+  const out = el("div","simout"); out.id="simout"; rp.append(out);
+  p.append(rp);
+  updateSim(sc, st, rx);
+}
+
+function buildRx(code, sc){
+  const list = [];
+  const c = comp("cert");
+  const b0 = sc.breakdown[0];
+
+  if(!sc.driving && b0.score < c.max){
+    const owned = DB.specialty_cert.filter(x=>x.specialty_code===code && input.certs.has(x.cert_name));
+    const cur = owned.length ? Math.max(...owned.map(x=>GRADE_RANK.indexOf(x.cert_grade))) : 0;
+    const next = DB.specialty_cert.filter(x=>x.specialty_code===code && GRADE_RANK.indexOf(x.cert_grade)>cur)
+      .sort((a,b)=>GRADE_RANK.indexOf(a.cert_grade)-GRADE_RANK.indexOf(b.cert_grade))[0];
+    if(next){
+      const gain = certScoreOf(next.cert_grade, c.table) - b0.score;
+      if(gain>0) list.push({gain, short:`${next.cert_grade} 취득`,
+        text:`이 특기가 인정하는 ${next.cert_grade}(예: ${next.cert_name})를 취득하면 자격/면허 점수가 오릅니다.`});
+    }
+  }
+  if(sc.driving && b0.score < c.max){
+    list.push({gain: c.max-b0.score, short:"대형·특수면허 취득",
+      text:"대형 또는 특수면허를 취득하면 운전 특기의 자격 점수가 만점이 됩니다."});
+  }
+  const m = sc.breakdown[1];
+  if(m.score < m.max){
+    const majors = DB.specialty_major.filter(x=>x.specialty_code===code).map(x=>x.major_name);
+    list.push({gain: m.max-m.score, short:"관련학과 이수",
+      text:`이 특기의 인정 학과(${majors.slice(0,3).join(" · ")} 등)를 이수하면 전공 점수가 오릅니다. 이미 이수했다면 전공 입력을 확인하세요.`});
+  }
+  const a = sc.breakdown[2];
+  if(a.score < a.max) list.push({gain:a.max-a.score, short:"출결 확인",
+    text:"학교생활기록부의 무단결석 일수를 다시 확인하세요. 정정 사유가 있으면 학교에 문의합니다."});
+
+  const bo = sc.breakdown[3], bc = comp("bonus");
+  if(bo.score < bo.max){
+    if(!sc.interestMatched){
+      const it = bc.items.find(x=>x.id==="interest_match");
+      list.push({gain: it.score, short:"직업선호도 검사",
+        text:"워크넷 직업선호도 검사를 받고 추천특기가 이 특기와 일치하면 가산점 대상이 됩니다."});
+    }
+    const rest = bc.items.filter(x=>x.id!=="interest_match" && !input.bonus.has(x.id));
+    if(rest.length) list.push({gain: Math.min(bo.max-bo.score, rest[0].score), short:"가산점 서류 확인",
+      text:`해당 여부를 확인할 항목: ${rest.map(x=>x.label).join(" · ")}. 해당되면 증빙서류를 준비하세요.`});
+  }
+  return list.sort((a,b)=>b.gain-a.gain);
+}
+
+function updateSim(sc, st, rx){
+  const add = [...SIM].reduce((s,i)=>s+rx[i].gain,0);
+  const now = sc.total + add;
+  const margin = +(now - st.avg).toFixed(1);
+  const v = verdict(margin);
+  const o = $("#simout");
+  o.innerHTML = add===0
+    ? `지금 점수 <b>${sc.total}점</b> · ${ROUND_VIEW}회차 3년 평균 커트라인 ${st.avg}점 대비
+       <b>${margin>=0?"+":""}${margin}</b> — ${v.label}`
+    : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) · 3년 평균 커트라인 ${st.avg}점 대비
+       <b>${margin>=0?"+":""}${margin}</b> — ${v.label}`;
+}
+
+/* ---------- 탭 / 이동 ---------- */
+function wire(){
+  $("#tab3").onclick = ()=>{ $("#tab3").setAttribute("aria-selected","true"); $("#tab4").setAttribute("aria-selected","false");
+    $("#pane3").classList.remove("hidden"); $("#pane4").classList.add("hidden"); setStep(3); };
+  $("#tab4").onclick = ()=>{ $("#tab4").setAttribute("aria-selected","true"); $("#tab3").setAttribute("aria-selected","false");
+    $("#pane4").classList.remove("hidden"); $("#pane3").classList.add("hidden"); setStep(4); };
+  $("#back2").onclick = ()=>{ show("screen-list"); setStep(2); };
+  $("#printbtn").onclick = ()=>window.print();
+}
+
+load().then(()=>{ buildForm(); wire(); })
+      .catch(e=>{ document.querySelector("main").innerHTML =
+        `<div class="banner"><b>오류</b><div>데이터를 불러오지 못했습니다. 이 화면은 파일을 직접 여는 방식으로는 동작하지 않습니다.<br>
+         터미널에서 <code class="mono">python3 -m http.server</code> 를 실행한 뒤
+         <code class="mono">http://localhost:8000/web/</code> 로 열어주세요.<br><br>${esc(e.message)}</div></div>`; });
+</script>

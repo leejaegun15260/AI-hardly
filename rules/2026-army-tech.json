@@ -1,0 +1,88 @@
+{
+  "version": "2026-army-tech",
+  "branch": "육군",
+  "field": "기술행정병",
+  "source": "https://www.mma.go.kr/contents.do?mc=mma0000387",
+  "checked_at": "2026-09-01",
+  "notice": "confirmed=true 인 항목만 공고에서 확인한 값입니다. confirmed=false 는 시제품용 예시값이므로 반드시 실제 공고 기준으로 교체하세요.",
+  "max_total": 115,
+  "components": [
+    {
+      "key": "cert",
+      "label": "자격/면허",
+      "max": 50,
+      "confirmed": true,
+      "help": "지원 특기가 인정하는 자격/면허 중 가장 높은 등급 하나만 반영됩니다.",
+      "table": [
+        { "grade": "기술사·기능장", "score": 50 },
+        { "grade": "기사", "score": 50 },
+        { "grade": "산업기사", "score": 45 },
+        { "grade": "기능사", "score": 40 },
+        { "grade": "일학습병행 L6·L5", "score": 50 },
+        { "grade": "일학습병행 L4·L3", "score": 45 },
+        { "grade": "일학습병행 L2", "score": 40 },
+        { "grade": "공인 일반자격", "score": 30 },
+        { "grade": "비공인 일반자격", "score": 26 },
+        { "grade": "미소지", "score": 20 }
+      ],
+      "driving_track": {
+        "applies_to": ["육-A02"],
+        "confirmed": false,
+        "note": "운전 관련 특기는 별도 배점체계(대형·특수 90, 1종보통(수동) 87)를 씁니다. 아래는 50점 항목에 맞춰 임시 환산한 예시값입니다.",
+        "table": [
+          { "grade": "대형·특수", "score": 50 },
+          { "grade": "1종보통(수동)", "score": 48 },
+          { "grade": "1종보통(자동)", "score": 44 },
+          { "grade": "2종보통", "score": 40 },
+          { "grade": "미소지", "score": 20 }
+        ]
+      }
+    },
+    {
+      "key": "major",
+      "label": "전공",
+      "max": 40,
+      "confirmed": false,
+      "help": "고교·대학 등에서 관련학과를 전공한 경우 높은 점수를 부여합니다. 아래 구간은 시제품용 예시값입니다.",
+      "table": [
+        { "grade": "대학교 관련학과 (4학기 이상 이수)", "score": 40 },
+        { "grade": "전문대학 관련학과 (졸업·이수)", "score": 36 },
+        { "grade": "고교 관련학과 졸업", "score": 32 },
+        { "grade": "관련학과 아님", "score": 20 }
+      ]
+    },
+    {
+      "key": "attendance",
+      "label": "출결",
+      "max": 10,
+      "confirmed": false,
+      "help": "무단결석 일수 기준. 아래 구간은 시제품용 예시값입니다.",
+      "table": [
+        { "grade": "무단결석 없음", "score": 10 },
+        { "grade": "1~2일", "score": 8 },
+        { "grade": "3~6일", "score": 6 },
+        { "grade": "7일 이상", "score": 4 }
+      ]
+    },
+    {
+      "key": "bonus",
+      "label": "가산점",
+      "max": 15,
+      "confirmed": true,
+      "help": "해당하는 항목을 모두 더하되 항목 만점을 넘지 않습니다.",
+      "items": [
+        { "id": "interest_match", "label": "직업선호도 검사 추천특기와 지원특기 일치", "score": 3, "confirmed": false,
+          "note": "가산점 부여 대상임은 공고로 확인됨. 점수는 예시값입니다." },
+        { "id": "merit", "label": "국가유공자 자녀 · 독립유공자 손·자녀", "score": 3, "confirmed": true },
+        { "id": "multichild", "label": "다자녀 가정 자녀", "score": 3, "confirmed": true, "note": "최대 3점" },
+        { "id": "basic_living", "label": "기초생활보장 수급권자", "score": 3, "confirmed": true }
+      ]
+    }
+  ],
+  "verdict_bands": [
+    { "min": 5,     "label": "여유 있는 편",              "tone": "good" },
+    { "min": 0,     "label": "경계선 — 가산점 확보 권장",  "tone": "watch" },
+    { "min": -5,    "label": "부족 — 보완 필요",           "tone": "short" },
+    { "min": -999,  "label": "다른 특기 병행 검토 권장",    "tone": "far" }
+  ]
+}

@@ -1,0 +1,138 @@
+[
+ {
+  "specialty_code": "육-A01",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "전기설비 운용/정비",
+  "duty": "부대 전기설비를 점검·정비하고 발전기와 배전 계통을 운용합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R",
+   "C"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A02",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "일반차량 운전",
+  "duty": "병력·물자 수송 차량을 운전하고 일일 점검과 정비 지원을 합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R"
+  ],
+  "note": "운전 관련 특기는 운전면허 별도 배점체계가 적용됩니다. 실제 배점은 모집공고를 확인하세요."
+ },
+ {
+  "specialty_code": "육-A03",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "정보체계 운용",
+  "duty": "부대 전산망과 정보체계를 운용하고 장애 대응·보안 점검을 수행합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "I",
+   "C"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A04",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "조리",
+  "duty": "급식 계획에 따라 조리·배식하고 조리기구와 위생을 관리합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R",
+   "S"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A05",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "일반의무",
+  "duty": "의무대에서 환자 접수·처치 보조와 의무물자 관리를 담당합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "S",
+   "I"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A06",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "지원보급",
+  "duty": "보급품 청구·수령·불출과 재물 조사를 담당합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "C"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A07",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "탄약관리",
+  "duty": "탄약고 저장 관리와 불출·회수, 안전 점검을 담당합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "C",
+   "R"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A08",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "차량정비",
+  "duty": "전술차량의 정기·수시 정비와 부속 관리 업무를 수행합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A09",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "통신선로 운용",
+  "duty": "유·무선 통신선로를 설치·복구하고 통신장비를 운용합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R",
+   "I"
+  ],
+  "note": null
+ },
+ {
+  "specialty_code": "육-A10",
+  "branch": "육군",
+  "field": "기술행정병",
+  "specialty_name": "건설기계 운용",
+  "duty": "굴착기·지게차 등 건설기계를 운용해 진지공사와 물자 취급을 지원합니다.",
+  "physical_grade": "1~3급",
+  "interview": "실시",
+  "interest_types": [
+   "R"
+  ],
+  "note": null
+ }
+]

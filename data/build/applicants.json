@@ -1,0 +1,632 @@
+[
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A01",
+  "planned_count": 40,
+  "applicant_count": 137
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A01",
+  "planned_count": 26,
+  "applicant_count": 79
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A01",
+  "planned_count": 33,
+  "applicant_count": 77
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A01",
+  "planned_count": 24,
+  "applicant_count": 72
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A01",
+  "planned_count": 20,
+  "applicant_count": 33
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A01",
+  "planned_count": 8,
+  "applicant_count": 28
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A01",
+  "planned_count": 35,
+  "applicant_count": 136
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A01",
+  "planned_count": 8,
+  "applicant_count": 12
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A01",
+  "planned_count": 8,
+  "applicant_count": 24
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A02",
+  "planned_count": 32,
+  "applicant_count": 84
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A02",
+  "planned_count": 25,
+  "applicant_count": 90
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A02",
+  "planned_count": 21,
+  "applicant_count": 46
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A02",
+  "planned_count": 16,
+  "applicant_count": 27
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A02",
+  "planned_count": 13,
+  "applicant_count": 18
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A02",
+  "planned_count": 24,
+  "applicant_count": 83
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A02",
+  "planned_count": 24,
+  "applicant_count": 90
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A02",
+  "planned_count": 16,
+  "applicant_count": 61
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A02",
+  "planned_count": 21,
+  "applicant_count": 46
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A03",
+  "planned_count": 26,
+  "applicant_count": 86
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A03",
+  "planned_count": 24,
+  "applicant_count": 98
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A03",
+  "planned_count": 20,
+  "applicant_count": 44
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A03",
+  "planned_count": 11,
+  "applicant_count": 31
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A03",
+  "planned_count": 28,
+  "applicant_count": 69
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A03",
+  "planned_count": 23,
+  "applicant_count": 69
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A03",
+  "planned_count": 19,
+  "applicant_count": 60
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A03",
+  "planned_count": 43,
+  "applicant_count": 155
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A03",
+  "planned_count": 41,
+  "applicant_count": 151
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A04",
+  "planned_count": 23,
+  "applicant_count": 35
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A04",
+  "planned_count": 29,
+  "applicant_count": 80
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A04",
+  "planned_count": 14,
+  "applicant_count": 40
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A04",
+  "planned_count": 32,
+  "applicant_count": 105
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A04",
+  "planned_count": 23,
+  "applicant_count": 43
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A04",
+  "planned_count": 39,
+  "applicant_count": 104
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A04",
+  "planned_count": 16,
+  "applicant_count": 46
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A04",
+  "planned_count": 31,
+  "applicant_count": 50
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A04",
+  "planned_count": 22,
+  "applicant_count": 46
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A05",
+  "planned_count": 24,
+  "applicant_count": 60
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A05",
+  "planned_count": 30,
+  "applicant_count": 49
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A05",
+  "planned_count": 17,
+  "applicant_count": 33
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A05",
+  "planned_count": 32,
+  "applicant_count": 100
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A05",
+  "planned_count": 27,
+  "applicant_count": 85
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A05",
+  "planned_count": 46,
+  "applicant_count": 166
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A05",
+  "planned_count": 9,
+  "applicant_count": 28
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A05",
+  "planned_count": 38,
+  "applicant_count": 134
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A05",
+  "planned_count": 27,
+  "applicant_count": 56
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A06",
+  "planned_count": 10,
+  "applicant_count": 16
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A06",
+  "planned_count": 12,
+  "applicant_count": 19
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A06",
+  "planned_count": 29,
+  "applicant_count": 93
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A06",
+  "planned_count": 38,
+  "applicant_count": 145
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A06",
+  "planned_count": 17,
+  "applicant_count": 29
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A06",
+  "planned_count": 18,
+  "applicant_count": 60
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A06",
+  "planned_count": 46,
+  "applicant_count": 191
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A06",
+  "planned_count": 31,
+  "applicant_count": 120
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A06",
+  "planned_count": 42,
+  "applicant_count": 63
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A07",
+  "planned_count": 31,
+  "applicant_count": 72
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A07",
+  "planned_count": 46,
+  "applicant_count": 119
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A07",
+  "planned_count": 22,
+  "applicant_count": 35
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A07",
+  "planned_count": 12,
+  "applicant_count": 49
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A07",
+  "planned_count": 20,
+  "applicant_count": 53
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A07",
+  "planned_count": 19,
+  "applicant_count": 33
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A07",
+  "planned_count": 22,
+  "applicant_count": 46
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A07",
+  "planned_count": 16,
+  "applicant_count": 56
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A07",
+  "planned_count": 25,
+  "applicant_count": 41
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A08",
+  "planned_count": 43,
+  "applicant_count": 177
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A08",
+  "planned_count": 41,
+  "applicant_count": 145
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A08",
+  "planned_count": 19,
+  "applicant_count": 39
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A08",
+  "planned_count": 37,
+  "applicant_count": 88
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A08",
+  "planned_count": 28,
+  "applicant_count": 72
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A08",
+  "planned_count": 12,
+  "applicant_count": 48
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A08",
+  "planned_count": 20,
+  "applicant_count": 62
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A08",
+  "planned_count": 24,
+  "applicant_count": 54
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A08",
+  "planned_count": 14,
+  "applicant_count": 38
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A09",
+  "planned_count": 32,
+  "applicant_count": 90
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A09",
+  "planned_count": 14,
+  "applicant_count": 55
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A09",
+  "planned_count": 29,
+  "applicant_count": 106
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A09",
+  "planned_count": 42,
+  "applicant_count": 171
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A09",
+  "planned_count": 14,
+  "applicant_count": 42
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A09",
+  "planned_count": 45,
+  "applicant_count": 180
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A09",
+  "planned_count": 12,
+  "applicant_count": 45
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A09",
+  "planned_count": 21,
+  "applicant_count": 31
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A09",
+  "planned_count": 36,
+  "applicant_count": 57
+ },
+ {
+  "year": 2023,
+  "round": 5,
+  "specialty_code": "육-A10",
+  "planned_count": 33,
+  "applicant_count": 101
+ },
+ {
+  "year": 2023,
+  "round": 8,
+  "specialty_code": "육-A10",
+  "planned_count": 35,
+  "applicant_count": 59
+ },
+ {
+  "year": 2023,
+  "round": 11,
+  "specialty_code": "육-A10",
+  "planned_count": 10,
+  "applicant_count": 26
+ },
+ {
+  "year": 2024,
+  "round": 5,
+  "specialty_code": "육-A10",
+  "planned_count": 41,
+  "applicant_count": 160
+ },
+ {
+  "year": 2024,
+  "round": 8,
+  "specialty_code": "육-A10",
+  "planned_count": 28,
+  "applicant_count": 64
+ },
+ {
+  "year": 2024,
+  "round": 11,
+  "specialty_code": "육-A10",
+  "planned_count": 43,
+  "applicant_count": 121
+ },
+ {
+  "year": 2025,
+  "round": 5,
+  "specialty_code": "육-A10",
+  "planned_count": 36,
+  "applicant_count": 118
+ },
+ {
+  "year": 2025,
+  "round": 8,
+  "specialty_code": "육-A10",
+  "planned_count": 20,
+  "applicant_count": 57
+ },
+ {
+  "year": 2025,
+  "round": 11,
+  "specialty_code": "육-A10",
+  "planned_count": 20,
+  "applicant_count": 74
+ }
+]
