@@ -12,7 +12,7 @@ web/index.html 을 데이터까지 넣은 '파일 하나짜리' 화면으로 묶
 import json, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-FILES = ["specialty","specialty_cert","specialty_major","cutoff","applicants","interest_map"]
+FILES = ["specialty","cutoff","applicants","interest_map","web_index"]
 
 def main():
     data = {f: json.loads((ROOT/"data"/"build"/f"{f}.json").read_text(encoding="utf-8")) for f in FILES}
@@ -28,7 +28,7 @@ def main():
 
     dest = ROOT/"docs"/"시제품.html"
     dest.write_text(out, encoding="utf-8")
-    print(f"생성 완료: {dest}  ({len(out)/1024:.0f} KB)")
+    print(f"생성 완료: {dest}  ({len(out)/1024/1024:.1f} MB)")
     print("→ 파일을 더블클릭하면 바로 열립니다.")
 
 if __name__ == "__main__":

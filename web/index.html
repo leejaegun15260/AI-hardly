@@ -3,7 +3,10 @@
 <title>병역진로설계 상담대</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;700&display=swap">
+<!-- 글꼴은 화면 표시를 막지 않도록 나중에 적용합니다.
+     인터넷이 없는 노트북에서도 바로 열리고, 그때는 윈도우/맥 기본 한글 글꼴로 보입니다. -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;700&display=swap">
 <style>
 :root{
   --paper:#F8F8F5; --card:#FFFFFF; --sunk:#F1F2EE; --track:#E6E8E1;
@@ -215,7 +218,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 </style>
 
 <div class="topbar"><div class="in">
-  <div class="brand">병역진로설계 상담대<span>Prototype · 샘플 데이터</span></div>
+  <div class="brand">병역진로설계 상담대<span>Prototype · 커트라인만 샘플</span></div>
   <nav class="steps" id="steps" aria-label="진행 단계">
     <b data-s="1" class="on">① 입력</b><b data-s="2">② 추천</b><b data-s="3">③ 커트라인</b><b data-s="4">④ 갭 분석</b>
   </nav>
@@ -224,8 +227,10 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 <main>
   <div class="banner">
     <b>시제품</b>
-    <div id="bannertext">군사특기 목록과 <b style="all:unset;font-weight:600;color:var(--warn)">직업흥미유형 연결은 실제 자료</b>입니다.
-    점수·커트라인·자격/전공은 아직 <b style="all:unset;font-weight:600;color:var(--warn)">샘플</b>이며, <span id="nScored">—</span>개 특기에만 채워져 있습니다.
+    <div id="bannertext">군사특기 목록·직업흥미유형 연결과
+    <b style="all:unset;font-weight:600;color:var(--warn)">인정 자격·전공은 병무청 공개자료(실제)</b>입니다
+    (<span id="nRows">—</span>건 · 학과 <span id="nMajor">—</span>개 · 자격 <span id="nCert">—</span>개).
+    <b style="all:unset;font-weight:600;color:var(--warn)">커트라인과 지원자수는 아직 샘플</b>이며 <span id="nScored">—</span>개 특기에만 들어 있습니다.
     배점 항목 중 <span class="est">예시</span> 표시가 붙은 것은 모집공고로 확인해 교체해야 합니다.</div>
   </div>
 
@@ -238,7 +243,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 
     <fieldset>
       <legend>지원할 군</legend>
-      <p class="hint">고른 군의 특기만 보여줍니다. 지금은 육군에만 점수 비교용 샘플 데이터가 들어 있습니다.</p>
+      <p class="hint">고른 군의 특기만 보여줍니다. 인정 자격·전공은 육·해·공·해병 모두 실제 자료가 들어 있고,
+      커트라인은 아직 육군 일부 특기에만 샘플로 들어 있습니다.</p>
       <div class="chipset" id="branchpick"></div>
     </fieldset>
 
@@ -254,7 +260,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
           </select></div>
         <div><label class="f" for="major">전공(학과)</label>
           <input type="text" id="major" list="majorlist" placeholder="예: 전기과" autocomplete="off">
-          <datalist id="majorlist"></datalist></div>
+          <datalist id="majorlist"></datalist>
+          <p class="hint" id="majorhint" style="margin:6px 0 0"></p></div>
         <div><label class="f" for="attendance">무단결석</label>
           <select id="attendance"></select></div>
       </div>
@@ -262,7 +269,9 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 
     <fieldset>
       <legend>자격 · 면허</legend>
-      <p class="hint">가지고 있는 자격증을 모두 고르세요. 특기별로 인정되는 자격 중 <b>가장 높은 등급 하나</b>만 점수에 반영됩니다.</p>
+      <p class="hint">가지고 있는 자격증을 모두 고르세요. 특기별로 인정되는 자격 중 <b>가장 높은 등급 하나</b>만 점수에 반영됩니다.
+      오른쪽의 등급에 <b>*</b> 가 붙은 것은 특기에 따라 등급이 달라지는 자격입니다(점수는 특기별 실제 등급으로 계산합니다).
+      <b>등급 미정</b>은 병무청 자료에 등급이 없어 아직 점수에 넣지 못하는 자격입니다.</p>
       <div class="row" style="grid-template-columns:1fr 220px">
         <div>
           <input type="search" id="certsearch" placeholder="자격증 이름 검색" autocomplete="off">
@@ -277,8 +286,15 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 
     <fieldset>
       <legend>직업흥미유형 <span style="font-family:'IBM Plex Sans KR';font-size:12px;font-weight:400;color:var(--muted)">— 선택</span></legend>
-      <p class="hint">워크넷 직업선호도 검사를 받았다면 결과지의 유형을 최대 2개 고르세요. 몰라도 넘어갈 수 있습니다.</p>
+      <p class="hint">워크넷 직업선호도 검사를 받았다면 결과지에서 <b>가장 높은 유형을 최대 2개</b> 고르세요. 몰라도 넘어갈 수 있습니다.</p>
       <div class="chipset" id="interest"></div>
+
+      <p class="hint" style="margin:18px 0 8px">
+        <b>표준점수가 기준을 넘은 다른 유형</b> — 위에 고른 유형 말고도 검사 결과지의 표준점수가
+        기준을 넘은 유형이 있으면 여기서 고르세요. 그 유형의 특기도 추천 목록에 함께 나옵니다.
+        <br>예술형·사회형처럼 연결된 특기가 적은 유형에서 상담이 막힐 때 쓰는 칸입니다.
+        가산점은 <b>위에서 고른 유형</b>에만 붙습니다.</p>
+      <div class="chipset" id="interest2"></div>
     </fieldset>
 
     <fieldset>
@@ -338,7 +354,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
    - 서버로 열면(python -m http.server) data/build/*.json 을 읽습니다.
    - 단일 파일 버전은 window.__EMBEDDED__ 에 미리 넣어둡니다.
    ========================================================================= */
-const FILES = ["specialty","specialty_cert","specialty_major","cutoff","applicants","interest_map"];
+const FILES = ["specialty","cutoff","applicants","interest_map","web_index"];
 const DB = {};
 let RULES = null;
 
@@ -346,14 +362,94 @@ async function load(){
   if (window.__EMBEDDED__){
     FILES.forEach(f => DB[f] = window.__EMBEDDED__[f]);
     RULES = window.__EMBEDDED__.rules;
-    return;
+  } else {
+    const got = await Promise.all([
+      ...FILES.map(f => fetch(`../data/build/${f}.json`).then(r=>r.json())),
+      fetch("../rules/2026-army-tech.json").then(r=>r.json())
+    ]);
+    FILES.forEach((f,i)=> DB[f]=got[i]);
+    RULES = got[FILES.length];
   }
-  const got = await Promise.all([
-    ...FILES.map(f => fetch(`../data/build/${f}.json`).then(r=>r.json())),
-    fetch("../rules/2026-army-tech.json").then(r=>r.json())
-  ]);
-  FILES.forEach((f,i)=> DB[f]=got[i]);
-  RULES = got[FILES.length];
+  prepareIndex();
+}
+
+/* =========================================================================
+   이름 색인 (병무청 '지원가능 정보' 137만 건에서 뽑은 것)
+
+   137만 건을 통째로 화면에 올릴 수는 없습니다. 그래서
+   '학과명 → 이 학과를 인정하는 특기', '자격명 → 이 자격을 인정하는 특기·등급'
+   두 갈래로 뒤집어 놓고, 청년이 입력한 이름으로만 찾습니다.
+
+   부피를 더 줄이려고 특기 번호를 36진법 두 글자로 적어 두었습니다.
+     학과 "0a0f"  → 두 글자씩:  특기 10번, 15번
+     자격 "0a1"   → 세 글자씩:  특기 10번 · 등급 1번
+   ========================================================================= */
+const B36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+const d2  = s => B36.indexOf(s[0])*36 + B36.indexOf(s[1]);
+
+let IDX = null;              // web_index.json
+const SPEC_NO  = {};         // 특기코드 → 번호
+const CERTS_OF = new Map();  // 특기번호 → [{cert_name, cert_grade}]
+let MAJOR_NAMES = [], CERT_NAMES = [];
+
+/* API 가 주는 등급 이름('기사급이상')을 배점표의 등급 이름('기사')으로 바꿉니다.
+   연결표는 rules/2026-army-tech.json 의 grade_alias 에 있습니다. */
+function gradeName(g){
+  const alias = RULES.grade_alias || {};
+  return Object.prototype.hasOwnProperty.call(alias, g) ? alias[g] : g;
+}
+
+function prepareIndex(){
+  IDX = DB.web_index;
+  IDX.specs.forEach((c,i)=> SPEC_NO[c] = i);
+  MAJOR_NAMES = Object.keys(IDX.major);
+  CERT_NAMES  = Object.keys(IDX.cert);
+  for(const name of CERT_NAMES){
+    const s = IDX.cert[name];
+    for(let i=0; i<s.length; i+=3){
+      const sp = d2(s.slice(i,i+2));
+      const gr = gradeName(IDX.grades[B36.indexOf(s[i+2])]);
+      if(!CERTS_OF.has(sp)) CERTS_OF.set(sp, []);
+      CERTS_OF.get(sp).push({cert_name:name, cert_grade:gr});
+    }
+  }
+}
+
+/* 학과명 → 이 학과를 인정하는 특기 번호 목록 */
+function majorSpecs(name){
+  const s = IDX.major[name]; if(!s) return [];
+  const out = [];
+  for(let i=0; i<s.length; i+=2) out.push(d2(s.slice(i,i+2)));
+  return out;
+}
+/* 자격명 → [{sp:특기번호, grade:등급}] */
+function certSpecs(name){
+  const s = IDX.cert[name]; if(!s) return [];
+  const out = [];
+  for(let i=0; i<s.length; i+=3)
+    out.push({sp:d2(s.slice(i,i+2)), grade:gradeName(IDX.grades[B36.indexOf(s[i+2])])});
+  return out;
+}
+/* 특기코드로 찾기 */
+const specNo       = code => (code in SPEC_NO) ? SPEC_NO[code] : null;
+const certsOfCode  = code => CERTS_OF.get(SPEC_NO[code]) || [];
+const majorsOfCode = code => (IDX.spec_major_sample[SPEC_NO[code]] || []);
+const majorCountOf = code => (code in SPEC_NO) ? IDX.major_count[SPEC_NO[code]] : 0;
+const certCountOf  = code => (code in SPEC_NO) ? IDX.cert_count[SPEC_NO[code]]  : 0;
+
+/* 청년이 가진 자격 중 이 특기가 인정하는 것만 */
+function myCertsFor(code){
+  const no = specNo(code); if(no === null) return [];
+  const out = [];
+  input.certs.forEach(nm => certSpecs(nm).forEach(e => {
+    if(e.sp === no) out.push({cert_name:nm, cert_grade:e.grade});
+  }));
+  return out;
+}
+/* 청년이 입력한 전공이 이 특기의 인정 학과인지 */
+function majorMatches(code){
+  const no = specNo(code), m = input.major.trim();
+  return !!(m && no !== null && majorSpecs(m).includes(no));
 }
 
 /* ---------- 짧은 도우미 ---------- */
@@ -363,13 +459,27 @@ const comp = k => RULES.components.find(c=>c.key===k);
 const esc  = s => String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const INTEREST = {R:["현실형","기계·도구를 다루는 일"],I:["탐구형","분석하고 알아내는 일"],A:["예술형","표현하고 만드는 일"],
                   S:["사회형","사람을 돕고 가르치는 일"],E:["진취형","이끌고 설득하는 일"],C:["관습형","정확히 정리하는 일"]};
-/* 커트라인·자격/전공 데이터가 들어있는 특기인지 */
+/* 커트라인(샘플)이 들어있는 특기인지 — 커트라인 비교가 되는지 */
 const hasScoreData = code => DB.cutoff.some(r=>r.specialty_code===code);
+/* 인정 자격·전공(실제 자료)이 들어있는 특기인지 — 점수 계산이 되는지 */
+const hasJiwon = code => specNo(code) !== null;
 
 /* ---------- 입력 상태 ---------- */
-let refreshPicked = ()=>{};
+let refreshPicked = ()=>{}, refreshMajorHint = ()=>{};
 const input = { branches:new Set(["육군"]), edu:"college", major:"", attendance:"무단결석 없음",
-                certs:new Set(), driver:"미소지", interests:new Set(), bonus:new Set(), round:11 };
+                certs:new Set(), driver:"미소지",
+                interests:new Set(),      /* 가장 높은 유형 (가산점 대상) */
+                interests2:new Set(),     /* 표준점수가 기준을 넘은 다른 유형 (추천에만 반영) */
+                bonus:new Set(), round:11 };
+
+/* 추천 목록에 쓰는 유형 = 위 두 가지를 합친 것 */
+const allInterests   = () => new Set([...input.interests, ...input.interests2]);
+const matchesInterest= sp => { const s = allInterests();
+                               return !s.size || sp.interest_types.some(t=>s.has(t)); };
+/* 표준점수 기준으로만 걸린 특기인지 (가산점은 붙지 않음) */
+const extraOnly = sp => input.interests2.size
+                        && !sp.interest_types.some(t=>input.interests.has(t))
+                        && sp.interest_types.some(t=>input.interests2.has(t));
 
 /* =========================================================================
    점수 계산  —  설계서 03번 문서의 규칙을 그대로 옮긴 부분
@@ -395,7 +505,7 @@ function scoreFor(code){
       reason: input.driver==="미소지" ? "운전면허 미소지" : `${input.driver} 보유`,
       note: c.driving_track.note});
   } else {
-    const mine = DB.specialty_cert.filter(r=>r.specialty_code===code && input.certs.has(r.cert_name));
+    const mine = myCertsFor(code);
     let best=null;
     mine.forEach(r=>{ if(!best || GRADE_RANK.indexOf(r.cert_grade) > GRADE_RANK.indexOf(best.cert_grade)) best=r; });
     out.push({key:"cert", label:c.label, max:c.max, confirmed:c.confirmed,
@@ -404,8 +514,7 @@ function scoreFor(code){
   }
 
   /* 전공 */
-  const majors = DB.specialty_major.filter(r=>r.specialty_code===code).map(r=>r.major_name);
-  const related = input.major && majors.some(x=>x===input.major.trim());
+  const related = majorMatches(code);
   const eduLabel = {university:"대학교 관련학과 (4학기 이상 이수)", college:"전문대학 관련학과 (졸업·이수)", highschool:"고교 관련학과 졸업"}[input.edu];
   out.push({key:"major", label:m.label, max:m.max, confirmed:m.confirmed,
     score: certScoreOf(related ? eduLabel : "관련학과 아님", m.table),
@@ -448,10 +557,8 @@ function verdict(margin){
 
 /* ---------- 적합도 ---------- */
 function fitOf(code, sc, stats){
-  const hasCert = DB.specialty_cert.some(r=>r.specialty_code===code && input.certs.has(r.cert_name))
-                  || (sc.driving && input.driver!=="미소지");
-  const majors  = DB.specialty_major.filter(r=>r.specialty_code===code).map(r=>r.major_name);
-  const hasMajor= input.major && majors.some(x=>x===input.major.trim());
+  const hasCert = myCertsFor(code).length > 0 || (sc.driving && input.driver!=="미소지");
+  const hasMajor= majorMatches(code);
   const certPart = hasCert ? 40 * (sc.breakdown[0].score / comp("cert").max) : 0;
   const majorPart= hasMajor ? 30 : 0;
   const intPart  = sc.interestMatched ? 20 : 0;
@@ -478,8 +585,24 @@ function show(id){
 function buildForm(){
   $("#rulever").textContent = ` · 배점 기준 ${RULES.version} (확인일 ${RULES.checked_at})`;
 
-  const majors = [...new Set(DB.specialty_major.map(r=>r.major_name))].sort();
-  $("#majorlist").innerHTML = majors.map(m=>`<option value="${esc(m)}">`).join("");
+  /* 전공(학과) 자동완성
+     인정 학과명이 수만 개라 목록을 통째로 넣으면 브라우저가 느려집니다.
+     입력한 글자가 들어간 학과명만 최대 30개까지 제안합니다. */
+  function suggestMajors(q){
+    const dl = $("#majorlist");
+    if(!q){ dl.innerHTML=""; return; }
+    const hit=[];
+    for(const m of MAJOR_NAMES){ if(m.includes(q)){ hit.push(m); if(hit.length>=30) break; } }
+    dl.innerHTML = hit.map(m=>`<option value="${esc(m)}">`).join("");
+  }
+  function showMajorHint(){
+    const q = input.major.trim(), h = $("#majorhint");
+    if(!q){ h.textContent = `인정 학과 ${IDX.meta.major_name_count.toLocaleString()}개 중에서 찾습니다.`; return; }
+    const hit = majorSpecs(q);
+    h.textContent = hit.length
+      ? `‘${q}’ 을(를) 인정하는 특기 ${hit.length}개를 찾았습니다.`
+      : `‘${q}’ 은(는) 인정 학과 목록에 없습니다. 학교 졸업증명서의 학과명 그대로 적어 보세요.`;
+  }
 
   comp("attendance").table.forEach(t=>$("#attendance").append(new Option(t.grade,t.grade)));
 
@@ -489,33 +612,54 @@ function buildForm(){
   dsel.onchange = e => input.driver = e.target.value;
 
   $("#edu").onchange = e => input.edu = e.target.value;
-  $("#major").oninput = e => input.major = e.target.value;
+  $("#major").oninput = e => { input.major = e.target.value; suggestMajors(input.major.trim()); showMajorHint(); };
   $("#attendance").onchange = e => input.attendance = e.target.value;
 
-  /* 자격증 목록 (운전면허 제외) */
-  const certs = [...new Map(DB.specialty_cert
-      .filter(r=>!comp("cert").driving_track.table.some(d=>d.grade===r.cert_grade))
-      .map(r=>[r.cert_name, r])).values()]
-      .sort((a,b)=>a.cert_name.localeCompare(b.cert_name,"ko"));
+  /* 자격·면허 목록 (운전면허는 오른쪽 별도 칸에서 고르므로 여기서 뺍니다) */
+  const DRIVE_GRADES = new Set(comp("cert").driving_track.table.map(t=>t.grade)
+                               .concat(["대형/특수","1종보통","2종보통"]));
+  /* 같은 자격이라도 특기에 따라 등급을 다르게 보는 경우가 있습니다
+     (예: 정보처리산업기사 — 대부분 '산업기사'지만 일부 공군 특기는 '기사'로 봅니다).
+     목록에는 가장 흔한 등급을 적고 별표(*)로 표시합니다. 점수는 특기별 실제 등급으로 계산합니다. */
+  const certs = CERT_NAMES.map(nm=>{
+      const cnt = new Map();
+      certSpecs(nm).forEach(e=>cnt.set(e.grade,(cnt.get(e.grade)||0)+1));
+      const gs = [...cnt.keys()];
+      const top = gs.slice().sort((a,b)=>
+        (cnt.get(b)-cnt.get(a)) || (GRADE_RANK.indexOf(b)-GRADE_RANK.indexOf(a)))[0];
+      /* 배점표에 없는 등급('', '자격등급 그외' 등)은 점수에 반영되지 않으므로 그대로 알립니다 */
+      const label = GRADE_RANK.indexOf(top) < 0 ? "등급 미정" : top;
+      return {cert_name:nm, grades:gs, cert_grade: label + (gs.length>1 ? "*" : "")};
+    }).filter(c=>!c.grades.every(g=>DRIVE_GRADES.has(g)));
+  certs.sort((a,b)=>a.cert_name.localeCompare(b.cert_name,"ko"));
 
+  /* 자격이 수천 개라 한 번에 다 그리면 느립니다. 200개까지만 그리고 나머지는 검색으로 찾습니다. */
+  const CERT_SHOW = 200;
   function renderCerts(q=""){
     const box = $("#certlist"); box.innerHTML = "";
-    certs.filter(c=>c.cert_name.includes(q)).forEach(c=>{
+    const hit = certs.filter(c=>c.cert_name.includes(q));
+    /* 이미 고른 것은 항상 위에 두어, 검색을 바꿔도 해제할 수 있게 합니다 */
+    hit.sort((a,b)=>(input.certs.has(b.cert_name)?1:0)-(input.certs.has(a.cert_name)?1:0));
+    hit.slice(0, CERT_SHOW).forEach(c=>{
       const l = el("label","ck");
       const i = el("input"); i.type="checkbox"; i.checked = input.certs.has(c.cert_name);
       i.onchange = ()=>{ i.checked ? input.certs.add(c.cert_name) : input.certs.delete(c.cert_name); renderPicked(); };
       l.append(i, el("span",null,c.cert_name), el("span","g",c.cert_grade));
       box.append(l);
     });
-    if(!box.children.length) box.append(el("p","hint","검색 결과가 없습니다."));
+    if(!hit.length) box.append(el("p","hint","검색 결과가 없습니다."));
+    else if(hit.length > CERT_SHOW)
+      box.append(el("p","hint",
+        `모두 ${hit.length.toLocaleString()}개 중 ${CERT_SHOW}개만 보입니다. 검색어를 더 넣어 좁혀 보세요.`));
   }
   function renderPicked(){
     const p = $("#certpicked"); p.innerHTML="";
     [...input.certs].forEach(n=>p.append(el("span","ptag",n)));
   }
   refreshPicked = renderPicked;
+  refreshMajorHint = showMajorHint;
   $("#certsearch").oninput = e => renderCerts(e.target.value.trim());
-  renderCerts(); renderPicked();
+  renderCerts(); renderPicked(); showMajorHint();
 
   /* 군별 */
   const bp = $("#branchpick");
@@ -524,8 +668,10 @@ function buildForm(){
   ["육군","해군","공군","해병"].filter(b=>counts[b]).forEach(bname=>{
     const b = el("button","chipbtn"); b.type="button";
     b.setAttribute("aria-pressed", input.branches.has(bname));
-    const withData = DB.specialty.filter(x=>x.branch===bname && hasScoreData(x.specialty_code)).length;
-    b.innerHTML = `${bname}<small>특기 ${counts[bname]}개 · 점수 비교 ${withData}개</small>`;
+    const list    = DB.specialty.filter(x=>x.branch===bname);
+    const withJi  = list.filter(x=>hasJiwon(x.specialty_code)).length;
+    const withCut = list.filter(x=>hasScoreData(x.specialty_code)).length;
+    b.innerHTML = `${bname}<small>특기 ${counts[bname]}개 · 자격/전공 ${withJi}개 · 커트라인 ${withCut}개</small>`;
     b.onclick = ()=>{
       input.branches.has(bname) ? input.branches.delete(bname) : input.branches.add(bname);
       if(!input.branches.size) input.branches.add(bname);
@@ -535,18 +681,40 @@ function buildForm(){
     bp.append(b);
   });
 
-  /* 흥미유형 */
-  const ib = $("#interest");
+  /* 흥미유형 — 윗줄: 가장 높은 유형(최대 2개, 가산점 대상)
+                아랫줄: 표준점수가 기준을 넘은 다른 유형(추천에만 반영) */
+  const ib = $("#interest"), ib2 = $("#interest2");
+  const chip1 = {}, chip2 = {};
+  function syncInterest(){
+    Object.entries(chip1).forEach(([k,b])=> b.setAttribute("aria-pressed", input.interests.has(k)));
+    Object.entries(chip2).forEach(([k,b])=>{
+      const primary = input.interests.has(k);
+      if(primary) input.interests2.delete(k);
+      b.disabled = primary;
+      b.style.opacity = primary ? .35 : 1;
+      b.title = primary ? "위에서 이미 고른 유형입니다" : "";
+      b.setAttribute("aria-pressed", input.interests2.has(k));
+    });
+  }
   Object.entries(INTEREST).forEach(([k,[name,desc]])=>{
     const b = el("button","chipbtn"); b.type="button"; b.setAttribute("aria-pressed","false");
     b.innerHTML = `${k} · ${name}<small>${desc}</small>`;
     b.onclick = ()=>{
       if(input.interests.has(k)) input.interests.delete(k);
       else { if(input.interests.size>=2) return; input.interests.add(k); }
-      b.setAttribute("aria-pressed", input.interests.has(k));
+      syncInterest();
     };
-    ib.append(b);
+    chip1[k] = b; ib.append(b);
+
+    const b2 = el("button","chipbtn"); b2.type="button"; b2.setAttribute("aria-pressed","false");
+    b2.innerHTML = `${k} · ${name}`;
+    b2.onclick = ()=>{
+      input.interests2.has(k) ? input.interests2.delete(k) : input.interests2.add(k);
+      syncInterest();
+    };
+    chip2[k] = b2; ib2.append(b2);
   });
+  syncInterest();
 
   /* 가산점 */
   const bb = $("#bonus");
@@ -575,7 +743,7 @@ function buildForm(){
 
 function fillDemo(){
   input.edu="college"; $("#edu").value="college";
-  input.major="전기과"; $("#major").value="전기과";
+  input.major="전기과"; $("#major").value="전기과"; refreshMajorHint();
   input.certs = new Set(["전기기능사","승강기기능사"]);
   $("#certsearch").value=""; $("#certsearch").dispatchEvent(new Event("input")); refreshPicked();
   input.driver="1종보통(수동)"; $("#driver").value="1종보통(수동)";
@@ -609,10 +777,13 @@ function renderList(){
   $("#summary").innerHTML = "";
   const best = RESULTS[0];
   const strong = RESULTS.filter(r=>r.margin>=5).length;
-  const matched = pool.filter(sp=>sp.interest_types.some(t=>input.interests.has(t))).length;
+  const matched  = pool.filter(sp=>sp.interest_types.some(t=>input.interests.has(t))).length;
+  const matched2 = pool.filter(extraOnly).length;
   [["내 최고 예상점수", best?`${best.sc.total}`:"—", best?`/ ${RULES.max_total}점 · ${best.spec.specialty_name}`:"점수 비교 가능한 특기 없음"],
    ["여유 있는 특기", `${strong}`, `개 / 비교 가능 ${RESULTS.length}개`],
-   ["흥미유형이 맞는 특기", input.interests.size?`${matched}`:"—", input.interests.size?`개 / 전체 ${pool.length}개`:"흥미유형 미선택"],
+   ["흥미유형이 맞는 특기", input.interests.size?`${matched}`:"—",
+      input.interests.size ? `개 / 전체 ${pool.length}개` + (matched2?` · 표준점수 기준 ${matched2}개 추가`:"")
+                           : "흥미유형 미선택"],
    ["비교 기준", `${input.round}회차`, "3년 평균 커트라인"]
   ].forEach(([l,v,sub])=>{
     const d = el("div","stat"); d.append(el("div","lbl",l), el("div","val mono",v), el("div","sub",sub));
@@ -646,16 +817,20 @@ function renderList(){
   }
 
   /* (2) 흥미유형이 맞는 나머지 특기 */
-  const rest = pool.filter(sp=>!hasScoreData(sp.specialty_code)
-                            && (!input.interests.size || sp.interest_types.some(t=>input.interests.has(t))));
+  const rest = pool.filter(sp=>!hasScoreData(sp.specialty_code) && matchesInterest(sp));
+  const nExtra = rest.filter(extraOnly).length;
   const g2 = el("section","group");
   const h2 = el("div","grouphead");
-  h2.append(el("h2",null, input.interests.size ? "흥미유형이 맞는 다른 특기" : "그 밖의 특기"),
-            el("span","n",`${rest.length}개 · 점수·커트라인 데이터는 아직 없습니다`));
+  h2.append(el("h2",null, allInterests().size ? "흥미유형이 맞는 다른 특기" : "그 밖의 특기"),
+            el("span","n",`${rest.length}개 · 커트라인 자료는 아직 없지만, 카드를 누르면 내 점수와 갭 분석은 볼 수 있습니다`));
   g2.append(h2);
 
-  if(!input.interests.size){
+  if(!allInterests().size){
     g2.append(el("p","hint","흥미유형을 고르면 여기에 맞는 특기만 골라서 보여드립니다."));
+  } else if(nExtra){
+    g2.append(el("p","hint",
+      `이 중 ${nExtra}개는 ‘표준점수가 기준을 넘은 다른 유형’으로 걸린 특기이며 «표준점수 기준» 표시가 붙어 있습니다. `
+      + `가장 높은 유형이 아니므로 흥미유형 가산점 대상은 아닙니다.`));
   }
   const minis = el("div","minis");
   const LIMIT = MORE ? rest.length : 24;
@@ -690,10 +865,8 @@ function card(r, tone){
   b.append(fr);
 
   const why = el("div","why");
-  const hasCert = DB.specialty_cert.some(x=>x.specialty_code===r.spec.specialty_code && input.certs.has(x.cert_name));
-  const majors  = DB.specialty_major.filter(x=>x.specialty_code===r.spec.specialty_code).map(x=>x.major_name);
-  if(hasCert) why.append(el("span",null,"자격 일치"));
-  if(input.major && majors.includes(input.major.trim())) why.append(el("span",null,"전공 일치"));
+  if(myCertsFor(r.spec.specialty_code).length) why.append(el("span",null,"자격 일치"));
+  if(majorMatches(r.spec.specialty_code)) why.append(el("span",null,"전공 일치"));
   if(r.sc.interestMatched) why.append(el("span",null,"흥미유형 일치"));
   if(!why.children.length) why.append(el("span",null,"직접 일치 항목 없음"));
   b.append(why);
@@ -715,6 +888,7 @@ function mini(sp){
   b.append(jobsRow(sp, 3));
   const t = el("div","itags");
   sp.interest_labels.forEach(x=>t.append(el("span",null,x)));
+  if(extraOnly(sp)) t.append(el("span",null,"표준점수 기준"));
   b.append(t);
   b.onclick = ()=>renderDetail({spec:sp, scored:false});
   return b;
@@ -817,8 +991,16 @@ function infoPanel(r){
   const info = el("div","panel");
   info.append(el("h3",null,"특기 정보"));
   info.append(el("p","cap","지원 전에 확인해야 할 조건입니다."));
-  const majors = DB.specialty_major.filter(x=>x.specialty_code===code).map(x=>x.major_name).join(" · ");
-  const certs  = DB.specialty_cert.filter(x=>x.specialty_code===code).map(x=>`${x.cert_name}(${x.cert_grade})`).join(" · ");
+  /* 인정 전공은 특기 하나에 수백 개인 경우가 있어 앞부분만 보여줍니다 */
+  const mSamp = majorsOfCode(code), mN = majorCountOf(code);
+  const majors = mSamp.length
+      ? mSamp.join(" · ") + (mN > mSamp.length ? ` … 외 ${(mN-mSamp.length).toLocaleString()}개` : "")
+      : "";
+  const cAll = certsOfCode(code).slice()
+      .sort((a,b)=>GRADE_RANK.indexOf(b.cert_grade)-GRADE_RANK.indexOf(a.cert_grade));
+  const cShow = cAll.slice(0,40);
+  const certs = cShow.map(x=>`${x.cert_name}(${x.cert_grade})`).join(" · ")
+      + (cAll.length > cShow.length ? ` … 외 ${(cAll.length-cShow.length).toLocaleString()}개` : "");
   const dl = el("dl","kv");
   [["군 / 특기코드", `${r.spec.branch} · ${r.spec.code}`],
    ["모집분야", r.spec.field || TODO],
@@ -827,12 +1009,13 @@ function infoPanel(r){
    ["면접", r.spec.interview || TODO],
    ["직업흥미유형", r.spec.interest_labels.join(" · ")],
    ["연결되는 직업군", r.spec.job_groups.join(" · ")],
-   ["인정 전공", majors || "데이터 준비 중"],
-   ["인정 자격/면허", certs || "데이터 준비 중"]
+   [`인정 전공 (${mN.toLocaleString()}개)`, majors || "이 특기는 병무청 지원가능 정보에 인정 전공이 없습니다"],
+   [`인정 자격/면허 (${certCountOf(code).toLocaleString()}개)`, certs || "이 특기는 병무청 지원가능 정보에 인정 자격이 없습니다"]
   ].forEach(([k,val])=>{ dl.append(el("dt",null,k), el("dd",null,val)); });
   info.append(dl);
   const src = el("p","cap"); src.style.marginTop="14px";
-  src.textContent = `특기 목록·흥미유형·직업군 출처: ${r.spec.source}`;
+  src.textContent = `특기 목록·흥미유형·직업군 출처: ${r.spec.source}`
+    + ` / 인정 전공·자격 출처: 병무청 '모집병 군별 특기별 지원가능 정보' 공개API (${IDX.meta.row_count.toLocaleString()}건)`;
   info.append(src);
   return info;
 }
@@ -909,19 +1092,18 @@ document.addEventListener("mouseout", e=>{
 const SIM = new Set();
 function drawPane4(){
   const r = CURRENT, code = r.spec.specialty_code;
-  if(!hasScoreData(code)){
+  if(!hasJiwon(code)){
     const p0 = $("#pane4"); p0.innerHTML = "";
     const n = el("div","panel");
     n.append(el("h3",null,"점수 계산 준비 중"));
     const notice = el("div","notice");
-    notice.innerHTML = `<b>이 특기는 인정 자격/전공 자료가 아직 없어 점수를 계산할 수 없습니다.</b>
-      점수를 내려면 병무청 '모집병 군별 특기별 지원가능 정보' API에서
-      이 특기가 인정하는 자격·전공을 받아와야 합니다.`;
+    notice.innerHTML = `<b>이 특기는 병무청 '지원가능 정보'에 인정 자격·전공이 올라와 있지 않습니다.</b>
+      해당 자료가 공개되면 여기에서도 점수가 계산됩니다.`;
     n.append(notice); p0.append(n);
     return;
   }
   const sc = scoreFor(code);
-  const st = cutStats(code, ROUND_VIEW);
+  const st = hasScoreData(code) ? cutStats(code, ROUND_VIEW) : null;
   const p = $("#pane4"); p.innerHTML = "";
 
   /* 항목별 막대 */
@@ -985,9 +1167,9 @@ function buildRx(code, sc){
   const b0 = sc.breakdown[0];
 
   if(!sc.driving && b0.score < c.max){
-    const owned = DB.specialty_cert.filter(x=>x.specialty_code===code && input.certs.has(x.cert_name));
+    const owned = myCertsFor(code);
     const cur = owned.length ? Math.max(...owned.map(x=>GRADE_RANK.indexOf(x.cert_grade))) : 0;
-    const next = DB.specialty_cert.filter(x=>x.specialty_code===code && GRADE_RANK.indexOf(x.cert_grade)>cur)
+    const next = certsOfCode(code).filter(x=>GRADE_RANK.indexOf(x.cert_grade)>cur)
       .sort((a,b)=>GRADE_RANK.indexOf(a.cert_grade)-GRADE_RANK.indexOf(b.cert_grade))[0];
     if(next){
       const gain = certScoreOf(next.cert_grade, c.table) - b0.score;
@@ -1001,7 +1183,7 @@ function buildRx(code, sc){
   }
   const m = sc.breakdown[1];
   if(m.score < m.max){
-    const majors = DB.specialty_major.filter(x=>x.specialty_code===code).map(x=>x.major_name);
+    const majors = majorsOfCode(code);
     list.push({gain: m.max-m.score, short:"관련학과 이수",
       text:`이 특기의 인정 학과(${majors.slice(0,3).join(" · ")} 등)를 이수하면 전공 점수가 오릅니다. 이미 이수했다면 전공 입력을 확인하세요.`});
   }
@@ -1026,6 +1208,13 @@ function buildRx(code, sc){
 function updateSim(sc, st, rx){
   const add = [...SIM].reduce((s,i)=>s+rx[i].gain,0);
   const now = sc.total + add;
+  const o0 = $("#simout");
+  if(!st){                       /* 커트라인(샘플)이 없는 특기 */
+    o0.innerHTML = add===0
+      ? `지금 점수 <b>${sc.total}점</b> — 이 특기는 커트라인 자료가 아직 없어 합격선과는 비교하지 못합니다.`
+      : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) — 커트라인 자료가 아직 없어 합격선과는 비교하지 못합니다.`;
+    return;
+  }
   const margin = +(now - st.avg).toFixed(1);
   const v = verdict(margin);
   const o = $("#simout");
@@ -1049,6 +1238,9 @@ function wire(){
 load().then(()=>{
   const n = new Set(DB.cutoff.map(r=>r.specialty_code)).size;
   $("#nScored").textContent = n;
+  $("#nRows").textContent  = IDX.meta.row_count.toLocaleString();
+  $("#nMajor").textContent = IDX.meta.major_name_count.toLocaleString();
+  $("#nCert").textContent  = IDX.meta.cert_name_count.toLocaleString();
   buildForm(); wire();
 })
       .catch(e=>{ document.querySelector("main").innerHTML =

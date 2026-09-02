@@ -3,15 +3,19 @@
 샘플 데이터 생성기 (시제품 시연용)
 
 무엇을 만드나:
-  아직 공공데이터를 받지 못한 세 가지를 '가짜로' 채웁니다.
-    - specialty_cert.json   특기별 인정 자격/면허
-    - specialty_major.json  특기별 인정 전공
+  아직 공공데이터를 받지 못한 두 가지를 '가짜로' 채웁니다.
     - cutoff.json           연도·회차별 합격 커트라인
     - applicants.json       지원자 수 (경쟁률)
 
 무엇을 만들지 않나:
   specialty.json / interest_map.json 은 실제 자료입니다.
   scripts/import_interest_xlsx.py 가 만들며 이 스크립트는 손대지 않습니다.
+
+  특기별 인정 자격/전공도 이제 실제 자료입니다 (2026-09-02).
+  scripts/collect_jiwon.py 가 병무청 API 136만 건에서 만들며,
+  화면은 data/build/web_index.json 을 읽습니다.
+  예전에 이 스크립트가 만들던 specialty_cert.json / specialty_major.json 은
+  실제 자료로 대체되어 더 이상 쓰지 않습니다.
 
 어디에만 채우나:
   아래 DEMO 목록에 적은 육군 특기에만 채웁니다.
@@ -87,16 +91,11 @@ def main():
         raise SystemExit("specialty.json 에 없는 코드입니다: " + ", ".join(missing)
                          + "\n먼저 scripts/import_interest_xlsx.py 를 실행하세요.")
 
-    s_cert, s_major, cutoff, applicants = [], [], [], []
+    cutoff, applicants = [], []
 
-    for code, (base, certs, majors) in DEMO.items():
+    # DEMO 의 certs/majors 는 이제 쓰지 않습니다(실제 자료로 대체됨). base 점수만 씁니다.
+    for code, (base, _certs, _majors) in DEMO.items():
         name = known[code]["specialty_name"]
-        for cname, grade in certs:
-            s_cert.append({"specialty_code": code, "cert_name": cname,
-                           "cert_grade": grade, "sample": True})
-        for m in majors:
-            s_major.append({"specialty_code": code, "major_name": m, "sample": True})
-
         for y in YEARS:
             drift = (y - 2024) * random.uniform(-1.6, 1.6)
             for r in ROUNDS:
@@ -114,8 +113,7 @@ def main():
                     "sample": True,
                 })
 
-    for fname, payload in {"specialty_cert.json": s_cert, "specialty_major.json": s_major,
-                           "cutoff.json": cutoff, "applicants.json": applicants}.items():
+    for fname, payload in {"cutoff.json": cutoff, "applicants.json": applicants}.items():
         (OUT/fname).write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"  {fname:24s} {len(payload):4d}건")
 

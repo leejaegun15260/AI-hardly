@@ -18,6 +18,7 @@
   data/build/major_index.json 학과명 → 이 학과를 인정하는 특기 목록
   data/build/cert_index.json  자격명 → 이 자격을 인정하는 특기 목록·등급
   data/build/jiwon_stats.json 특기별 인정 전공/자격 개수
+  data/build/web_index.json   화면이 읽는 압축 색인 (위 두 색인을 부피를 줄여 다시 적은 것)
   data/build/_jiwon_report.json 등급·군·지침 등 실제로 들어있는 값 목록
 
 파이썬 기본 기능만 씁니다. 따로 설치할 것이 없습니다.
@@ -140,7 +141,68 @@ def rows_of(items):
                clean(it.get("gsjichimId")), clean(it.get("gsjichimNm")))
 
 
+# ------------------------------------------------------------------ 특기코드 맞추기
+# API 가 주는 특기코드와 엑셀 특기목록의 특기코드는 표기가 조금씩 다릅니다.
+#   예)  엑셀 '163.11'  ↔  API '163.110'  ↔  API '163.110.'  (끝에 점이 붙는 경우도 있음)
+# 소수점 아래를 세 자리로 맞춰서 같은 것끼리 이어 줍니다.
+def norm3(code):
+    code = str(code).strip().rstrip(".")
+    if "." in code:
+        a, d = code.split(".", 1)
+        code = a + "." + (d + "000")[:3]
+    return code
+
+
+def load_specialty_map():
+    """엑셀 특기목록(data/build/specialty.json)의 특기코드로 맞춰 주는 표를 만듭니다."""
+    f = BUILD / "specialty.json"
+    if not f.exists():
+        return {}, {}
+    spec = json.loads(f.read_text(encoding="utf-8"))
+    canon, names = {}, {}
+    for s in spec:
+        branch = s.get("branch", "")
+        key = f"{branch}-{norm3(s.get('code',''))}"
+        canon[key] = s["specialty_code"]
+        names[s["specialty_code"]] = s.get("specialty_name", "")
+    return canon, names
+
+
+# ------------------------------------------------------------------ 등급이 빈칸일 때
+# 병무청 자료에는 등급이 비어 있는 자격이 일부 있습니다(주로 해군).
+# 상담 담당자 결정: "자격 이름 끝에 국가기술자격 등급(기술사·기능장·기사·산업기사·기능사)이
+#                   분명히 붙어 있으면 그 등급으로 보고, 그 밖의 것은 등급을 정하지 않는다."
+# 예)  '가스기능사'      → 기능사급
+#      '공조냉동기계산업기사' → 산업기사급
+#      '무선인터넷관리사'  → 그대로 둠 (공인 민간자격일 수 있어 임의로 정하지 않음)
+#      '고무제품제조기능사보' → 그대로 둠 ('기능사보'는 기능사가 아님)
+GRADE_BY_NAME = [
+    ("기능사보", None),          # 기능사가 아니므로 제외 (기능사보다 먼저 확인)
+    ("기술사",   "기사급이상(이름추정)"),
+    ("기능장",   "기사급이상(이름추정)"),
+    ("산업기사", "산업기사급(이름추정)"),
+    ("기사",     "기사급이상(이름추정)"),
+    ("기능사",   "기능사급(이름추정)"),
+]
+
+def grade_from_name(name):
+    """등급이 비어 있을 때 자격 이름으로 국가기술자격 등급을 알아냅니다. 모르면 빈 문자열."""
+    base = name.strip()
+    # 이름 뒤에 붙은 괄호는 떼고 봅니다
+    #   '광산보안기능사(화약분야)'            → '광산보안기능사'
+    #   '프로그래밍기능사[(전)정보처리기능사]'  → '프로그래밍기능사'
+    for open_, close in (("[", "]"), ("(", ")")):
+        if base.endswith(close) and open_ in base:
+            base = base[:base.rindex(open_)].strip()
+    for tail, grade in GRADE_BY_NAME:
+        if base.endswith(tail):
+            return grade or ""
+    return ""
+
+
 # ------------------------------------------------------------------ 결과 파일 만들기
+MAJOR_SAMPLE = 40      # 특기 하나당 화면에 보여줄 인정 학과 표본 개수
+
 def build_outputs(con):
     print("\n결과 파일을 만듭니다…")
     cur = con.cursor()
@@ -149,27 +211,49 @@ def build_outputs(con):
     if not total:
         print("  받은 자료가 없습니다."); return
 
-    # 학과명 → 특기 목록
+    canon, canon_names = load_specialty_map()
+
+    def cc(branch, code):
+        """API 특기코드 → 엑셀 특기목록의 특기코드 (없으면 정규화한 값 그대로)"""
+        k = f"{branch}-{norm3(code)}"
+        return canon.get(k, k)
+
+    # ---------- 학과명 → 특기 목록 ----------
     major = {}
-    for name, code in cur.execute(
-            "SELECT name, specialty_code FROM jiwon WHERE gubun='전공' GROUP BY name, specialty_code"):
-        major.setdefault(name, []).append(code)
+    for name, branch, code in cur.execute(
+            "SELECT name, branch, code FROM jiwon WHERE gubun='전공' GROUP BY name, branch, code"):
+        if not name: continue
+        major.setdefault(name, set()).add(cc(branch, code))
+    major = {k: sorted(v) for k, v in sorted(major.items())}
 
-    # 자격명 → [{특기, 등급}]
+    # ---------- 자격·면허명 → [{특기, 등급}] ----------
+    # '자격' 과 '면허' 를 함께 담습니다. 배점표의 항목 이름이 '자격/면허' 이기 때문입니다.
     cert = {}
-    for name, code, grade in cur.execute(
-            "SELECT name, specialty_code, grade FROM jiwon WHERE gubun='자격' "
-            "GROUP BY name, specialty_code, grade"):
-        cert.setdefault(name, []).append({"specialty_code": code, "grade": grade})
+    guessed = {}
+    for name, branch, code, grade, gubun, direct in cur.execute(
+            "SELECT name, branch, code, grade, gubun, direct FROM jiwon "
+            "WHERE gubun IN ('자격','면허') GROUP BY name, branch, code, grade, gubun, direct"):
+        if not name: continue
+        if not grade:                              # 등급이 빈칸이면 이름으로 알아봅니다
+            g2 = grade_from_name(name)
+            if g2:
+                grade = g2
+                guessed[name] = g2
+        cert.setdefault(name, []).append(
+            {"specialty_code": cc(branch, code), "grade": grade, "kind": gubun, "direct": direct})
+    cert = dict(sorted(cert.items()))
 
-    # 특기별 개수
+    # ---------- 특기별 개수 ----------
     stats = {}
-    for code, sname, gubun, n in cur.execute(
-            "SELECT specialty_code, specialty_name, gubun, COUNT(DISTINCT name) "
-            "FROM jiwon GROUP BY specialty_code, gubun"):
-        s = stats.setdefault(code, {"specialty_name": sname, "major_count": 0, "cert_count": 0})
-        if gubun == "전공": s["major_count"] = n
-        elif gubun == "자격": s["cert_count"] = n
+    for branch, code, sname, gubun, n in cur.execute(
+            "SELECT branch, code, specialty_name, gubun, COUNT(DISTINCT name) "
+            "FROM jiwon GROUP BY branch, code, gubun"):
+        sc = cc(branch, code)
+        s = stats.setdefault(sc, {"specialty_name": canon_names.get(sc) or sname,
+                                  "major_count": 0, "cert_count": 0})
+        if gubun == "전공":            s["major_count"] += n
+        elif gubun in ("자격", "면허"): s["cert_count"] += n
+    stats = dict(sorted(stats.items()))
 
     def dump(fname, obj):
         p = BUILD / fname
@@ -180,30 +264,110 @@ def build_outputs(con):
     dump("cert_index.json",  cert)
     dump("jiwon_stats.json", stats)
 
-    # 실제로 어떤 값들이 들어있는지 — 배점표와 맞출 때 필요합니다
+    # ---------- 화면용 압축 색인 ----------
+    build_web_index(major, cert, stats, total)
+
+    # ---------- 실제로 어떤 값들이 들어있는지 ----------
     report = {
         "총_행수": total,
-        "특기수": cur.execute("SELECT COUNT(DISTINCT specialty_code) FROM jiwon").fetchone()[0],
+        "특기수": len(stats),
+        "엑셀_특기목록과_일치": sum(1 for k in stats if k in canon_names),
         "군별": dict(cur.execute("SELECT branch, COUNT(*) FROM jiwon GROUP BY branch").fetchall()),
         "구분별": dict(cur.execute("SELECT gubun, COUNT(*) FROM jiwon GROUP BY gubun").fetchall()),
         "자격등급_목록": dict(cur.execute(
-            "SELECT grade, COUNT(*) FROM jiwon WHERE gubun='자격' GROUP BY grade ORDER BY 2 DESC").fetchall()),
+            "SELECT grade, COUNT(*) FROM jiwon WHERE gubun IN ('자격','면허') "
+            "GROUP BY grade ORDER BY 2 DESC").fetchall()),
+        "구분별_등급": {f"{g}/{gr}": n for g, gr, n in cur.execute(
+            "SELECT gubun, grade, COUNT(*) FROM jiwon WHERE gubun IN ('자격','면허') "
+            "GROUP BY gubun, grade ORDER BY 3 DESC")},
         "직접간접": dict(cur.execute("SELECT direct, COUNT(*) FROM jiwon GROUP BY direct").fetchall()),
         "지침수": cur.execute("SELECT COUNT(DISTINCT guide_id) FROM jiwon").fetchone()[0],
         "받은_페이지수": cur.execute("SELECT COUNT(*) FROM progress").fetchone()[0],
+        "이름으로_등급추정": dict(sorted(guessed.items())),
+        "등급을_정하지_못한_자격": sorted({n for n, v in cert.items()
+                                           if any(e["grade"] == "" for e in v)}),
     }
     (BUILD/"_jiwon_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print("\n" + "="*60)
-    print(f"총 {total:,}건 · 특기 {report['특기수']}개")
+    print(f"총 {total:,}건 · 특기 {report['특기수']}개 (엑셀 목록과 일치 {report['엑셀_특기목록과_일치']}개)")
     print("군별:", report["군별"])
     print("구분별:", report["구분별"])
     print("자격 등급 종류:")
     for g, n in report["자격등급_목록"].items():
         print(f"   '{g}'  {n:,}건")
     print("="*60)
-    print("→ 위 '자격 등급 종류' 목록을 알려주시면 배점표와 연결해 드립니다.")
+
+
+# 특기 번호를 36진법 두 글자로 적습니다. ("0"~"zz" = 0~1295번)
+# 왜: 137만 건을 그대로 보내면 파일이 너무 커집니다. 두 글자로 적으면 부피가 절반이 됩니다.
+B36 = "0123456789abcdefghijklmnopqrstuvwxyz"
+def e36(n):
+    return B36[n // 36] + B36[n % 36]
+
+
+def build_web_index(major, cert, stats, total):
+    """브라우저가 읽을 파일 하나(web_index.json)를 만듭니다.
+
+    조회는 '이름'(학과명·자격명)으로 합니다.  이름 → 특기 번호 목록.
+      major : {"전기과": "0a0f1z"}        두 글자씩 끊어 읽으면 특기 번호
+      cert  : {"전기기사": "0a10f2"}      세 글자씩 — 앞 두 글자 특기 번호, 뒤 한 글자 등급 번호
+    """
+    specs  = sorted(stats.keys())
+    si     = {c: i for i, c in enumerate(specs)}
+    grades = sorted({e["grade"] for v in cert.values() for e in v})
+    gi     = {g: i for i, g in enumerate(grades)}
+    if len(specs) > 36 * 36:
+        raise SystemExit("특기가 1296개를 넘습니다. 표기 방식을 늘려야 합니다.")
+    if len(grades) > 36:
+        raise SystemExit("등급이 36개를 넘습니다. 표기 방식을 늘려야 합니다.")
+
+    w_major, spec_major = {}, {}
+    for name, codes in major.items():
+        idxs = sorted({si[c] for c in codes if c in si})
+        if not idxs:
+            continue
+        w_major[name] = "".join(e36(i) for i in idxs)
+        for i in idxs:
+            lst = spec_major.setdefault(i, [])
+            if len(lst) < MAJOR_SAMPLE:
+                lst.append(name)
+
+    w_cert, w_kind = {}, {}
+    for name, entries in cert.items():
+        seen, parts = set(), []
+        for e in entries:
+            c = e["specialty_code"]
+            if c not in si:
+                continue
+            k = (si[c], gi[e["grade"]])
+            if k in seen:
+                continue
+            seen.add(k)
+            parts.append(e36(k[0]) + B36[k[1]])
+        if parts:
+            w_cert[name] = "".join(sorted(parts))
+            w_kind[name] = entries[0]["kind"]
+
+    obj = {
+        "meta": {"row_count": total, "spec_count": len(specs),
+                 "major_name_count": len(w_major), "cert_name_count": len(w_cert),
+                 "major_sample_limit": MAJOR_SAMPLE},
+        "specs": specs,
+        "spec_names":  [stats[c]["specialty_name"] for c in specs],
+        "major_count": [stats[c]["major_count"] for c in specs],
+        "cert_count":  [stats[c]["cert_count"]  for c in specs],
+        "grades": grades,
+        "major": w_major,
+        "cert": w_cert,
+        "cert_kind": w_kind,
+        "spec_major_sample": {str(k): v for k, v in sorted(spec_major.items())},
+    }
+    p = BUILD / "web_index.json"
+    p.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"  {'web_index.json':26s} 학과 {len(w_major):,}개 · 자격 {len(w_cert):,}개"
+          f"  ({p.stat().st_size/1024/1024:.1f} MB)")
 
 
 # ------------------------------------------------------------------ 본체
