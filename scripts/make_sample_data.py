@@ -38,12 +38,17 @@ random.seed(20260901)          # 매번 같은 샘플이 나오도록 고정
 ROUNDS = [5, 8, 11]
 YEARS  = [2023, 2024, 2025]
 
-# 아래 DEMO 의 '커트라인 기준선'은 배점 총점이 115점이던 때 정한 값입니다.
-# 배점표에서 항목이 폐지되면(예: 2026-09-02 출결 10점 폐지 → 105점) 청년의 점수도
-# 그만큼 낮아지므로, 커트라인도 같이 내려야 시연 화면의 여유/부족 구도가 유지됩니다.
-BASE_AT = 115
-RULES_MAX = json.loads((ROOT/"rules"/"2026-army-tech.json").read_text(encoding="utf-8"))["max_total"]
-BASE_OFFSET = RULES_MAX - BASE_AT
+# 아래 DEMO 의 '커트라인 기준선'은 출결 10점이 살아 있던 때(총점 115점) 정한 값입니다.
+#
+# 출결은 '무단결석 없음'이면 사실상 모든 지원자가 만점을 받던 항목이라,
+# 폐지되면서 모두의 점수가 그만큼 내려갔습니다. 커트라인도 같이 내려야
+# 시연 화면의 여유/부족 구도가 유지됩니다.
+#
+# 반대로 가산점 만점이 15점 → 10점으로 줄어든 것은 대부분의 지원자 점수를
+# 바꾸지 않습니다(원래 0~3점만 받던 항목). 그래서 그 변화는 반영하지 않습니다.
+# 즉 '총점이 얼마나 줄었나'가 아니라 '모두가 잃은 점수가 얼마인가'로 맞춥니다.
+_RULES = json.loads((ROOT/"rules"/"2026-army-tech.json").read_text(encoding="utf-8"))
+BASE_OFFSET = -sum(x["max"] for x in _RULES.get("폐지된_항목", []))
 
 # 시연에 쓸 육군 특기 12개  (코드는 실제 자료의 코드)
 #   코드 : (커트라인 기준선, 인정 자격/면허, 인정 전공)
@@ -127,8 +132,8 @@ def main():
 
     print(f"샘플을 채운 특기: {len(DEMO)}개 (전체 {len(specs)}개 중)")
     if BASE_OFFSET:
-        print(f"배점 총점이 {BASE_AT}점 → {RULES_MAX}점 으로 바뀌어 "
-              f"커트라인 기준선도 {BASE_OFFSET:+d}점 맞췄습니다.")
+        gone = " · ".join(f"{x['label']} {x['max']}점" for x in _RULES.get("폐지된_항목", []))
+        print(f"폐지된 항목({gone})만큼 커트라인 기준선을 {BASE_OFFSET:+d}점 맞췄습니다.")
     print("나머지 특기는 화면에서 '데이터 준비 중'으로 표시됩니다.")
 
 
