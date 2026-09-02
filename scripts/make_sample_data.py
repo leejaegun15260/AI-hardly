@@ -38,6 +38,13 @@ random.seed(20260901)          # 매번 같은 샘플이 나오도록 고정
 ROUNDS = [5, 8, 11]
 YEARS  = [2023, 2024, 2025]
 
+# 아래 DEMO 의 '커트라인 기준선'은 배점 총점이 115점이던 때 정한 값입니다.
+# 배점표에서 항목이 폐지되면(예: 2026-09-02 출결 10점 폐지 → 105점) 청년의 점수도
+# 그만큼 낮아지므로, 커트라인도 같이 내려야 시연 화면의 여유/부족 구도가 유지됩니다.
+BASE_AT = 115
+RULES_MAX = json.loads((ROOT/"rules"/"2026-army-tech.json").read_text(encoding="utf-8"))["max_total"]
+BASE_OFFSET = RULES_MAX - BASE_AT
+
 # 시연에 쓸 육군 특기 12개  (코드는 실제 자료의 코드)
 #   코드 : (커트라인 기준선, 인정 자격/면허, 인정 전공)
 DEMO = {
@@ -94,7 +101,8 @@ def main():
     cutoff, applicants = [], []
 
     # DEMO 의 certs/majors 는 이제 쓰지 않습니다(실제 자료로 대체됨). base 점수만 씁니다.
-    for code, (base, _certs, _majors) in DEMO.items():
+    for code, (base0, _certs, _majors) in DEMO.items():
+        base = base0 + BASE_OFFSET
         name = known[code]["specialty_name"]
         for y in YEARS:
             drift = (y - 2024) * random.uniform(-1.6, 1.6)
@@ -118,6 +126,9 @@ def main():
         print(f"  {fname:24s} {len(payload):4d}건")
 
     print(f"샘플을 채운 특기: {len(DEMO)}개 (전체 {len(specs)}개 중)")
+    if BASE_OFFSET:
+        print(f"배점 총점이 {BASE_AT}점 → {RULES_MAX}점 으로 바뀌어 "
+              f"커트라인 기준선도 {BASE_OFFSET:+d}점 맞췄습니다.")
     print("나머지 특기는 화면에서 '데이터 준비 중'으로 표시됩니다.")
 
 

@@ -3,7 +3,7 @@
   "branch": "육군",
   "field": "기술행정병",
   "source": "https://www.mma.go.kr/contents.do?mc=mma0000387",
-  "checked_at": "2026-09-01",
+  "checked_at": "2026-09-02",
   "notice": "confirmed=true 인 항목만 공고에서 확인한 값입니다. confirmed=false 는 시제품용 예시값이므로 반드시 실제 공고 기준으로 교체하세요.",
   "grade_alias": {
     "_설명": [
@@ -31,7 +31,34 @@
     "자격등급 그외": "1건(육군 기독교군종 특기 'e-Test Professionals 엑셀 1급'). 상담 담당자 판단으로 보류.",
     "(빈칸)": "이름에 국가기술자격 등급이 없는 것(예: 무선인터넷관리사, 건설분야, 소방시설관리사). 보류."
   },
-  "max_total": 115,
+  "max_total": 105,
+  "폐지된_항목": [
+    {
+      "key": "attendance",
+      "label": "출결",
+      "max": 10,
+      "폐지": "2026-09-02 확인 — 평가 항목에서 출결(무단결석)이 폐지되었습니다.",
+      "메모": "되살릴 일이 생기면 이 항목을 components 로 옮기고 max_total 을 115 로 되돌리면 됩니다. 폐지 전 구간은 아래와 같았습니다.",
+      "table": [
+        {
+          "grade": "무단결석 없음",
+          "score": 10
+        },
+        {
+          "grade": "1~2일",
+          "score": 8
+        },
+        {
+          "grade": "3~6일",
+          "score": 6
+        },
+        {
+          "grade": "7일 이상",
+          "score": 4
+        }
+      ]
+    }
+  ],
   "components": [
     {
       "key": "cert",
@@ -129,31 +156,6 @@
         {
           "grade": "관련학과 아님",
           "score": 20
-        }
-      ]
-    },
-    {
-      "key": "attendance",
-      "label": "출결",
-      "max": 10,
-      "confirmed": false,
-      "help": "무단결석 일수 기준. 아래 구간은 시제품용 예시값입니다.",
-      "table": [
-        {
-          "grade": "무단결석 없음",
-          "score": 10
-        },
-        {
-          "grade": "1~2일",
-          "score": 8
-        },
-        {
-          "grade": "3~6일",
-          "score": 6
-        },
-        {
-          "grade": "7일 이상",
-          "score": 4
         }
       ]
     },

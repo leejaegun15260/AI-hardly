@@ -262,8 +262,6 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
           <input type="text" id="major" list="majorlist" placeholder="예: 전기과" autocomplete="off">
           <datalist id="majorlist"></datalist>
           <p class="hint" id="majorhint" style="margin:6px 0 0"></p></div>
-        <div><label class="f" for="attendance">무단결석</label>
-          <select id="attendance"></select></div>
       </div>
     </fieldset>
 
@@ -466,7 +464,7 @@ const hasJiwon = code => specNo(code) !== null;
 
 /* ---------- 입력 상태 ---------- */
 let refreshPicked = ()=>{}, refreshMajorHint = ()=>{};
-const input = { branches:new Set(["육군"]), edu:"college", major:"", attendance:"무단결석 없음",
+const input = { branches:new Set(["육군"]), edu:"college", major:"",
                 certs:new Set(), driver:"미소지",
                 interests:new Set(),      /* 가장 높은 유형 (가산점 대상) */
                 interests2:new Set(),     /* 표준점수가 기준을 넘은 다른 유형 (추천에만 반영) */
@@ -487,13 +485,17 @@ const extraOnly = sp => input.interests2.size
 const GRADE_RANK = ["미소지","비공인 일반자격","공인 일반자격","기능사","일학습병행 L2","산업기사",
                     "일학습병행 L4·L3","기사","일학습병행 L6·L5","기술사·기능장"];
 
+/* 점수 항목을 이름(key)으로 집어옵니다.
+   순서(breakdown[0], [1] …)로 집으면 배점 항목이 늘거나 줄 때 엉뚱한 항목을 집게 됩니다. */
+const part = (sc, key) => sc.breakdown.find(x => x.key === key);
+
 function certScoreOf(grade, table){
   const hit = table.find(t=>t.grade===grade);
   return hit ? hit.score : table[table.length-1].score;
 }
 
 function scoreFor(code){
-  const c = comp("cert"), m = comp("major"), a = comp("attendance"), b = comp("bonus");
+  const c = comp("cert"), m = comp("major"), b = comp("bonus");
   const spec = DB.specialty.find(s=>s.specialty_code===code);
   const out = [];
 
@@ -520,10 +522,6 @@ function scoreFor(code){
     score: certScoreOf(related ? eduLabel : "관련학과 아님", m.table),
     reason: related ? `${input.major} — ${eduLabel.split(" ")[0]} 관련학과` :
             (input.major ? `${input.major} — 이 특기의 인정 학과 아님` : "전공 미입력")});
-
-  /* 출결 */
-  out.push({key:"attendance", label:a.label, max:a.max, confirmed:a.confirmed,
-    score: certScoreOf(input.attendance, a.table), reason: input.attendance});
 
   /* 가산점 */
   const matched = spec.interest_types.some(t=>input.interests.has(t));
@@ -559,7 +557,7 @@ function verdict(margin){
 function fitOf(code, sc, stats){
   const hasCert = myCertsFor(code).length > 0 || (sc.driving && input.driver!=="미소지");
   const hasMajor= majorMatches(code);
-  const certPart = hasCert ? 40 * (sc.breakdown[0].score / comp("cert").max) : 0;
+  const certPart = hasCert ? 40 * (part(sc,"cert").score / comp("cert").max) : 0;
   const majorPart= hasMajor ? 30 : 0;
   const intPart  = sc.interestMatched ? 20 : 0;
   const margin   = sc.total - stats.avg;
@@ -604,8 +602,6 @@ function buildForm(){
       : `‘${q}’ 은(는) 인정 학과 목록에 없습니다. 학교 졸업증명서의 학과명 그대로 적어 보세요.`;
   }
 
-  comp("attendance").table.forEach(t=>$("#attendance").append(new Option(t.grade,t.grade)));
-
   const dsel = $("#driver");
   comp("cert").driving_track.table.forEach(t=>dsel.append(new Option(t.grade,t.grade)));
   dsel.value = "미소지";
@@ -613,7 +609,6 @@ function buildForm(){
 
   $("#edu").onchange = e => input.edu = e.target.value;
   $("#major").oninput = e => { input.major = e.target.value; suggestMajors(input.major.trim()); showMajorHint(); };
-  $("#attendance").onchange = e => input.attendance = e.target.value;
 
   /* 자격·면허 목록 (운전면허는 오른쪽 별도 칸에서 고르므로 여기서 뺍니다) */
   const DRIVE_GRADES = new Set(comp("cert").driving_track.table.map(t=>t.grade)
@@ -1164,7 +1159,7 @@ function drawPane4(){
 function buildRx(code, sc){
   const list = [];
   const c = comp("cert");
-  const b0 = sc.breakdown[0];
+  const b0 = part(sc, "cert");
 
   if(!sc.driving && b0.score < c.max){
     const owned = myCertsFor(code);
@@ -1181,17 +1176,13 @@ function buildRx(code, sc){
     list.push({gain: c.max-b0.score, short:"대형·특수면허 취득",
       text:"대형 또는 특수면허를 취득하면 운전 특기의 자격 점수가 만점이 됩니다."});
   }
-  const m = sc.breakdown[1];
+  const m = part(sc, "major");
   if(m.score < m.max){
     const majors = majorsOfCode(code);
     list.push({gain: m.max-m.score, short:"관련학과 이수",
       text:`이 특기의 인정 학과(${majors.slice(0,3).join(" · ")} 등)를 이수하면 전공 점수가 오릅니다. 이미 이수했다면 전공 입력을 확인하세요.`});
   }
-  const a = sc.breakdown[2];
-  if(a.score < a.max) list.push({gain:a.max-a.score, short:"출결 확인",
-    text:"학교생활기록부의 무단결석 일수를 다시 확인하세요. 정정 사유가 있으면 학교에 문의합니다."});
-
-  const bo = sc.breakdown[3], bc = comp("bonus");
+  const bo = part(sc, "bonus"), bc = comp("bonus");
   if(bo.score < bo.max){
     if(!sc.interestMatched){
       const it = bc.items.find(x=>x.id==="interest_match");
