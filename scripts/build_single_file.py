@@ -12,7 +12,7 @@ web/index.html 을 데이터까지 넣은 '파일 하나짜리' 화면으로 묶
 import json, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-FILES = ["specialty","cutoff","applicants","interest_map","web_index"]
+FILES = ["specialty","cutoff","interest_map","web_index"]
 
 def main():
     data = {f: json.loads((ROOT/"data"/"build"/f"{f}.json").read_text(encoding="utf-8")) for f in FILES}

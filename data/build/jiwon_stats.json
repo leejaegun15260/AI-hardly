@@ -826,8 +826,13 @@
  },
  "육군-163.11": {
   "specialty_name": "그레이더운용",
-  "major_count": 749,
-  "cert_count": 239
+  "major_count": 379,
+  "cert_count": 121
+ },
+ "육군-163.110.": {
+  "specialty_name": "도로포장장비운용",
+  "major_count": 370,
+  "cert_count": 118
  },
  "육군-163.111": {
   "specialty_name": "롤러운용",

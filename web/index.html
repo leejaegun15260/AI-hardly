@@ -218,7 +218,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
 </style>
 
 <div class="topbar"><div class="in">
-  <div class="brand">병역진로설계 상담대<span>Prototype · 커트라인만 샘플</span></div>
+  <div class="brand">병역진로설계 상담대<span>Prototype · 배점표 확인 중</span></div>
   <nav class="steps" id="steps" aria-label="진행 단계">
     <b data-s="1" class="on">① 입력</b><b data-s="2">② 추천</b><b data-s="3">③ 커트라인</b><b data-s="4">④ 갭 분석</b>
   </nav>
@@ -230,8 +230,9 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
     <div id="bannertext">군사특기 목록·직업흥미유형 연결과
     <b style="all:unset;font-weight:600;color:var(--warn)">인정 자격·전공은 병무청 공개자료(실제)</b>입니다
     (<span id="nRows">—</span>건 · 학과 <span id="nMajor">—</span>개 · 자격 <span id="nCert">—</span>개).
-    <b style="all:unset;font-weight:600;color:var(--warn)">커트라인과 지원자수는 아직 샘플</b>이며 <span id="nScored">—</span>개 특기에만 들어 있습니다.
-    배점 항목 중 <span class="est">예시</span> 표시가 붙은 것은 모집공고로 확인해 교체해야 합니다.</div>
+    <b style="all:unset;font-weight:600;color:var(--warn)">회차별 커트라인도 실제 자료</b>입니다
+    (<span id="nCutPeriod">—</span>회차 · 특기 <span id="nScored">—</span>개).
+    배점표의 전공 구간과 가산점 항목별 점수는 아직 <span class="est">예시</span>이며 모집공고로 확인해 교체해야 합니다.</div>
   </div>
 
   <!-- ================= 1. 입력 ================= -->
@@ -302,9 +303,11 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
     </fieldset>
 
     <fieldset>
-      <legend>지원 시기</legend>
-      <p class="hint">커트라인은 회차마다 다릅니다. 지원하려는 회차를 고르면 <b>같은 회차끼리만</b> 비교합니다.</p>
-      <div class="seg" id="roundpick" role="group" aria-label="지원 회차"></div>
+      <legend>커트라인 비교 기준</legend>
+      <p class="hint">커트라인은 회차마다 오르내립니다. <b>최근 몇 회차</b>의 평균과 견줄지 고르세요.
+      요즘 흐름만 보려면 최근 3회, 한 해 흐름을 보려면 최근 6회가 무난합니다.</p>
+      <div class="seg" id="roundpick" role="group" aria-label="커트라인 비교 기준"></div>
+      <p class="hint" id="cutsrc" style="margin:10px 0 0"></p>
     </fieldset>
 
     <div class="actions">
@@ -352,7 +355,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
    - 서버로 열면(python -m http.server) data/build/*.json 을 읽습니다.
    - 단일 파일 버전은 window.__EMBEDDED__ 에 미리 넣어둡니다.
    ========================================================================= */
-const FILES = ["specialty","cutoff","applicants","interest_map","web_index"];
+const FILES = ["specialty","cutoff","interest_map","web_index"];
 const DB = {};
 let RULES = null;
 
@@ -369,6 +372,7 @@ async function load(){
     RULES = got[FILES.length];
   }
   prepareIndex();
+  prepareCutoff();
 }
 
 /* =========================================================================
@@ -457,8 +461,20 @@ const comp = k => RULES.components.find(c=>c.key===k);
 const esc  = s => String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const INTEREST = {R:["현실형","기계·도구를 다루는 일"],I:["탐구형","분석하고 알아내는 일"],A:["예술형","표현하고 만드는 일"],
                   S:["사회형","사람을 돕고 가르치는 일"],E:["진취형","이끌고 설득하는 일"],C:["관습형","정확히 정리하는 일"]};
-/* 커트라인(샘플)이 들어있는 특기인지 — 커트라인 비교가 되는지 */
-const hasScoreData = code => DB.cutoff.some(r=>r.specialty_code===code);
+/* =========================================================================
+   커트라인 (병무청 제공 엑셀 — 실제 자료)
+   25년 8회차부터 회차 순서대로 담겨 있습니다. 모집이 없던 회차는 빈칸입니다.
+   ========================================================================= */
+let PERIODS = [];              // 회차 목록 (오래된 것부터)
+const CUT = new Map();         // 특기코드 → {name, group, scores:[…]}
+
+function prepareCutoff(){
+  PERIODS = DB.cutoff.periods;
+  DB.cutoff.rows.forEach(r => { if(r.specialty_code) CUT.set(r.specialty_code, r); });
+}
+
+/* 커트라인 자료가 있는 특기인지 */
+const hasScoreData = code => CUT.has(code);
 /* 인정 자격·전공(실제 자료)이 들어있는 특기인지 — 점수 계산이 되는지 */
 const hasJiwon = code => specNo(code) !== null;
 
@@ -468,7 +484,10 @@ const input = { branches:new Set(["육군"]), edu:"college", major:"",
                 certs:new Set(), driver:"미소지",
                 interests:new Set(),      /* 가장 높은 유형 (가산점 대상) */
                 interests2:new Set(),     /* 표준점수가 기준을 넘은 다른 유형 (추천에만 반영) */
-                bonus:new Set(), round:11 };
+                bonus:new Set(), window:6 };   /* window = 최근 몇 회차로 비교할지 */
+
+/* 커트라인을 몇 회차까지 평균낼지 고르는 값 (0 = 전체) */
+const WINDOWS = [[3,"최근 3회차"],[6,"최근 6회차"],[0,`전체 회차`]];
 
 /* 추천 목록에 쓰는 유형 = 위 두 가지를 합친 것 */
 const allInterests   = () => new Set([...input.interests, ...input.interests2]);
@@ -537,21 +556,40 @@ function scoreFor(code){
   return {total, max:RULES.max_total, breakdown:out, interestMatched:matched, driving};
 }
 
-/* ---------- 커트라인 통계 ---------- */
-function cutStats(code, round){
-  const rows = DB.cutoff.filter(r=>r.specialty_code===code && r.round===round)
-                        .sort((a,b)=>a.year-b.year);
-  const avg = rows.reduce((s,r)=>s+r.cutoff_score,0)/rows.length;
-  const max = Math.max(...rows.map(r=>r.cutoff_score));
-  return {rows, avg:+avg.toFixed(1), max:+max.toFixed(1)};
-}
-function competition(code, round, year){
-  const a = DB.applicants.find(r=>r.specialty_code===code && r.round===round && r.year===year);
-  return a ? +(a.applicant_count/a.planned_count).toFixed(1) : null;
+/* ---------- 커트라인 통계 ----------
+   win = 몇 회차를 평균낼지 (0 이면 전체)
+   모집이 없던 회차는 빼고, 실제로 모집한 회차만 셉니다. */
+function cutStats(code, win){
+  const row = CUT.get(code); if(!row) return null;
+  const all = [];
+  row.scores.forEach((v,i)=>{ if(v!=null) all.push({p:PERIODS[i], score:v}); });
+  if(!all.length) return null;
+  const pts = (win && all.length > win) ? all.slice(-win) : all;
+  const avg = pts.reduce((a,b)=>a+b.score,0)/pts.length;
+  return {all, pts, n:pts.length, total:all.length,
+          avg:+avg.toFixed(1), max:+Math.max(...pts.map(x=>x.score)).toFixed(1),
+          last: all[all.length-1]};
 }
 function verdict(margin){
   return RULES.verdict_bands.find(b=>margin>=b.min);
 }
+
+/* ---------- 내 점수와 견줄 수 있는 특기인지 ----------
+   이 배점표는 '육군 기술행정병 100점' 기준입니다.
+   총점 체계가 다른 특기를 같은 잣대로 재면 안 되므로, 그런 특기는
+   커트라인 추이만 보여주고 '몇 점 차이' 판정은 하지 않습니다. */
+function compareBlock(spec){
+  if(spec.branch !== RULES.branch)
+    return `${spec.branch}은 배점 기준이 ${RULES.branch}과 달라, `
+         + `${RULES.branch} ${RULES.field} 배점표로 계산한 점수와는 견줄 수 없습니다. `
+         + `커트라인 흐름만 참고하세요.`;
+  const ex = (RULES.점수비교_제외 && RULES.점수비교_제외.specialty_codes) || [];
+  if(ex.includes(spec.specialty_code))
+    return "이 특기는 운전면허 별도 배점(대형·특수 90 · 1종보통(수동) 87)을 써서 총점 체계가 다릅니다. "
+         + "지금 배점표로는 견주지 않고 커트라인 흐름만 보여드립니다.";
+  return null;
+}
+const comparable = spec => !compareBlock(spec);
 
 /* ---------- 적합도 ---------- */
 function fitOf(code, sc, stats){
@@ -721,15 +759,17 @@ function buildForm(){
     bb.append(b);
   });
 
-  /* 회차 */
-  const rounds = [...new Set(DB.cutoff.map(r=>r.round))].sort((a,b)=>a-b);
+  /* 커트라인 비교 기준 */
   const rp = $("#roundpick");
-  rounds.forEach(r=>{
-    const b = el("button",null,`${r}회차`); b.type="button";
-    b.setAttribute("aria-pressed", r===input.round);
-    b.onclick = ()=>{ input.round=r; [...rp.children].forEach(c=>c.setAttribute("aria-pressed", c===b)); };
+  WINDOWS.forEach(([w,label])=>{
+    const b = el("button",null,label); b.type="button";
+    b.setAttribute("aria-pressed", w===input.window);
+    b.onclick = ()=>{ input.window=w; [...rp.children].forEach(c=>c.setAttribute("aria-pressed", c===b)); };
     rp.append(b);
   });
+  $("#cutsrc").textContent =
+    `커트라인 자료: ${DB.cutoff.source} · 회차 ${PERIODS.length}개 `
+    + `(${PERIODS[0].label} ~ ${PERIODS[PERIODS.length-1].label}) · 옮긴 날 ${DB.cutoff.imported_at}`;
 
   $("#go").onclick = ()=>{ MORE=false; renderList(); };
   $("#back1").onclick = ()=>{ MORE=false; show("screen-input"); setStep(1); };
@@ -755,18 +795,22 @@ function inScope(sp){ return input.branches.has(sp.branch); }
 
 function renderList(){
   const pool = DB.specialty.filter(inScope);
-  const scored = pool.filter(sp=>hasScoreData(sp.specialty_code));
+  /* 커트라인이 있고, 우리 배점표와 총점 체계가 같은 특기만 '점수 비교'를 합니다 */
+  const scored  = pool.filter(sp=>hasScoreData(sp.specialty_code) && comparable(sp));
+  /* 커트라인은 있지만 배점 체계가 달라 견주지 않는 특기 (타군 · 운전면허 별도 배점) */
+  const refOnly = pool.filter(sp=>hasScoreData(sp.specialty_code) && !comparable(sp));
 
   RESULTS = scored.map(sp=>{
     const sc = scoreFor(sp.specialty_code);
-    const st = cutStats(sp.specialty_code, input.round);
+    const st = cutStats(sp.specialty_code, input.window);
     const margin = +(sc.total - st.avg).toFixed(1);
     return {spec:sp, sc, st, margin, fit:fitOf(sp.specialty_code, sc, st), v:verdict(margin), scored:true};
   }).sort((a,b)=> b.fit-a.fit || b.margin-a.margin);
 
   const branchTxt = [...input.branches].join(" · ");
+  const winTxt = (WINDOWS.find(w=>w[0]===input.window)||[0,"전체 회차"])[1];
   $("#listctx").textContent =
-    `${branchTxt} · 특기 ${pool.length}개 중 ${scored.length}개 점수 비교 가능 · ${input.round}회차 · 최근 3년(2023–2025) 커트라인 기준`;
+    `${branchTxt} · 특기 ${pool.length}개 중 ${scored.length}개 점수 비교 가능 · ${winTxt} 커트라인 평균 기준`;
 
   /* 요약 */
   $("#summary").innerHTML = "";
@@ -779,7 +823,7 @@ function renderList(){
    ["흥미유형이 맞는 특기", input.interests.size?`${matched}`:"—",
       input.interests.size ? `개 / 전체 ${pool.length}개` + (matched2?` · 표준점수 기준 ${matched2}개 추가`:"")
                            : "흥미유형 미선택"],
-   ["비교 기준", `${input.round}회차`, "3년 평균 커트라인"]
+   ["비교 기준", winTxt.replace("최근 ",""), `커트라인 평균 · ${PERIODS[PERIODS.length-1].label}까지`]
   ].forEach(([l,v,sub])=>{
     const d = el("div","stat"); d.append(el("div","lbl",l), el("div","val mono",v), el("div","sub",sub));
     $("#summary").append(d);
@@ -789,13 +833,14 @@ function renderList(){
 
   /* (1) 점수 비교 가능한 특기 */
   const groups = [
-    ["지금도 유력", r=>r.margin>=5, "good", "3년 평균 커트라인을 5점 이상 웃돕니다."],
+    ["지금도 유력", r=>r.margin>=5, "good", "최근 커트라인 평균을 5점 이상 웃돕니다."],
     ["조금만 더 하면", r=>r.margin<5 && r.margin>=-5, "watch", "가산점이나 자격 한 단계로 뒤집을 수 있는 구간입니다."],
     ["도전", r=>r.margin<-5, "far", "지금 조건으로는 차이가 큽니다. 준비 기간을 두고 보세요."]
   ];
   if(RESULTS.length){
     const head = el("div","grouphead");
-    head.append(el("h2",null,"점수 비교 가능한 특기"), el("span","n",`${RESULTS.length}개 · 커트라인·자격·전공 데이터가 들어있는 특기입니다`));
+    head.append(el("h2",null,"점수 비교 가능한 특기"),
+                el("span","n",`${RESULTS.length}개 · 커트라인이 있고 배점 기준이 같아 내 점수와 견줄 수 있는 특기입니다`));
     wrap.append(head);
     groups.forEach(([title,test,tone,desc])=>{
       const rows = RESULTS.filter(test); if(!rows.length) return;
@@ -811,7 +856,24 @@ function renderList(){
     });
   }
 
-  /* (2) 흥미유형이 맞는 나머지 특기 */
+  /* (2) 커트라인은 있지만 배점 기준이 달라 견주지 않는 특기 */
+  if(refOnly.length){
+    const g1 = el("section","group");
+    const h1 = el("div","grouphead");
+    h1.append(el("h2",null,"커트라인만 참고하는 특기"),
+              el("span","n",`${refOnly.length}개 · 배점 기준이 달라 내 점수와 견주지 않습니다`));
+    g1.append(h1);
+    g1.append(el("p","hint",
+      `이 배점표는 ${RULES.branch} ${RULES.field} ${RULES.max_total}점 기준입니다. `
+      + `다른 군이나 운전면허 별도 배점을 쓰는 특기는 총점 체계가 달라 같은 잣대로 잴 수 없습니다. `
+      + `카드를 누르면 커트라인 흐름은 볼 수 있습니다.`));
+    const m1 = el("div","minis");
+    refOnly.sort((a,b)=>a.branch.localeCompare(b.branch,"ko")||a.code.localeCompare(b.code,"ko"))
+           .forEach(sp=>m1.append(mini(sp)));
+    g1.append(m1); wrap.append(g1);
+  }
+
+  /* (3) 흥미유형이 맞는 나머지 특기 */
   const rest = pool.filter(sp=>!hasScoreData(sp.specialty_code) && matchesInterest(sp));
   const nExtra = rest.filter(extraOnly).length;
   const g2 = el("section","group");
@@ -884,16 +946,18 @@ function mini(sp){
   const t = el("div","itags");
   sp.interest_labels.forEach(x=>t.append(el("span",null,x)));
   if(extraOnly(sp)) t.append(el("span",null,"표준점수 기준"));
+  const st = cutStats(sp.specialty_code, input.window);
+  if(st) t.append(el("span",null,`커트라인 평균 ${st.avg}`));
   b.append(t);
   b.onclick = ()=>renderDetail({spec:sp, scored:false});
   return b;
 }
 
 /* ---------- 3. 특기 상세 + 커트라인 ---------- */
-let CURRENT = null, ROUND_VIEW = null;
+let CURRENT = null, WIN_VIEW = 6;
 
 function renderDetail(r){
-  CURRENT = r; ROUND_VIEW = input.round;
+  CURRENT = r; WIN_VIEW = input.window;
   $("#dTitle").textContent = r.spec.specialty_name;
   $("#dDuty").textContent  = r.spec.duty
     || `${r.spec.branch} · 특기코드 ${r.spec.code} · 직업군 ${r.spec.job_groups.join(" · ")}`;
@@ -905,74 +969,90 @@ function renderDetail(r){
 
 function drawPane3(){
   const r = CURRENT, code = r.spec.specialty_code;
-  const p0 = $("#pane3");
+  const p = $("#pane3"); p.innerHTML = "";
+
   if(!hasScoreData(code)){
-    p0.innerHTML = "";
     const n = el("div","panel");
-    n.append(el("h3",null,"커트라인 데이터 준비 중"));
+    n.append(el("h3",null,"커트라인 자료 없음"));
     const notice = el("div","notice");
-    notice.innerHTML = `<b>이 특기는 아직 커트라인·자격·전공 자료가 없습니다.</b>
-      지금 확인할 수 있는 것은 아래 특기 정보(군별·특기코드·흥미유형·직업군)까지입니다.<br>
-      병무청 커트라인 CSV와 '군별 특기별 지원가능 정보' API를 연동하면 점수 비교가 함께 나옵니다.`;
-    n.append(notice); p0.append(n);
-    p0.append(infoPanel(r));
+    notice.innerHTML = `<b>이 특기는 병무청 커트라인 자료(${PERIODS[0].label}~${PERIODS[PERIODS.length-1].label})에 없습니다.</b>
+      해당 기간에 모집이 없었거나 자료에 포함되지 않은 특기입니다.<br>
+      아래 특기 정보와 <b>④ 내 점수 · 갭 분석</b> 은 그대로 보실 수 있습니다.`;
+    n.append(notice); p.append(n);
+    p.append(infoPanel(r));
     return;
   }
-  const st = cutStats(code, ROUND_VIEW);
-  const sc = scoreFor(code);
-  const margin = +(sc.total - st.avg).toFixed(1);
-  const v = verdict(margin);
-  const tone = v.tone==="good"?"good":v.tone==="watch"?"watch":"far";
 
-  const p = $("#pane3"); p.innerHTML = "";
+  const st    = cutStats(code, WIN_VIEW);
+  const block = compareBlock(r.spec);                  /* 견줄 수 없는 이유 (없으면 null) */
+  const sc    = block ? null : scoreFor(code);
+  const margin= sc ? +(sc.total - st.avg).toFixed(1) : null;
+  const v     = sc ? verdict(margin) : null;
+  const tone  = v ? (v.tone==="good"?"good":v.tone==="watch"?"watch":"far") : "";
 
   /* 커트라인 패널 */
   const panel = el("div","panel");
-  panel.append(el("h3",null,"최근 3년 커트라인과 내 점수"));
-  panel.append(el("p","cap",`${ROUND_VIEW}회차 기준 · 같은 회차끼리만 비교합니다. 회차가 다르면 커트라인도 달라집니다.`));
+  panel.append(el("h3",null, block ? "회차별 커트라인" : "회차별 커트라인과 내 점수"));
+  panel.append(el("p","cap",
+    `${PERIODS[0].label}부터 ${PERIODS[PERIODS.length-1].label}까지 ${PERIODS.length}회차 중, `
+    + `이 특기를 모집한 ${st.total}회차입니다. 모집이 없던 회차는 빠져 있습니다.`));
+
+  if(block){
+    const nb = el("div","notice");
+    nb.innerHTML = `<b>내 점수와는 견주지 않습니다.</b> ${esc(block)}`;
+    panel.append(nb);
+  }
 
   const f = el("div","filters");
-  f.append(el("span","lbl","회차"));
+  f.append(el("span","lbl","평균 기준"));
   const seg = el("div","seg");
-  [...new Set(DB.cutoff.map(x=>x.round))].sort((a,b)=>a-b).forEach(rd=>{
-    const b = el("button",null,`${rd}회차`); b.type="button";
-    b.setAttribute("aria-pressed", rd===ROUND_VIEW);
-    b.onclick = ()=>{ ROUND_VIEW=rd; drawPane3(); };
+  WINDOWS.forEach(([w,label])=>{
+    const b = el("button",null,label); b.type="button";
+    b.setAttribute("aria-pressed", w===WIN_VIEW);
+    b.onclick = ()=>{ WIN_VIEW=w; drawPane3(); };
     seg.append(b);
   });
   f.append(seg); panel.append(f);
 
   const cw = el("div","chartwrap");
-  cw.innerHTML = lineChart(st, sc.total);
+  cw.innerHTML = lineChart(st, sc ? sc.total : null);
   const tip = el("div","tip"); tip.id="tip"; cw.append(tip);
   panel.append(cw);
 
   const lg = el("div","legend");
-  lg.innerHTML = `<span><i style="border-top-style:solid;border-color:var(--chart-1)"></i>합격 커트라인</span>
-                  <span><i style="border-top-style:dashed;border-color:var(--chart-2)"></i>내 예상점수 ${sc.total}점</span>`;
+  lg.innerHTML = `<span><i style="border-top-style:solid;border-color:var(--chart-1)"></i>합격 커트라인</span>`
+    + (sc ? `<span><i style="border-top-style:dashed;border-color:var(--chart-2)"></i>내 예상점수 ${sc.total}점</span>` : "");
   panel.append(lg);
 
-  const det = el("details","tbl"); det.append(el("summary",null,"숫자로 보기 (표)"));
+  const det = el("details","tbl"); det.append(el("summary",null,"숫자로 보기 (표 · 모집 없던 회차 포함)"));
+  const row = CUT.get(code);
   const t = el("table","data");
-  t.innerHTML = `<thead><tr><th>연도</th><th>커트라인</th><th>선발인원</th><th>경쟁률</th><th>내 점수와 차이</th></tr></thead><tbody>`
-    + st.rows.map(x=>{
-        const c = competition(code, ROUND_VIEW, x.year);
-        const d = +(sc.total - x.cutoff_score).toFixed(1);
-        return `<tr><td>${x.year}</td><td>${x.cutoff_score}</td><td>${x.selected_count}명</td><td>${c?c+":1":"—"}</td><td>${d>=0?"+":""}${d}</td></tr>`;
+  t.innerHTML = `<thead><tr><th>회차</th><th>모집 월</th><th>커트라인</th>`
+    + (sc ? `<th>내 점수와 차이</th>` : ``) + `</tr></thead><tbody>`
+    + PERIODS.map((pd,i)=>{
+        const val = row.scores[i];
+        if(val == null)
+          return `<tr><td>${esc(pd.label)}</td><td>${esc(pd.month)}</td>`
+               + `<td class="muted">모집 없음</td>${sc?`<td>—</td>`:``}</tr>`;
+        const d = sc ? +(sc.total - val).toFixed(1) : null;
+        return `<tr><td>${esc(pd.label)}</td><td>${esc(pd.month)}</td><td>${val}</td>`
+             + (sc ? `<td>${d>=0?"+":""}${d}</td>` : ``) + `</tr>`;
       }).join("") + `</tbody>`;
   det.append(t); panel.append(det);
   p.append(panel);
 
   /* 판정 + 통계 */
+  const winTxt = (WINDOWS.find(w=>w[0]===WIN_VIEW)||[0,"전체 회차"])[1];
   const sum = el("div","summary");
-  [["3년 평균 커트라인", st.avg, `${ROUND_VIEW}회차`],
-   ["가장 높았던 해", st.max, "최악의 경우 기준"],
-   ["내 예상점수", sc.total, `/ ${RULES.max_total}점`],
-   ["평균 대비", `${margin>=0?"+":""}${margin}`, v.label]
-  ].forEach(([l,val,s],i)=>{
+  const stats = [[`${winTxt} 평균`, st.avg, `실제 모집한 ${st.n}회차 평균`],
+                 ["그중 가장 높았던 회차", st.max, "최악의 경우 기준"],
+                 ["가장 최근 회차", st.last.score, st.last.p.label]];
+  if(sc) stats.push(["평균 대비", `${margin>=0?"+":""}${margin}`, v.label]);
+  else   stats.push(["내 예상점수", "—", "배점 기준이 달라 견주지 않음"]);
+  stats.forEach(([l,val,s],i)=>{
     const d = el("div","stat");
     const vv = el("div","val mono",val);
-    if(i===3) vv.style.color = `var(--${tone==="good"?"good":tone==="watch"?"accent":"warn"})`;
+    if(i===3 && sc) vv.style.color = `var(--${tone==="good"?"good":tone==="watch"?"accent":"warn"})`;
     d.append(el("div","lbl",l), vv, el("div","sub",s)); sum.append(d);
   });
   p.append(sum);
@@ -1015,49 +1095,57 @@ function infoPanel(r){
   return info;
 }
 
-/* ---------- 꺾은선 차트 (라이브러리 없이 SVG) ---------- */
+/* ---------- 꺾은선 차트 (라이브러리 없이 SVG) ----------
+   x축은 회차(25-8 … 26-8), 실제로 모집한 회차만 찍습니다.
+   myScore 가 null 이면 (배점 기준이 다른 특기) 내 점수 선을 그리지 않습니다. */
 function lineChart(st, myScore){
-  const W=760, H=290, L=52, R=100, T=26, B=46;
-  const vals = st.rows.map(r=>r.cutoff_score).concat([myScore]);
+  const pts = st.all;
+  const W=760, H=300, L=52, R=(myScore!=null?100:26), T=26, B=54;
+  const vals = pts.map(p=>p.score).concat(myScore!=null?[myScore]:[]);
   let lo = Math.floor(Math.min(...vals)-4), hi = Math.ceil(Math.max(...vals)+4);
   if(hi-lo < 12){ const mid=(hi+lo)/2; lo=Math.floor(mid-6); hi=Math.ceil(mid+6); }
-  const x = i => L + i*((W-L-R)/(st.rows.length-1));
+  const span = (W-L-R);
+  const x = i => pts.length<2 ? (L+span/2) : L + i*(span/(pts.length-1));
   const y = v => T + (hi-v)/(hi-lo)*(H-T-B);
 
-  const ticks=[]; const stepT = Math.ceil((hi-lo)/4);
+  const ticks=[]; const stepT = Math.max(1, Math.ceil((hi-lo)/4));
   for(let v=lo; v<=hi; v+=stepT) ticks.push(v);
-
   const grid = ticks.map(v=>`<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${W-R}" y2="${y(v).toFixed(1)}" stroke="var(--line)" stroke-width="1"/>
     <text x="${L-10}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="10.5" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${v}</text>`).join("");
 
-  const pts = st.rows.map((r,i)=>`${x(i).toFixed(1)},${y(r.cutoff_score).toFixed(1)}`).join(" ");
-  const dots = st.rows.map((r,i)=>`
-    <circle cx="${x(i).toFixed(1)}" cy="${y(r.cutoff_score).toFixed(1)}" r="6" fill="var(--card)"/>
-    <circle cx="${x(i).toFixed(1)}" cy="${y(r.cutoff_score).toFixed(1)}" r="4.5" fill="var(--chart-1)"/>
-    <text x="${x(i).toFixed(1)}" y="${(y(r.cutoff_score)-13).toFixed(1)}" text-anchor="middle" font-size="11.5"
-      font-family="IBM Plex Mono, monospace" fill="var(--chart-1)" font-weight="600">${r.cutoff_score}</text>
-    <text x="${x(i).toFixed(1)}" y="${H-B+22}" text-anchor="middle" font-size="11"
-      font-family="IBM Plex Mono, monospace" fill="var(--muted)">${r.year}</text>`).join("");
+  /* 점이 많으면 숫자를 다 적으면 겹칩니다. 12개를 넘으면 하나 걸러 적습니다. */
+  const everyLabel = pts.length <= 12 ? 1 : 2;
+  const line = pts.length<2 ? "" :
+    `<polyline points="${pts.map((p,i)=>`${x(i).toFixed(1)},${y(p.score).toFixed(1)}`).join(" ")}"
+       fill="none" stroke="var(--chart-1)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const dots = pts.map((p,i)=>`
+    <circle cx="${x(i).toFixed(1)}" cy="${y(p.score).toFixed(1)}" r="5.5" fill="var(--card)"/>
+    <circle cx="${x(i).toFixed(1)}" cy="${y(p.score).toFixed(1)}" r="4" fill="var(--chart-1)"/>
+    ${i % everyLabel ? "" : `<text x="${x(i).toFixed(1)}" y="${(y(p.score)-12).toFixed(1)}" text-anchor="middle" font-size="11"
+      font-family="IBM Plex Mono, monospace" fill="var(--chart-1)" font-weight="600">${p.score}</text>`}
+    <text x="${x(i).toFixed(1)}" y="${H-B+20}" text-anchor="middle" font-size="10.5"
+      font-family="IBM Plex Mono, monospace" fill="var(--muted)">${esc(p.p.short)}</text>`).join("");
 
-  const hit = st.rows.map((r,i)=>{
-    const c = competition(CURRENT.spec.specialty_code, ROUND_VIEW, r.year);
-    const d = +(myScore - r.cutoff_score).toFixed(1);
-    return `<rect x="${(x(i)-42).toFixed(1)}" y="${T}" width="84" height="${H-T-B}" fill="transparent"
-      data-y="${r.year}" data-c="${r.cutoff_score}" data-n="${r.selected_count}" data-r="${c?c+":1":"—"}"
-      data-d="${d>=0?"+":""}${d}" data-cx="${x(i).toFixed(1)}"/>`;
+  const half = pts.length<2 ? span/2 : span/(pts.length-1)/2;
+  const hit = pts.map((p,i)=>{
+    const d = myScore!=null ? +(myScore - p.score).toFixed(1) : null;
+    return `<rect x="${(x(i)-half).toFixed(1)}" y="${T}" width="${(half*2).toFixed(1)}" height="${H-T-B}" fill="transparent"
+      data-p="${esc(p.p.label)}" data-m="${esc(p.p.month)}" data-c="${p.score}"
+      data-d="${d==null?"":(d>=0?"+":"")+d}" data-cx="${x(i).toFixed(1)}"/>`;
   }).join("");
 
-  const my = y(myScore);
-  return `<svg viewBox="0 0 ${W} ${H}" role="img"
-    aria-label="최근 3년 합격 커트라인 꺾은선과 내 예상점수 ${myScore}점 기준선">
-    ${grid}
+  const myLine = myScore==null ? "" : (()=>{ const my=y(myScore); return `
     <line x1="${L}" y1="${my.toFixed(1)}" x2="${W-R}" y2="${my.toFixed(1)}"
       stroke="var(--chart-2)" stroke-width="2" stroke-dasharray="7 5"/>
     <rect x="${W-R+4}" y="${(my-11).toFixed(1)}" width="86" height="22" rx="3" fill="var(--chart-2)"/>
     <text x="${W-R+47}" y="${(my+4).toFixed(1)}" text-anchor="middle" font-size="11.5" fill="var(--card)"
-      font-family="IBM Plex Mono, monospace" font-weight="600">내 ${myScore}점</text>
-    <polyline points="${pts}" fill="none" stroke="var(--chart-1)" stroke-width="2.5"
-      stroke-linejoin="round" stroke-linecap="round"/>
+      font-family="IBM Plex Mono, monospace" font-weight="600">내 ${myScore}점</text>`; })();
+
+  return `<svg viewBox="0 0 ${W} ${H}" role="img"
+    aria-label="회차별 합격 커트라인 꺾은선${myScore!=null?` 그리고 내 예상점수 ${myScore}점 기준선`:""}">
+    ${grid}
+    ${myLine}
+    ${line}
     ${dots}
     <line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="var(--line-2)" stroke-width="1"/>
     ${hit}
@@ -1066,13 +1154,12 @@ function lineChart(st, myScore){
 
 /* 차트 툴팁 */
 document.addEventListener("mouseover", e=>{
-  const t = e.target.closest("#pane3 svg rect[data-y]"); if(!t) return;
+  const t = e.target.closest("#pane3 svg rect[data-p]"); if(!t) return;
   const tip = $("#tip"), wrap = t.closest(".chartwrap");
-  tip.innerHTML = `<b>${t.dataset.y}년 ${ROUND_VIEW}회차</b>
-    <div class="l"><em>커트라인</em><span>${t.dataset.c}점</span></div>
-    <div class="l"><em>선발인원</em><span>${t.dataset.n}명</span></div>
-    <div class="l"><em>경쟁률</em><span>${t.dataset.r}</span></div>
-    <div class="l"><em>내 점수와 차이</em><span>${t.dataset.d}</span></div>`;
+  tip.innerHTML = `<b>${esc(t.dataset.p)}</b>
+    <div class="l"><em>모집 월</em><span>${esc(t.dataset.m)||"—"}</span></div>
+    <div class="l"><em>커트라인</em><span>${t.dataset.c}점</span></div>`
+    + (t.dataset.d ? `<div class="l"><em>내 점수와 차이</em><span>${t.dataset.d}</span></div>` : ``);
   const svg = wrap.querySelector("svg"), box = svg.getBoundingClientRect();
   const ratio = box.width / svg.viewBox.baseVal.width;
   tip.style.opacity = 1;
@@ -1080,7 +1167,7 @@ document.addEventListener("mouseover", e=>{
   tip.style.top  = "14px";
 });
 document.addEventListener("mouseout", e=>{
-  if(e.target.closest("#pane3 svg rect[data-y]")) { const t=$("#tip"); if(t) t.style.opacity=0; }
+  if(e.target.closest("#pane3 svg rect[data-p]")) { const t=$("#tip"); if(t) t.style.opacity=0; }
 });
 
 /* ---------- 4. 갭 분석 ---------- */
@@ -1098,7 +1185,7 @@ function drawPane4(){
     return;
   }
   const sc = scoreFor(code);
-  const st = hasScoreData(code) ? cutStats(code, ROUND_VIEW) : null;
+  const st = (hasScoreData(code) && comparable(r.spec)) ? cutStats(code, WIN_VIEW) : null;
   const p = $("#pane4"); p.innerHTML = "";
 
   /* 항목별 막대 */
@@ -1200,19 +1287,23 @@ function updateSim(sc, st, rx){
   const add = [...SIM].reduce((s,i)=>s+rx[i].gain,0);
   const now = sc.total + add;
   const o0 = $("#simout");
-  if(!st){                       /* 커트라인(샘플)이 없는 특기 */
+  if(!st){        /* 커트라인이 없거나, 배점 기준이 달라 견주지 않는 특기 */
+    const why = CURRENT && compareBlock(CURRENT.spec)
+      ? "이 특기는 배점 기준이 달라 커트라인과 견주지 않습니다."
+      : "이 특기는 커트라인 자료가 없어 합격선과는 견주지 못합니다.";
     o0.innerHTML = add===0
-      ? `지금 점수 <b>${sc.total}점</b> — 이 특기는 커트라인 자료가 아직 없어 합격선과는 비교하지 못합니다.`
-      : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) — 커트라인 자료가 아직 없어 합격선과는 비교하지 못합니다.`;
+      ? `지금 점수 <b>${sc.total}점</b> — ${why}`
+      : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) — ${why}`;
     return;
   }
   const margin = +(now - st.avg).toFixed(1);
   const v = verdict(margin);
+  const winTxt = (WINDOWS.find(w=>w[0]===WIN_VIEW)||[0,"전체 회차"])[1];
   const o = $("#simout");
   o.innerHTML = add===0
-    ? `지금 점수 <b>${sc.total}점</b> · ${ROUND_VIEW}회차 3년 평균 커트라인 ${st.avg}점 대비
+    ? `지금 점수 <b>${sc.total}점</b> · ${winTxt} 커트라인 평균 ${st.avg}점 대비
        <b>${margin>=0?"+":""}${margin}</b> — ${v.label}`
-    : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) · 3년 평균 커트라인 ${st.avg}점 대비
+    : `선택한 것을 모두 갖추면 <b>${now}점</b> (지금보다 +${add}점) · ${winTxt} 커트라인 평균 ${st.avg}점 대비
        <b>${margin>=0?"+":""}${margin}</b> — ${v.label}`;
 }
 
@@ -1227,8 +1318,8 @@ function wire(){
 }
 
 load().then(()=>{
-  const n = new Set(DB.cutoff.map(r=>r.specialty_code)).size;
-  $("#nScored").textContent = n;
+  $("#nScored").textContent = CUT.size;
+  $("#nCutPeriod").textContent = PERIODS.length;
   $("#nRows").textContent  = IDX.meta.row_count.toLocaleString();
   $("#nMajor").textContent = IDX.meta.major_name_count.toLocaleString();
   $("#nCert").textContent  = IDX.meta.cert_name_count.toLocaleString();
