@@ -280,7 +280,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
         <div><label class="f" for="driver">운전면허</label>
           <select id="driver"></select>
           <p class="hint" style="margin-top:8px">운전 특기에서만 쓰입니다.
-          <b>보유 여부만</b> 봅니다 — 여러 개 있어도 더하지 않습니다.</p></div>
+          <b>보유 여부만</b> 봅니다 — 여러 개 있어도 더하지 않습니다.<br>
+          <b>1종보통(수동) 이상이 없으면 운전 특기에는 지원할 수 없습니다.</b></p></div>
       </div>
     </fieldset>
 
@@ -472,6 +473,16 @@ function prepareTracks(){
   TRACK_DEFAULT = TRACKS.find(t=>t.default) || TRACKS[0];
 }
 const trackOf = code => TRACKS.find(t => (t.specialty_codes||[]).includes(code)) || TRACK_DEFAULT;
+
+/* 지원 자격을 못 갖춘 특기인지 — 못 갖췄으면 그 이유를 돌려줍니다.
+   예) 운전 특기는 1종보통(수동) 이상이 없으면 지원 자체가 안 됩니다. */
+function eligibilityBlock(code){
+  const tr = trackOf(code);
+  const lc = (tr.components||[]).find(c=>c.key==="license");
+  if(!lc) return null;
+  const hit = lc.table.find(t=>t.grade===input.driver);
+  return (hit && hit.ineligible) ? (hit.note || "지원 자격이 없습니다.") : null;
+}
 const comp = (k, tr) => (((tr||TRACK_DEFAULT).components)||[]).find(c=>c.key===k);
 /* 어느 전형에든 들어 있는 항목 하나 찾기 (입력 화면을 만들 때 씁니다) */
 const anyComp = k => TRACKS.map(t=>comp(k,t)).find(Boolean);
@@ -564,9 +575,11 @@ function scoreFor(code){
         reason: best ? `${best.cert_name} (${best.cert_grade})` : "이 특기가 인정하는 자격 없음"});
 
     } else if(cp.key === "license"){             /* 운전면허 — 보유 여부만, 합치지 않습니다 */
+      const hit = cp.table.find(t=>t.grade===input.driver);
       out.push({...base,
         score: certScoreOf(input.driver, cp.table),
-        reason: input.driver==="미소지" ? "운전면허 미소지" : `${input.driver} 보유`});
+        ineligible: !!(hit && hit.ineligible),
+        reason: (hit && hit.ineligible) ? `${input.driver} — 지원 자격 없음` : `${input.driver} 보유`});
 
     } else if(cp.key === "major"){               /* 전공 */
       const related = majorMatches(code);
@@ -590,7 +603,8 @@ function scoreFor(code){
   });
 
   const total = out.reduce((s,x)=>s+x.score,0);
-  return {total, max:tr.max_total, track:tr, breakdown:out, interestMatched:matched};
+  return {total, max:tr.max_total, track:tr, breakdown:out, interestMatched:matched,
+          ineligible: eligibilityBlock(code)};
 }
 
 /* ---------- 커트라인 통계 ----------
@@ -833,7 +847,7 @@ function fillDemo(){
   input.major="전기과"; $("#major").value="전기과"; refreshMajorHint();
   input.certs = new Set(["전기기능사","승강기기능사"]);
   $("#certsearch").value=""; $("#certsearch").dispatchEvent(new Event("input")); refreshPicked();
-  input.driver="1종보통"; $("#driver").value="1종보통";
+  input.driver="1종보통(수동)"; $("#driver").value="1종보통(수동)";
   input.interests = new Set(["R"]);
   document.querySelectorAll("#interest .chipbtn").forEach(b=>b.setAttribute("aria-pressed", b.textContent.startsWith("R")));
   MORE = false;
@@ -1001,6 +1015,7 @@ function mini(sp){
   if(extraOnly(sp)) t.append(el("span",null,"표준점수 기준"));
   const st = cutStats(sp.specialty_code, input.window);
   if(st) t.append(el("span",null,`커트라인 평균 ${st.avg}`));
+  if(eligibilityBlock(sp.specialty_code)) t.append(el("span",null,"운전면허 필요"));
   b.append(t);
   b.onclick = ()=>renderDetail({spec:sp, scored:false});
   return b;
@@ -1258,6 +1273,16 @@ function drawPane4(){
   const st = (hasScoreData(code) && comparable(r.spec)) ? cutStats(code, WIN_VIEW) : null;
   const p = $("#pane4"); p.innerHTML = "";
 
+  if(sc.ineligible){
+    const warn = el("div","panel");
+    warn.append(el("h3",null,"지금은 지원할 수 없습니다"));
+    const nb = el("div","notice");
+    nb.innerHTML = `<b>${esc(sc.ineligible)}</b><br>`
+      + `아래 점수는 조건을 갖췄을 때를 가정한 참고값이 아니라, 지금 상태 그대로의 계산입니다. `
+      + `먼저 자격을 갖춘 뒤에 점수를 보셔야 합니다.`;
+    warn.append(nb); p.append(warn);
+  }
+
   /* 항목별 막대 */
   const panel = el("div","panel");
   panel.append(el("h3",null,`내 점수 ${sc.total}점 / ${sc.max}점 — 어디가 부족한가`));
@@ -1340,11 +1365,14 @@ function buildRx(code, sc){
   /* 운전면허 — 보유 여부만 봅니다. 한 단계 위 면허를 따는 것이 유일한 방법입니다 */
   const lc = comp("license", tr), l0 = part(sc, "license");
   if(lc && l0 && l0.score < lc.max){
-    const better = lc.table.filter(t=>t.score > l0.score)
+    const better = lc.table.filter(t=>!t.ineligible && t.score > l0.score)
                            .sort((a,b)=>a.score-b.score)[0];
-    if(better) list.push({gain: better.score - l0.score, short:`${better.grade} 취득`,
-      text:`${better.grade}을(를) 갖추면 운전면허 점수가 오릅니다. `
-         + `운전면허는 보유 여부만 보며, 여러 개 있어도 더해지지 않습니다.`});
+    if(better) list.push({gain: better.score - l0.score,
+      short: l0.ineligible ? `${better.grade} 취득 (필수)` : `${better.grade} 취득`,
+      text: l0.ineligible
+        ? `${better.grade} 이상을 갖춰야 이 특기에 지원할 수 있습니다. 먼저 취득해야 하는 조건입니다.`
+        : `${better.grade}을(를) 갖추면 운전면허 점수가 오릅니다. `
+          + `운전면허는 보유 여부만 보며, 여러 개 있어도 더해지지 않습니다.`});
   }
 
   /* 전공 — 이 항목이 없는 전형(운전)에서는 건너뜁니다 */
