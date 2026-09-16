@@ -279,7 +279,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding-top:18px;color:v
         </div>
         <div><label class="f" for="driver">운전면허</label>
           <select id="driver"></select>
-          <p class="hint" style="margin-top:8px">운전 관련 특기에서 별도 배점체계로 쓰입니다.</p></div>
+          <p class="hint" style="margin-top:8px">운전 특기에서만 쓰입니다.
+          <b>보유 여부만</b> 봅니다 — 여러 개 있어도 더하지 않습니다.</p></div>
       </div>
     </fieldset>
 
@@ -372,6 +373,7 @@ async function load(){
     FILES.forEach((f,i)=> DB[f]=got[i]);
     RULES = got[FILES.length];
   }
+  prepareTracks();
   prepareIndex();
   prepareCutoff();
 }
@@ -458,7 +460,21 @@ function majorMatches(code){
 /* ---------- 짧은 도우미 ---------- */
 const $  = s => document.querySelector(s);
 const el = (t,c,x)=>{const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n;};
-const comp = k => RULES.components.find(c=>c.key===k);
+/* ---------- 전형(트랙) ----------
+   배점은 전형마다 다릅니다.
+     기술행정병 : 자격/면허 50 + 전공 40 + 가산점 10
+     운전       : 운전면허 + 가산점  (전공 점수가 없습니다)
+   특기가 어느 전형인지는 rules 의 tracks[].specialty_codes 로 정하고,
+   적혀 있지 않은 특기는 default 전형을 씁니다. */
+let TRACKS = [], TRACK_DEFAULT = null;
+function prepareTracks(){
+  TRACKS = RULES.tracks;
+  TRACK_DEFAULT = TRACKS.find(t=>t.default) || TRACKS[0];
+}
+const trackOf = code => TRACKS.find(t => (t.specialty_codes||[]).includes(code)) || TRACK_DEFAULT;
+const comp = (k, tr) => (((tr||TRACK_DEFAULT).components)||[]).find(c=>c.key===k);
+/* 어느 전형에든 들어 있는 항목 하나 찾기 (입력 화면을 만들 때 씁니다) */
+const anyComp = k => TRACKS.map(t=>comp(k,t)).find(Boolean);
 const esc  = s => String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const INTEREST = {R:["현실형","기계·도구를 다루는 일"],I:["탐구형","분석하고 알아내는 일"],A:["예술형","표현하고 만드는 일"],
                   S:["사회형","사람을 돕고 가르치는 일"],E:["진취형","이끌고 설득하는 일"],C:["관습형","정확히 정리하는 일"]};
@@ -531,46 +547,50 @@ function certScoreOf(grade, table){
 }
 
 function scoreFor(code){
-  const c = comp("cert"), m = comp("major"), b = comp("bonus");
   const spec = DB.specialty.find(s=>s.specialty_code===code);
+  const tr   = trackOf(code);
+  const matched = spec.interest_types.some(t=>input.interests.has(t));
   const out = [];
 
-  /* 자격/면허 */
-  const driving = c.driving_track.applies_to.includes(code);
-  if (driving){
-    out.push({key:"cert", label:c.label, max:c.max, confirmed:false,
-      score: certScoreOf(input.driver, c.driving_track.table),
-      reason: input.driver==="미소지" ? "운전면허 미소지" : `${input.driver} 보유`,
-      note: c.driving_track.note});
-  } else {
-    const mine = myCertsFor(code);
-    let best=null;
-    mine.forEach(r=>{ if(!best || GRADE_RANK.indexOf(r.cert_grade) > GRADE_RANK.indexOf(best.cert_grade)) best=r; });
-    out.push({key:"cert", label:c.label, max:c.max, confirmed:c.confirmed,
-      score: best ? certScoreOf(best.cert_grade, c.table) : certScoreOf("미소지", c.table),
-      reason: best ? `${best.cert_name} (${best.cert_grade})` : "이 특기가 인정하는 자격 없음"});
-  }
+  tr.components.forEach(cp=>{
+    const base = {key:cp.key, label:cp.label, max:cp.max, confirmed:cp.confirmed, note:cp.note};
 
-  /* 전공 */
-  const related = majorMatches(code);
-  const eduLabel = {university:"대학교 관련학과 (4학기 이상 이수)", college:"전문대학 관련학과 (졸업·이수)", highschool:"고교 관련학과 졸업"}[input.edu];
-  out.push({key:"major", label:m.label, max:m.max, confirmed:m.confirmed,
-    score: certScoreOf(related ? eduLabel : "관련학과 아님", m.table),
-    reason: related ? `${input.major} — ${eduLabel.split(" ")[0]} 관련학과` :
-            (input.major ? `${input.major} — 이 특기의 인정 학과 아님` : "전공 미입력")});
+    if(cp.key === "cert"){                       /* 자격/면허 — 가장 높은 등급 하나만 */
+      const mine = myCertsFor(code);
+      let best = null;
+      mine.forEach(r=>{ if(!best || GRADE_RANK.indexOf(r.cert_grade) > GRADE_RANK.indexOf(best.cert_grade)) best = r; });
+      out.push({...base,
+        score: best ? certScoreOf(best.cert_grade, cp.table) : certScoreOf("미소지", cp.table),
+        reason: best ? `${best.cert_name} (${best.cert_grade})` : "이 특기가 인정하는 자격 없음"});
 
-  /* 가산점 */
-  const matched = spec.interest_types.some(t=>input.interests.has(t));
-  let bs=0, why=[];
-  b.items.forEach(it=>{
-    const on = it.id==="interest_match" ? matched : input.bonus.has(it.id);
-    if(on){ bs += it.score; why.push(it.label); }
+    } else if(cp.key === "license"){             /* 운전면허 — 보유 여부만, 합치지 않습니다 */
+      out.push({...base,
+        score: certScoreOf(input.driver, cp.table),
+        reason: input.driver==="미소지" ? "운전면허 미소지" : `${input.driver} 보유`});
+
+    } else if(cp.key === "major"){               /* 전공 */
+      const related = majorMatches(code);
+      const eduLabel = {university:"대학교 관련학과 (4학기 이상 이수)",
+                        college:"전문대학 관련학과 (졸업·이수)",
+                        highschool:"고교 관련학과 졸업"}[input.edu];
+      out.push({...base,
+        score: certScoreOf(related ? eduLabel : "관련학과 아님", cp.table),
+        reason: related ? `${input.major} — ${eduLabel.split(" ")[0]} 관련학과`
+                        : (input.major ? `${input.major} — 이 특기의 인정 학과 아님` : "전공 미입력")});
+
+    } else if(cp.key === "bonus"){               /* 가산점 */
+      let bs = 0; const why = [];
+      cp.items.forEach(it=>{
+        const on = it.id==="interest_match" ? matched : input.bonus.has(it.id);
+        if(on){ bs += it.score; why.push(it.label); }
+      });
+      out.push({...base, confirmed:false,
+        score: Math.min(bs, cp.max), reason: why.length ? why.join(" · ") : "해당 항목 없음"});
+    }
   });
-  out.push({key:"bonus", label:b.label, max:b.max, confirmed:false,
-    score: Math.min(bs, b.max), reason: why.length ? why.join(" · ") : "해당 항목 없음"});
 
   const total = out.reduce((s,x)=>s+x.score,0);
-  return {total, max:RULES.max_total, breakdown:out, interestMatched:matched, driving};
+  return {total, max:tr.max_total, track:tr, breakdown:out, interestMatched:matched};
 }
 
 /* ---------- 커트라인 통계 ----------
@@ -608,20 +628,23 @@ function compareBlock(spec){
     return `${spec.branch}은 배점 기준이 ${RULES.branch}과 달라, `
          + `${RULES.branch} ${RULES.field} 배점표로 계산한 점수와는 견줄 수 없습니다. `
          + `커트라인 흐름만 참고하세요.`;
-  const ex = (RULES.점수비교_제외 && RULES.점수비교_제외.specialty_codes) || [];
-  if(ex.includes(spec.specialty_code))
-    return "이 특기는 운전면허 별도 배점(대형·특수 90 · 1종보통(수동) 87)을 써서 총점 체계가 다릅니다. "
-         + "지금 배점표로는 견주지 않고 커트라인 흐름만 보여드립니다.";
+  const tr = trackOf(spec.specialty_code);
+  if(tr.confirmed === false)
+    return `이 특기는 '${tr.label}' 전형이라 배점 항목이 다릅니다`
+         + (comp("major", tr) ? "" : " (전공 점수가 없고, 자격/면허 자리에 운전면허가 들어갑니다)")
+         + ". 배점표가 아직 확인되지 않아 커트라인 흐름만 보여드립니다.";
   return null;
 }
 const comparable = spec => !compareBlock(spec);
 
 /* ---------- 적합도 ---------- */
 function fitOf(code, sc, stats){
-  const hasCert = myCertsFor(code).length > 0 || (sc.driving && input.driver!=="미소지");
-  const hasMajor= majorMatches(code);
-  const certPart = hasCert ? 40 * (part(sc,"cert").score / comp("cert").max) : 0;
-  const majorPart= hasMajor ? 30 : 0;
+  const cp = part(sc,"cert") || part(sc,"license");
+  const hasCert = part(sc,"license") ? input.driver!=="미소지" : myCertsFor(code).length > 0;
+  const hasMajor= !!part(sc,"major") && majorMatches(code);
+  const certPart = (hasCert && cp) ? 40 * (cp.score / cp.max) : 0;
+  /* 전공 항목이 없는 전형(운전)은 전공 몫을 자격/면허 쪽으로 넘깁니다 */
+  const majorPart= part(sc,"major") ? (hasMajor ? 30 : 0) : (hasCert ? 30 : 0);
   const intPart  = sc.interestMatched ? 20 : 0;
   const margin   = sc.total - stats.avg;
   const passPart = Math.max(0, Math.min(10, 5 + margin/2));
@@ -666,7 +689,8 @@ function buildForm(){
   }
 
   const dsel = $("#driver");
-  comp("cert").driving_track.table.forEach(t=>dsel.append(new Option(t.grade,t.grade)));
+  const licComp = anyComp("license");
+  licComp.table.forEach(t=>dsel.append(new Option(t.grade,t.grade)));
   dsel.value = "미소지";
   dsel.onchange = e => input.driver = e.target.value;
 
@@ -674,7 +698,7 @@ function buildForm(){
   $("#major").oninput = e => { input.major = e.target.value; suggestMajors(input.major.trim()); showMajorHint(); };
 
   /* 자격·면허 목록 (운전면허는 오른쪽 별도 칸에서 고르므로 여기서 뺍니다) */
-  const DRIVE_GRADES = new Set(comp("cert").driving_track.table.map(t=>t.grade)
+  const DRIVE_GRADES = new Set(licComp.table.map(t=>t.grade)
                                .concat(["대형/특수","1종보통","2종보통"]));
   /* 같은 자격이라도 특기에 따라 등급을 다르게 보는 경우가 있습니다
      (예: 정보처리산업기사 — 대부분 '산업기사'지만 일부 공군 특기는 '기사'로 봅니다).
@@ -776,7 +800,7 @@ function buildForm(){
 
   /* 가산점 */
   const bb = $("#bonus");
-  comp("bonus").items.filter(i=>i.id!=="interest_match").forEach(it=>{
+  anyComp("bonus").items.filter(i=>i.id!=="interest_match").forEach(it=>{
     const b = el("button","chipbtn"); b.type="button"; b.setAttribute("aria-pressed","false");
     b.innerHTML = `${it.label}<small>+${it.score}점</small>`;
     b.onclick = ()=>{ input.bonus.has(it.id)?input.bonus.delete(it.id):input.bonus.add(it.id);
@@ -809,7 +833,7 @@ function fillDemo(){
   input.major="전기과"; $("#major").value="전기과"; refreshMajorHint();
   input.certs = new Set(["전기기능사","승강기기능사"]);
   $("#certsearch").value=""; $("#certsearch").dispatchEvent(new Event("input")); refreshPicked();
-  input.driver="1종보통(수동)"; $("#driver").value="1종보통(수동)";
+  input.driver="1종보통"; $("#driver").value="1종보통";
   input.interests = new Set(["R"]);
   document.querySelectorAll("#interest .chipbtn").forEach(b=>b.setAttribute("aria-pressed", b.textContent.startsWith("R")));
   MORE = false;
@@ -845,7 +869,7 @@ function renderList(){
   const strong = RESULTS.filter(r=>r.margin>=5).length;
   const matched  = pool.filter(sp=>sp.interest_types.some(t=>input.interests.has(t))).length;
   const matched2 = pool.filter(extraOnly).length;
-  [["내 최고 예상점수", best?`${best.sc.total}`:"—", best?`/ ${RULES.max_total}점 · ${best.spec.specialty_name}`:"점수 비교 가능한 특기 없음"],
+  [["내 최고 예상점수", best?`${best.sc.total}`:"—", best?`/ ${best.sc.max}점 · ${best.spec.specialty_name}`:"점수 비교 가능한 특기 없음"],
    ["여유 있는 특기", `${strong}`, `개 / 비교 가능 ${RESULTS.length}개`],
    ["흥미유형이 맞는 특기", input.interests.size?`${matched}`:"—",
       input.interests.size ? `개 / 전체 ${pool.length}개` + (matched2?` · 표준점수 기준 ${matched2}개 추가`:"")
@@ -893,7 +917,7 @@ function renderList(){
               el("span","n",`${refOnly.length}개 · 배점 기준이 달라 내 점수와 견주지 않습니다`));
     g1.append(h1);
     g1.append(el("p","hint",
-      `이 배점표는 ${RULES.branch} ${RULES.field} ${RULES.max_total}점 기준입니다. `
+      `기본 배점표는 ${RULES.branch} ${TRACK_DEFAULT.label} ${TRACK_DEFAULT.max_total}점 기준입니다. `
       + `다른 군이나 운전면허 별도 배점을 쓰는 특기는 총점 체계가 달라 같은 잣대로 잴 수 없습니다. `
       + `카드를 누르면 커트라인 흐름은 볼 수 있습니다.`));
     const m1 = el("div","minis");
@@ -958,7 +982,7 @@ function card(r, tone){
   b.append(why);
 
   const sr = el("div","scorerow");
-  sr.append(el("span","s mono",r.sc.total), el("span","m",`/ ${RULES.max_total}`));
+  sr.append(el("span","s mono",r.sc.total), el("span","m",`/ ${r.sc.max}`));
   sr.append(el("span",`badge ${tone}`, `커트라인 ${r.margin>=0?"+":""}${r.margin}`));
   b.append(sr);
 
@@ -1120,7 +1144,10 @@ function infoPanel(r){
   const certs = cShow.map(x=>`${x.cert_name}(${x.cert_grade})`).join(" · ")
       + (cAll.length > cShow.length ? ` … 외 ${(cAll.length-cShow.length).toLocaleString()}개` : "");
   const dl = el("dl","kv");
+  const tr = trackOf(code);
   [["군 / 특기코드", `${r.spec.branch} · ${r.spec.code}`],
+   ["배점 전형", `${tr.label} · 총점 ${tr.max_total}점 (${tr.components.map(c=>`${c.label} ${c.max}`).join(" + ")})`
+                 + (tr.confirmed===false ? " — 확인 전" : "")],
    ["모집분야", r.spec.field || TODO],
    ["주요 임무", r.spec.duty || TODO],
    ["신체등급", r.spec.physical_grade || TODO],
@@ -1233,8 +1260,10 @@ function drawPane4(){
 
   /* 항목별 막대 */
   const panel = el("div","panel");
-  panel.append(el("h3",null,`내 점수 ${sc.total}점 — 어디가 부족한가`));
-  panel.append(el("p","cap",`총점만이 아니라 항목별로 봅니다. 만점까지 남은 칸이 곧 올릴 수 있는 점수입니다.`));
+  panel.append(el("h3",null,`내 점수 ${sc.total}점 / ${sc.max}점 — 어디가 부족한가`));
+  panel.append(el("p","cap",
+    `${sc.track.label} 전형 기준입니다 (${sc.track.components.map(c=>`${c.label} ${c.max}`).join(" + ")}). `
+    + `총점만이 아니라 항목별로 봅니다. 만점까지 남은 칸이 곧 올릴 수 있는 점수입니다.`));
   const gaps = el("div","gaps");
   sc.breakdown.forEach(b=>{
     const g = el("div","gap");
@@ -1251,6 +1280,10 @@ function drawPane4(){
     gaps.append(g);
   });
   panel.append(gaps);
+  if(!comp("major", sc.track)){
+    panel.append(el("p","cap",
+      `이 전형에는 전공 점수 항목이 없습니다. 전공을 입력해도 점수에 반영되지 않습니다.`));
+  }
   p.append(panel);
 
   /* 처방 */
@@ -1288,10 +1321,11 @@ function drawPane4(){
 
 function buildRx(code, sc){
   const list = [];
-  const c = comp("cert");
-  const b0 = part(sc, "cert");
+  const tr = sc.track;
 
-  if(!sc.driving && b0.score < c.max){
+  /* 자격/면허 — 이 특기가 인정하는 한 단계 위 자격 */
+  const c = comp("cert", tr), b0 = part(sc, "cert");
+  if(c && b0 && b0.score < c.max){
     const owned = myCertsFor(code);
     const cur = owned.length ? Math.max(...owned.map(x=>GRADE_RANK.indexOf(x.cert_grade))) : 0;
     const next = certsOfCode(code).filter(x=>GRADE_RANK.indexOf(x.cert_grade)>cur)
@@ -1302,21 +1336,31 @@ function buildRx(code, sc){
         text:`이 특기가 인정하는 ${next.cert_grade}(예: ${next.cert_name})를 취득하면 자격/면허 점수가 오릅니다.`});
     }
   }
-  if(sc.driving && b0.score < c.max){
-    list.push({gain: c.max-b0.score, short:"대형·특수면허 취득",
-      text:"대형 또는 특수면허를 취득하면 운전 특기의 자격 점수가 만점이 됩니다."});
+
+  /* 운전면허 — 보유 여부만 봅니다. 한 단계 위 면허를 따는 것이 유일한 방법입니다 */
+  const lc = comp("license", tr), l0 = part(sc, "license");
+  if(lc && l0 && l0.score < lc.max){
+    const better = lc.table.filter(t=>t.score > l0.score)
+                           .sort((a,b)=>a.score-b.score)[0];
+    if(better) list.push({gain: better.score - l0.score, short:`${better.grade} 취득`,
+      text:`${better.grade}을(를) 갖추면 운전면허 점수가 오릅니다. `
+         + `운전면허는 보유 여부만 보며, 여러 개 있어도 더해지지 않습니다.`});
   }
+
+  /* 전공 — 이 항목이 없는 전형(운전)에서는 건너뜁니다 */
   const m = part(sc, "major");
-  if(m.score < m.max){
+  if(m && m.score < m.max){
     const majors = majorsOfCode(code);
     list.push({gain: m.max-m.score, short:"관련학과 이수",
       text:`이 특기의 인정 학과(${majors.slice(0,3).join(" · ")} 등)를 이수하면 전공 점수가 오릅니다. 이미 이수했다면 전공 입력을 확인하세요.`});
   }
-  const bo = part(sc, "bonus"), bc = comp("bonus");
-  if(bo.score < bo.max){
+
+  /* 가산점 */
+  const bo = part(sc, "bonus"), bc = comp("bonus", tr);
+  if(bc && bo && bo.score < bo.max){
     if(!sc.interestMatched){
       const it = bc.items.find(x=>x.id==="interest_match");
-      list.push({gain: it.score, short:"직업선호도 검사",
+      if(it) list.push({gain: it.score, short:"직업선호도 검사",
         text:"워크넷 직업선호도 검사를 받고 추천특기가 이 특기와 일치하면 가산점 대상이 됩니다."});
     }
     const rest = bc.items.filter(x=>x.id!=="interest_match" && !input.bonus.has(x.id));
