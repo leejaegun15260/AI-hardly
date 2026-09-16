@@ -15,7 +15,7 @@
 
 파이썬 기본 기능만 씁니다. 따로 설치할 것이 없습니다.
 """
-import json, os, pathlib, sys, urllib.error, urllib.parse, urllib.request
+import json, os, pathlib, ssl, sys, time, urllib.error, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 
 ROOT    = pathlib.Path(__file__).resolve().parent.parent
@@ -74,16 +74,35 @@ def key_forms(key):
     return forms
 
 
-def call(url, key, fmt):
+def ssl_ctx():
+    """회사·클라우드 환경의 중계 서버를 쓰는 경우를 위해 인증서 묶음을 찾아 씁니다."""
+    for f in ("/root/.ccr/ca-bundle.crt",):
+        if pathlib.Path(f).exists():
+            try:
+                return ssl.create_default_context(cafile=f)
+            except Exception:
+                pass
+    return None
+
+
+def call(url, key, fmt, tries=3):
+    """한 번 불러 봅니다. 연결이 끊기는 것은 중계 서버 사정일 수 있어 몇 번 다시 해봅니다."""
     q = f"serviceKey={key}&pageNo=1&numOfRows=3"
     if fmt == "json":
         q += "&_type=json"
     req = urllib.request.Request(f"{url}?{q}", headers={"User-Agent": "byeongyeok-tool/0.1"})
-    try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            return r.getcode(), r.read().decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as e:
-        return e.code, e.read().decode("utf-8", errors="replace")
+    ctx, last = ssl_ctx(), None
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT, context=ctx) as r:
+                return r.getcode(), r.read().decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            return e.code, e.read().decode("utf-8", errors="replace")
+        except Exception as e:
+            last = e
+            if i < tries - 1:
+                time.sleep(1.5 * (i + 1))
+    return None, f"연결에 실패했습니다: {last}"
 
 
 def result_code(body):
@@ -185,6 +204,14 @@ def main():
             last = code
 
     print()
+    if last == "12":
+        # 일부러 없는 주소를 한 번 불러 봅니다. 같은 답이 오면 '주소가 틀렸다'가 확실합니다.
+        base = "/".join(url.split("/")[:4])
+        st2, b2 = call(base + "/nosuchservicexyz/list", "TEST", "json", tries=1)
+        same = "NO_OPENAPI_SERVICE" in (b2 or "")
+        print("대조 시험: 일부러 없는 주소를 불러 봤더니 "
+              + ("같은 답이 왔습니다 → 주소가 틀린 것이 맞습니다.\n" if same
+                 else "다른 답이 왔습니다 → 판단을 보류합니다.\n"))
     if last in WHY:
         title, how = WHY[last]
         print(f"원인: {title}")
